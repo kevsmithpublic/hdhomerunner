@@ -1,0 +1,18 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {goTo = id; }; 
+            CLASS = GBPreferenceController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_donatelink" = NSButton; 
+                "_donateview" = NSView; 
+                "_generalview" = NSView; 
+                "_updateview" = NSView; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}
