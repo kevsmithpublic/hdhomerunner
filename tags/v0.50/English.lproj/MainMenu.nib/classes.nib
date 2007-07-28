@@ -1,0 +1,45 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {discover = id; exportChannels = id; importChannels = id; playChannel = id; }; 
+            CLASS = GBController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_channelcontroller" = NSArrayController; 
+                "_channelview" = NSTableView; 
+                "_mainWindow" = NSWindow; 
+                "_tunercontroller" = NSArrayController; 
+                "_tunerview" = NSTableView; 
+                exporthdhrcontrol = NSMenuItem; 
+                exportxml = NSMenuItem; 
+                importhdhrcontrol = NSMenuItem; 
+                importxml = NSMenuItem; 
+                "progress_indicator" = NSProgressIndicator; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {goTo = id; }; 
+            CLASS = GBPreferenceController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_donatelink" = NSButton; 
+                "_donateview" = NSView; 
+                "_generalview" = NSView; 
+                "_updateview" = NSView; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = GBTuner; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = HUDWindow; LANGUAGE = ObjC; SUPERCLASS = NSPanel; }, 
+        {CLASS = NSLevelIndicator; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            ACTIONS = {checkForUpdates = id; }; 
+            CLASS = SUUpdater; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
