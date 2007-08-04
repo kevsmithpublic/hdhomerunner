@@ -126,6 +126,24 @@
 	return val;
 }
 
+-(BOOL)upgrade:(NSData *)newFirmware{
+	BOOL result = NO;
+	
+	if(newFirmware){
+		int tmp;
+		FILE *upgrade_file = [newFirmware bytes];
+		tmp = hdhomerun_device_upgrade(hdhr, upgrade_file);
+		
+		if(tmp < 1){
+			result = NO;
+		} else {
+			result = YES;
+		}
+	}
+	
+	return result;
+}
+
 -(NSImage *)status{
 	NSLog(@"return status");
 	return [status objectForKey:status_key];
@@ -226,6 +244,11 @@
 		[channel autorelease];
 		channel = [newChannel retain];//[newChannel copy];
 		[self didChangeValueForKey:@"channel"];
+		
+		if([status_key isEqual:@"Playing"]){
+			[self playChannel];
+			NSLog(@"replay");
+		}
 		
 	}
 }

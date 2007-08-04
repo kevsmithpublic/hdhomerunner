@@ -23,6 +23,7 @@
 
 #import "GBController.h"
 
+#define HDHOMERUN_VERSION @"20070716"
 
 @implementation GBController
 -(id)init{
@@ -32,10 +33,14 @@
 		channels = [[NSMutableArray alloc] initWithCapacity:0];
 		
 		fullscreen = [[NSUserDefaults standardUserDefaults] boolForKey:@"fullscreen"];
+		autoupdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoupdate"];
 		
 		// vlc handles VLC controls
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"launchVLC" ofType:@"scpt"];
 		vlc = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
+		
+		NSString *fwpath = [[NSBundle mainBundle] pathForResource:[@"hdhomerun_firmware_" stringByAppendingString:HDHOMERUN_VERSION] ofType:@"bin"];
+		firmware = [[NSData alloc] initWithContentsOfFile:fwpath];
 	}
 	
 	return self;
@@ -63,6 +68,8 @@
 
 	// Discover any new devices
 	[self discover:nil];
+	
+	[self update];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];		
 	[nc addObserver:self selector: @selector(selectionDidChange:) name:NSTableViewSelectionDidChangeNotification object:nil];
@@ -143,6 +150,27 @@
 	[progress_indicator stopAnimation:nil];
 }
 
+-(void)update{
+	if(autoupdate){
+		NSLog(@"update");
+		
+		NSEnumerator	*enumerator = [tuners objectEnumerator];
+		
+		GBTuner			*obj;
+		
+		// Loop over all the existing tuners
+		while(obj = [enumerator nextObject]){
+			// Compare to see if any of the existing tuners match the new tuners
+			if([[[obj properties] valueForKey:@"number"] isEqual:@"0"]){
+				// If there is a match set result to YES
+				if([[[obj properties] valueForKey:@"version"] compare:HDHOMERUN_VERSION] == NSOrderedAscending){
+					NSLog(@"ok upgrade tuner 0");
+				}
+			}
+		}
+	}
+}
+
 -(NSArray *)tuners{
 	return tuners;
 }
@@ -200,6 +228,20 @@
 		fullscreen = newState;
 	
 		[self didChangeValueForKey:@"fullscreen"];
+	}
+}
+
+-(BOOL)autoupdate{
+	return autoupdate;
+}
+
+-(void)setAutoupdate:(BOOL)newState{
+	if(newState != autoupdate){
+		[self willChangeValueForKey:@"autoupdate"];
+	
+		autoupdate = newState;
+	
+		[self didChangeValueForKey:@"autoupdate"];
 	}
 }
 

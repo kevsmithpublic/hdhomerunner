@@ -49,6 +49,11 @@
 		B076B9AF0C5AA81500174C3B /* hdhomerun.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7D90C5AA67900174C3B /* hdhomerun.h */; };
 		B076B9B10C5AA82100174C3B /* HUDWindow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7F00C5AA67900174C3B /* HUDWindow.h */; };
 		B076B9BE0C5AA88100174C3B /* launchVLC.scpt in Resources */ = {isa = PBXBuildFile; fileRef = B076B8060C5AA68B00174C3B /* launchVLC.scpt */; };
+		B0C53F1E0C63DA3200BB17BB /* hdhomerun_firmware_20070716.bin in Resources */ = {isa = PBXBuildFile; fileRef = B0C53F1D0C63DA3200BB17BB /* hdhomerun_firmware_20070716.bin */; };
+		B0CD71240C5D43B800B29826 /* GBTableView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0CD71220C5D43B800B29826 /* GBTableView.h */; };
+		B0CD71250C5D43B800B29826 /* GBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CD71230C5D43B800B29826 /* GBTableView.m */; };
+		B0F2E1F20C5D32EB00F387BA /* GBArrayController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0F2E1F00C5D32EB00F387BA /* GBArrayController.h */; };
+		B0F2E1F30C5D32EB00F387BA /* GBArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F2E1F10C5D32EB00F387BA /* GBArrayController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -70,6 +75,8 @@
 				B076B9AE0C5AA81300174C3B /* hdhomerun_channelscan.h in CopyFiles */,
 				B076B9AF0C5AA81500174C3B /* hdhomerun.h in CopyFiles */,
 				B076B9B10C5AA82100174C3B /* HUDWindow.h in CopyFiles */,
+				B0F2E1F20C5D32EB00F387BA /* GBArrayController.h in CopyFiles */,
+				B0CD71240C5D43B800B29826 /* GBTableView.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +135,11 @@
 		B076B8230C5AA70000174C3B /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		B076B8BB0C5AA72800174C3B /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Carbon.framework; sourceTree = "<group>"; };
 		B076B9660C5AA73500174C3B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		B0C53F1D0C63DA3200BB17BB /* hdhomerun_firmware_20070716.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = hdhomerun_firmware_20070716.bin; sourceTree = "<group>"; };
+		B0CD71220C5D43B800B29826 /* GBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTableView.h; sourceTree = "<group>"; };
+		B0CD71230C5D43B800B29826 /* GBTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTableView.m; sourceTree = "<group>"; };
+		B0F2E1F00C5D32EB00F387BA /* GBArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBArrayController.h; sourceTree = "<group>"; };
+		B0F2E1F10C5D32EB00F387BA /* GBArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBArrayController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +222,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B0C53F1D0C63DA3200BB17BB /* hdhomerun_firmware_20070716.bin */,
 				B076B8220C5AA70000174C3B /* MainMenu.nib */,
 				B076B80C0C5AA69400174C3B /* PrefWindow.nib */,
 				B076B8050C5AA68B00174C3B /* COPYING.txt */,
@@ -261,6 +274,10 @@
 			children = (
 				B076B7CD0C5AA66500174C3B /* GBPreferenceController.h */,
 				B076B7CE0C5AA66500174C3B /* GBPreferenceController.m */,
+				B0F2E1F00C5D32EB00F387BA /* GBArrayController.h */,
+				B0F2E1F10C5D32EB00F387BA /* GBArrayController.m */,
+				B0CD71220C5D43B800B29826 /* GBTableView.h */,
+				B0CD71230C5D43B800B29826 /* GBTableView.m */,
 			);
 			name = "Controller Classes";
 			sourceTree = "<group>";
@@ -369,6 +386,7 @@
 				B076B8070C5AA68B00174C3B /* COPYING.txt in Resources */,
 				B076B80D0C5AA69400174C3B /* PrefWindow.nib in Resources */,
 				B076B8240C5AA70000174C3B /* MainMenu.nib in Resources */,
+				B0C53F1E0C63DA3200BB17BB /* hdhomerun_firmware_20070716.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +412,8 @@
 				B076B7FE0C5AA67900174C3B /* hdhomerun_pkt.c in Sources */,
 				B076B7FF0C5AA67900174C3B /* hdhomerun_video.c in Sources */,
 				B076B8030C5AA67900174C3B /* HUDWindow.m in Sources */,
+				B0F2E1F30C5D32EB00F387BA /* GBArrayController.m in Sources */,
+				B0CD71250C5D43B800B29826 /* GBTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
