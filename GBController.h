@@ -52,8 +52,11 @@
 		IBOutlet	NSTableView					*_channelview;
 		
 					BOOL						fullscreen;
+					BOOL						autoupdate;
 					
 					NSAppleScript				*vlc;
+					
+					NSData						*firmware;
 }
 -(NSArray *)tuners;
 -(void)setTuners:(NSArray *)newTuners;
@@ -72,6 +75,11 @@
 -(IBAction)exportChannels:(id)sender;
 -(IBAction)discover:(id)sender;
 -(IBAction)playChannel:(id)sender;
+
+-(BOOL)autoupdate;
+-(void)setAutoupdate:(BOOL)newState;
+
+-(void)update;
 
 -(void)filePanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 -(void)selectionDidChange:(NSNotification *)notification;

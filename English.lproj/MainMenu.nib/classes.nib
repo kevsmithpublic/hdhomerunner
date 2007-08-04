@@ -2,6 +2,12 @@
     IBClasses = (
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
+            CLASS = GBArrayController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {tableView = NSTableView; }; 
+            SUPERCLASS = NSArrayController; 
+        }, 
+        {
             ACTIONS = {discover = id; exportChannels = id; importChannels = id; playChannel = id; }; 
             CLASS = GBController; 
             LANGUAGE = ObjC; 
@@ -31,6 +37,7 @@
             }; 
             SUPERCLASS = NSWindowController; 
         }, 
+        {CLASS = GBTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
         {CLASS = GBTuner; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {CLASS = HUDWindow; LANGUAGE = ObjC; SUPERCLASS = NSPanel; }, 
         {CLASS = NSLevelIndicator; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 

@@ -43,6 +43,8 @@
 
 -(struct hdhomerun_device_t	*)deviceWithID:(NSString *)anID andNumber:(NSString *)aNumber;
 
+-(BOOL)upgrade:(NSData *)newFirmware;
+
 -(NSImage *)status;
 -(void)setStatus:(NSString *)newStatus;
 -(NSArray *)statusKeys;
