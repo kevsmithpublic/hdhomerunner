@@ -38,7 +38,11 @@
 															[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"playing" ofType:@"tiff"]], @"Playing",
 															[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"recording" ofType:@"tiff"]], @"Recording", nil];
 		
-		status_key = [[NSString alloc] initWithString:@"Offline"]; 
+		status_key = [[NSString alloc] initWithString:@"Offline"];
+		
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self selector: @selector(tunerWillPlayChannel:) name:@"GBTunerWillPlayChannel" object:nil];
+		[nc addObserver:self selector: @selector(tunerWillStopPlayingChannel:) name:@"GBTunerWillStopPlayingChannel" object:nil]; 
 	}
 	
 	return self;
@@ -113,6 +117,31 @@
 	return [status allKeys];
 }
 
+-(void)tunerWillStopPlayingChannel:(NSNotification *)notification{
+	NSLog(@"channel got the message about stop playing");
+	GBChannel *tmp = [[notification userInfo] 
+						objectForKey:@"channel"];
+						
+	if([self isEqual:tmp]){
+		NSLog(@"we are stopping this channel");
+		[self setStatus:@"Idle"];
+		
+	}
+}
+
+
+-(void)tunerWillPlayChannel:(NSNotification *)notification{
+	NSLog(@"channel got the message about playing");
+	GBChannel *tmp = [[notification userInfo] 
+						objectForKey:@"channel"];
+						
+	if([self isEqual:tmp]){
+		NSLog(@"we are playing this channel");
+		[self setStatus:@"Playing"];
+		
+	}
+}
+
 -(BOOL)isEqual:(GBChannel *)obj{
 	BOOL result = NO;
 	
@@ -125,6 +154,8 @@
 }
 
 -(void)dealloc{
+	[[NSNotificationCenter defaultCenter] removeObserver: self];
+	
 	[properties release];
 	
 	[super dealloc];

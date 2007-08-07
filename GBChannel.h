@@ -39,5 +39,8 @@
 -(NSDictionary *)properties;
 -(void)setProperties:(NSDictionary *)newProperties;
 
+-(void)tunerWillStopPlayingChannel:(NSNotification *)notification;
+-(void)tunerWillPlayChannel:(NSNotification *)notification;
+
 -(BOOL)isEqual:(GBChannel *)obj;
 @end
