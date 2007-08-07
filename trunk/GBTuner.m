@@ -236,13 +236,13 @@
 }
 
 -(void)setChannel:(GBChannel *)newChannel{
-	//NSLog(@"channel = %@ newChannel = %@", [channel class], [newChannel class]); 
+	NSLog(@"channel = %@ newChannel = %@", [channel class], [newChannel class]); 
 	if(![channel isEqual:newChannel]){
 		
 		[self willChangeValueForKey:@"channel"];
 		[channel setStatus:@"Offline"];
 		[channel autorelease];
-		channel = [newChannel retain];//[newChannel copy];
+		channel = [newChannel copy];//retain];//[newChannel copy];
 		[self didChangeValueForKey:@"channel"];
 		
 		if([status_key isEqual:@"Playing"]){
@@ -286,7 +286,11 @@
 		[self didChangeValueForKey:@"target"];
 		
 		[self setStatus:@"Playing"];
-		[channel setStatus:@"Playing"];
+		//[channel setStatus:@"Playing"];
+		
+		NSLog(@"posting notification GBTunerWillPlayChannel");
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc postNotificationName:@"GBTunerWillPlayChannel" object:self userInfo:[NSDictionary dictionaryWithObject:channel forKey:@"channel"]];
 	}
 
 	char *tmp;

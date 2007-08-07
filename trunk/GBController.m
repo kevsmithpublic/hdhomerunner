@@ -74,6 +74,7 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];		
 	[nc addObserver:self selector: @selector(selectionDidChange:) name:NSTableViewSelectionDidChangeNotification object:nil];
 	[nc addObserver:self selector: @selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:nil];
+	[nc addObserver:self selector: @selector(tunerWillChangeChannel:) name:@"GBTunerWillChangeChannel" object:nil];
 }
 
 -(NSArray *)findDevices{
@@ -379,6 +380,13 @@
 	[_channelcontroller setSelectionIndexes:[_channelview selectedRowIndexes]];
 }
 
+-(void)tunerWillChangeChannel:(NSNotification *)notification{
+	[_tunercontroller setSelectionIndexes:[_tunerview selectedRowIndexes]];
+	[_channelcontroller setSelectionIndexes:[_channelview selectedRowIndexes]];
+	
+	[[[_tunercontroller selectedObjects] objectAtIndex:0] setChannel:[[_channelcontroller selectedObjects] objectAtIndex:0]];
+}
+
 -(IBAction)playChannel:(id)sender{
 		// create the first (and in this case only) parameter
          // note we can't pass an NSString (or any other object
@@ -415,8 +423,6 @@
 	
 	[[[_tunercontroller selectedObjects] objectAtIndex:0] setChannel:[[_channelcontroller selectedObjects] objectAtIndex:0]];
 	[[[_tunercontroller selectedObjects] objectAtIndex:0] playChannel];
-		//[[_tablecontroller selectedObject] selectChannel:[_channeltablecontroller selectedObject]];
-	//[[tuners objectAtIndex:[tuner_controller selectionIndex]] selectChannel:[_channeltablecontroller selectedObject]];
 }
 
 -(void)applicationWillTerminate:(NSNotification *)notification{

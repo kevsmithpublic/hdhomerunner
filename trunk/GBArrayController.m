@@ -27,10 +27,16 @@
 @implementation GBArrayController
 - (void)selectNext:(id)sender{
 	[super selectNext:sender];
+	
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc postNotificationName:@"GBTunerWillChangeChannel" object:nil];
 }
 
 - (void)selectPrevious:(id)sender{
 	[super selectPrevious:sender];
+	
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc postNotificationName:@"GBTunerWillChangeChannel" object:nil];
 }
 
 - (BOOL)tableView:(NSTableView *)tv

@@ -83,4 +83,6 @@
 
 -(void)filePanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 -(void)selectionDidChange:(NSNotification *)notification;
+
+-(void)tunerWillChangeChannel:(NSNotification *)notification;
 @end
