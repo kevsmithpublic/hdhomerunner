@@ -27,14 +27,17 @@
 @interface GBChannel : NSObject {
 			NSMutableDictionary			*properties;
 			
-			NSString			*status_key;
-			NSDictionary		*status;
+			NSMutableArray				*tuners;
+			
+			NSString					*status_key;
+			NSDictionary				*status;
 }
 -(id)initWithDictionary:(NSDictionary *)newProperties;
 
 -(NSImage *)status;
 -(void)setStatus:(NSString *)newStatus;
 -(NSArray *)statusKeys;
+-(void)updateStatus;
 
 -(NSDictionary *)properties;
 -(void)setProperties:(NSDictionary *)newProperties;

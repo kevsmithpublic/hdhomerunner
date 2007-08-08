@@ -72,7 +72,6 @@
 	[self update];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];		
-	[nc addObserver:self selector: @selector(selectionDidChange:) name:NSTableViewSelectionDidChangeNotification object:nil];
 	[nc addObserver:self selector: @selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:nil];
 	[nc addObserver:self selector: @selector(tunerWillChangeChannel:) name:@"GBTunerWillChangeChannel" object:nil];
 }
@@ -375,15 +374,11 @@
 	}
 }
 
--(void)selectionDidChange:(NSNotification *)notification{
-	[_tunercontroller setSelectionIndexes:[_tunerview selectedRowIndexes]];
-	[_channelcontroller setSelectionIndexes:[_channelview selectedRowIndexes]];
-}
-
 -(void)tunerWillChangeChannel:(NSNotification *)notification{
-	[_tunercontroller setSelectionIndexes:[_tunerview selectedRowIndexes]];
-	[_channelcontroller setSelectionIndexes:[_channelview selectedRowIndexes]];
-	
+	NSLog(@"tuner will change channel");
+	//[_tunercontroller setSelectionIndexes:[_tunerview selectedRowIndexes]];
+	//[_channelcontroller setSelectionIndexes:[_channelview selectedRowIndexes]];
+	NSLog(@"huh = %@", [_channelview selectedRowIndexes]);
 	[[[_tunercontroller selectedObjects] objectAtIndex:0] setChannel:[[_channelcontroller selectedObjects] objectAtIndex:0]];
 }
 

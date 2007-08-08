@@ -27,16 +27,22 @@
 @implementation GBArrayController
 - (void)selectNext:(id)sender{
 	[super selectNext:sender];
+	//NSLog(@"next selected row %@", [tableView selectedRowIndexes]);
+	//[self setSelectionIndexes:[tableView selectedRowIndexes]];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc postNotificationName:@"GBTunerWillChangeChannel" object:nil];
+	//[nc postNotificationName:@"GBTunerWillChangeChannel" object:nil];
+	[nc postNotificationName:NSTableViewSelectionDidChangeNotification object:nil];
 }
 
 - (void)selectPrevious:(id)sender{
 	[super selectPrevious:sender];
+	//NSLog(@"previous selected row %@", [tableView selectedRowIndexes]);
+	//[self setSelectionIndexes:[tableView selectedRowIndexes]];
 	
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc postNotificationName:@"GBTunerWillChangeChannel" object:nil];
+	//[nc postNotificationName:@"GBTunerWillChangeChannel" object:nil];
+	[nc postNotificationName:NSTableViewSelectionDidChangeNotification object:nil];
 }
 
 - (BOOL)tableView:(NSTableView *)tv
@@ -69,7 +75,7 @@
 	
 	[tv setDropRow:row dropOperation:NSTableViewDropOn];
 	
-	NSLog(@"validate Drop");
+	//NSLog(@"validate Drop");
     //return NSDragOperationEvery;
 	return NSDragOperationGeneric;
 	//return NSDragOperationLink;  
@@ -80,7 +86,7 @@
 			  row:(int)row
 	dropOperation:(NSTableViewDropOperation)op{
 	
-	NSLog(@"accept drop");
+	//NSLog(@"accept drop");
 	
 	NSPasteboard* pboard = [info draggingPasteboard];
     NSData* rowData = [pboard dataForType:GBTableViewDataType];
@@ -95,8 +101,18 @@
 	return YES;
 }
 
+-(void)selectionDidChange:(NSNotification *)notification{
+	[self setSelectionIndexes:[tableView selectedRowIndexes]];
+	
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc postNotificationName:@"GBTunerWillChangeChannel" object:nil];
+}
+
 - (void)awakeFromNib
 {
 	[tableView registerForDraggedTypes:[NSArray arrayWithObject:GBTableViewDataType]];
+	
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];		
+	[nc addObserver:self selector: @selector(selectionDidChange:) name:NSTableViewSelectionDidChangeNotification object:nil];
 }
 @end

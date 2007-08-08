@@ -39,7 +39,7 @@
 }
 
 - (void)setupToolbar{
-	NSLog(@"Setting up toolbar");
+	//NSLog(@"Setting up toolbar");
 	
 	_update = [[NSToolbarItem alloc] initWithItemIdentifier:@"Update"];
 	[_update setAction:@selector(goTo:)];
