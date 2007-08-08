@@ -40,6 +40,8 @@
 		
 		status_key = [[NSString alloc] initWithString:@"Offline"];
 		
+		tuners = [[NSMutableArray alloc] initWithCapacity:0];
+		
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector: @selector(tunerWillPlayChannel:) name:@"GBTunerWillPlayChannel" object:nil];
 		[nc addObserver:self selector: @selector(tunerWillStopPlayingChannel:) name:@"GBTunerWillStopPlayingChannel" object:nil]; 
@@ -99,7 +101,6 @@
 }
 
 -(NSImage *)status{
-	NSLog(@"return channel status");
 	return [status objectForKey:status_key];
 }
 
@@ -108,7 +109,7 @@
 		[self willChangeValueForKey:@"status"];
 		[status_key autorelease];
 		status_key = [newStatusKey copy];
-		NSLog(@"set channel status = %@", status_key);
+		//NSLog(@"set channel status = %@", status_key);
 		[self didChangeValueForKey:@"status"];
 	}
 }
@@ -117,28 +118,39 @@
 	return [status allKeys];
 }
 
+-(void)updateStatus{
+	//NSLog(@"updatestatus count %i", [tuners count]);
+	if([tuners count] > 0){
+		[self setStatus:@"Playing"];
+	} else {
+		[self setStatus:@"Offline"];
+	}
+}
+
 -(void)tunerWillStopPlayingChannel:(NSNotification *)notification{
-	NSLog(@"channel got the message about stop playing");
+	//NSLog(@"channel got the message about stop playing");
 	GBChannel *tmp = [[notification userInfo] 
 						objectForKey:@"channel"];
-						
-	if([self isEqual:tmp]){
-		NSLog(@"we are stopping this channel");
-		[self setStatus:@"Idle"];
+	
+	if([self isEqual:tmp] && [tuners containsObject:[notification object]]){
 		
+		NSLog(@"we are stopping this channel %@", [[self properties] valueForKey:@"description"]);
+		[tuners removeObject:[notification object]];
+		[self updateStatus];
 	}
 }
 
 
 -(void)tunerWillPlayChannel:(NSNotification *)notification{
-	NSLog(@"channel got the message about playing");
+	//NSLog(@"channel got the message about playing");
 	GBChannel *tmp = [[notification userInfo] 
 						objectForKey:@"channel"];
 						
 	if([self isEqual:tmp]){
-		NSLog(@"we are playing this channel");
-		[self setStatus:@"Playing"];
-		
+	
+		NSLog(@"we are playing this channel %@", [[self properties] valueForKey:@"description"]);
+		[tuners addObject:[notification object]];
+		[self updateStatus];
 	}
 }
 
@@ -157,6 +169,9 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
 	[properties release];
+	[status release];
+	[tuners release];
+	[status_key release];
 	
 	[super dealloc];
 }

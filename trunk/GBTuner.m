@@ -145,7 +145,6 @@
 }
 
 -(NSImage *)status{
-	NSLog(@"return status");
 	return [status objectForKey:status_key];
 }
 
@@ -154,7 +153,6 @@
 		[self willChangeValueForKey:@"status"];
 		[status_key autorelease];
 		status_key = [newStatusKey copy];
-		NSLog(@"set status = %@", status_key);
 		[self didChangeValueForKey:@"status"];
 	}
 }
@@ -167,9 +165,7 @@
 	return properties;
 }
 
--(void)setProperties:(NSDictionary *)newProperties{
-	NSLog(@"setting props");
-	
+-(void)setProperties:(NSDictionary *)newProperties{	
 	[self willChangeValueForKey:@"properties"];
 	[properties removeAllObjects];
 	[properties addEntriesFromDictionary:newProperties];
@@ -236,25 +232,29 @@
 }
 
 -(void)setChannel:(GBChannel *)newChannel{
-	NSLog(@"channel = %@ newChannel = %@", [channel class], [newChannel class]); 
+	NSLog(@"channel = %@ newChannel = %@", [[channel properties] valueForKey:@"description"], [[newChannel properties] valueForKey:@"description"]); 
 	if(![channel isEqual:newChannel]){
 		
 		[self willChangeValueForKey:@"channel"];
-		[channel setStatus:@"Offline"];
+		//[channel setStatus:@"Offline"];
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		//NSLog(@"posting stop playing channel notification");
+		[nc postNotificationName:@"GBTunerWillStopPlayingChannel" object:self userInfo:[NSDictionary dictionaryWithObject:channel forKey:@"channel"]];
+
 		[channel autorelease];
 		channel = [newChannel copy];//retain];//[newChannel copy];
 		[self didChangeValueForKey:@"channel"];
 		
 		if([status_key isEqual:@"Playing"]){
 			[self playChannel];
-			NSLog(@"replay");
+			//NSLog(@"replay");
 		}
 		
 	}
 }
 
 -(void)playChannel{
-
+	
 	int retries;
 	retries = 0;
 	
@@ -269,7 +269,7 @@
 		 
 	char ip_cstr[64];
 	strcpy(ip_cstr, [ip_str UTF8String]);
-	NSLog(@"ip = %s", ip_cstr);
+	//NSLog(@"ip = %s", ip_cstr);
 	
 	while(	(!(hdhomerun_device_set_tuner_channel(hdhr, [[[[channel properties] objectForKey:@"channel"] stringValue] UTF8String]) > 0) ||
 			!(hdhomerun_device_set_tuner_program(hdhr, [[[[channel properties] objectForKey:@"program"] stringValue] UTF8String]) > 0) ||
@@ -288,14 +288,14 @@
 		[self setStatus:@"Playing"];
 		//[channel setStatus:@"Playing"];
 		
-		NSLog(@"posting notification GBTunerWillPlayChannel");
+		//NSLog(@"posting notification GBTunerWillPlayChannel");
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc postNotificationName:@"GBTunerWillPlayChannel" object:self userInfo:[NSDictionary dictionaryWithObject:channel forKey:@"channel"]];
 	}
 
-	char *tmp;
-	hdhomerun_device_get_tuner_target(hdhr, &tmp);
-	NSLog(@"ip is = %s", tmp);
+	//char *tmp;
+	//hdhomerun_device_get_tuner_target(hdhr, &tmp);
+	//NSLog(@"ip is = %s", tmp);
 }
 
 -(BOOL)isEqual:(GBTuner *)obj{
