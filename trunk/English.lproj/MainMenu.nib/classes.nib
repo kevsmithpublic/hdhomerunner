@@ -17,11 +17,13 @@
                 "_mainWindow" = NSWindow; 
                 "_tunercontroller" = NSArrayController; 
                 "_tunerview" = NSTableView; 
+                "_upgradeWindow" = NSWindow; 
                 exporthdhrcontrol = NSMenuItem; 
                 exportxml = NSMenuItem; 
                 importhdhrcontrol = NSMenuItem; 
                 importxml = NSMenuItem; 
                 "progress_indicator" = NSProgressIndicator; 
+                "upgrade_progress_indicator" = NSProgressIndicator; 
             }; 
             SUPERCLASS = NSObject; 
         }, 

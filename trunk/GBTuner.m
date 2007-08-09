@@ -126,12 +126,13 @@
 	return val;
 }
 
--(BOOL)upgrade:(NSData *)newFirmware{
+-(BOOL)upgrade:(NSURL *)newFirmware{
 	BOOL result = NO;
 	
 	if(newFirmware){
 		int tmp;
-		FILE *upgrade_file = [newFirmware bytes];
+		//NSLog(@"trying to upgrade %@", [newFirmware absoluteString]);
+		FILE *upgrade_file = fopen([[newFirmware absoluteString] UTF8String], "rb");
 		tmp = hdhomerun_device_upgrade(hdhr, upgrade_file);
 		
 		if(tmp < 1){

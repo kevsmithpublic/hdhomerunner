@@ -28,8 +28,6 @@
 #import "GBPreferenceController.h";
 #import "GBTuner.h";
 #import "GBChannel.h";
-//@class GBTuner;
-//@class GBChannel;
 
 @interface GBController : NSObject {
 		NSMutableArray							*tuners;
@@ -41,8 +39,10 @@
 		IBOutlet	NSMenuItem					*exportxml;
 		
 		IBOutlet	NSWindow					*_mainWindow;
+		IBOutlet	NSWindow					*_upgradeWindow;
 		
 		IBOutlet	NSProgressIndicator			*progress_indicator;
+		IBOutlet	NSProgressIndicator			*upgrade_progress_indicator;
 		
 		IBOutlet	NSArrayController			*_tunercontroller;
 		IBOutlet	NSArrayController			*_channelcontroller;
@@ -56,7 +56,7 @@
 					
 					NSAppleScript				*vlc;
 					
-					NSData						*firmware;
+					NSURL						*firmware;
 }
 -(NSArray *)tuners;
 -(void)setTuners:(NSArray *)newTuners;
