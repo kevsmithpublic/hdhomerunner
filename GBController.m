@@ -40,7 +40,7 @@
 		vlc = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		
 		NSString *fwpath = [[NSBundle mainBundle] pathForResource:[@"hdhomerun_firmware_" stringByAppendingString:HDHOMERUN_VERSION] ofType:@"bin"];
-		firmware = [[NSData alloc] initWithContentsOfFile:fwpath];
+		firmware = [[NSURL alloc] initWithString:fwpath];//[[NSData alloc] initWithContentsOfFile:fwpath];
 	}
 	
 	return self;
@@ -155,18 +155,30 @@
 		NSLog(@"update");
 		
 		NSEnumerator	*enumerator = [tuners objectEnumerator];
-		
 		GBTuner			*obj;
 		
 		// Loop over all the existing tuners
 		while(obj = [enumerator nextObject]){
 			// Compare to see if any of the existing tuners match the new tuners
-			if([[[obj properties] valueForKey:@"number"] isEqual:@"0"]){
+			//if([[[obj properties] valueForKey:@"number"] isEqual:@"0"]){
 				// If there is a match set result to YES
 				if([[[obj properties] valueForKey:@"version"] compare:HDHOMERUN_VERSION] == NSOrderedAscending){
-					NSLog(@"ok upgrade tuner 0");
+					
+					[_upgradeWindow makeKeyAndOrderFront:nil];
+					
+					// Start the progress indicator
+					[upgrade_progress_indicator startAnimation:nil];
+
+					
+					NSLog(@"resut %i", [obj upgrade:firmware]);
+					
+					// Stop the progress indicator
+					[upgrade_progress_indicator stopAnimation:nil];
+					
+					// Close the window
+					[_upgradeWindow close];
 				}
-			}
+			//}
 		}
 	}
 }
@@ -375,10 +387,7 @@
 }
 
 -(void)tunerWillChangeChannel:(NSNotification *)notification{
-	NSLog(@"tuner will change channel");
-	//[_tunercontroller setSelectionIndexes:[_tunerview selectedRowIndexes]];
-	//[_channelcontroller setSelectionIndexes:[_channelview selectedRowIndexes]];
-	NSLog(@"huh = %@", [_channelview selectedRowIndexes]);
+	//NSLog(@"tuner will change channel");
 	[[[_tunercontroller selectedObjects] objectAtIndex:0] setChannel:[[_channelcontroller selectedObjects] objectAtIndex:0]];
 }
 
