@@ -12,7 +12,7 @@
             CLASS = GBController; 
             LANGUAGE = ObjC; 
             OUTLETS = {
-                "_channelcontroller" = NSArrayController; 
+                "_channelcontroller" = GBArrayController; 
                 "_channelview" = NSTableView; 
                 "_mainWindow" = NSWindow; 
                 "_tunercontroller" = NSArrayController; 
