@@ -27,15 +27,15 @@
 
 
 @interface GBPreferenceController : NSWindowController {
-	IBOutlet	NSView				*_updateview;
-				NSToolbarItem		*_update;
+	IBOutlet	NSView				*_updateview;			// The update view
+				NSToolbarItem		*_update;				// The update view's toolbar item
 				
-	IBOutlet	NSView				*_donateview;
-	IBOutlet	NSButton			*_donatelink;
-				NSToolbarItem		*_donate;
+	IBOutlet	NSView				*_donateview;			// The donate view
+	IBOutlet	NSButton			*_donatelink;			// The button to redirect to Paypal's donate page
+				NSToolbarItem		*_donate;				// The donate view's toolbar item
 				
-	IBOutlet	NSView				*_generalview;
-				NSToolbarItem		*_general;
+	IBOutlet	NSView				*_generalview;			// The general view
+				NSToolbarItem		*_general;				// The general view toolbar item
 				
 				int					DHCP_state;
 }

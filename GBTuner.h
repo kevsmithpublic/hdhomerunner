@@ -27,14 +27,14 @@
 @class GBChannel;
 
 @interface GBTuner : NSObject {
-		NSMutableDictionary	*properties;
+		NSMutableDictionary	*properties;		// A dictionary of the tuner's properties
 		
 		GBChannel			*channel;			// The tuner's setpoint
 				
 		NSTimer				*updateTimer;		// The timer to update the GUI
 				
-		NSString			*status_key;
-		NSDictionary		*status;
+		NSString			*status_key;		// The current tuner's status
+		NSDictionary		*status;			// The status -> icon mappings
 			
 		struct		hdhomerun_device_t	*hdhr;	// The tuner
 }

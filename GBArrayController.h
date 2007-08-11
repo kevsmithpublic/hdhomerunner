@@ -26,7 +26,7 @@
 @class GBTuner;
 
 @interface GBArrayController : NSArrayController {
-		IBOutlet NSTableView *tableView;
+		IBOutlet NSTableView *tableView;		// The tableview associated with the array controller
 }
 -(void)selectionDidChange:(NSNotification *)notification;
 
