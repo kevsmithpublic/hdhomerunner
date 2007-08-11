@@ -160,7 +160,7 @@
 		// Loop over all the existing tuners
 		while(obj = [enumerator nextObject]){
 			// Compare to see if any of the existing tuners match the new tuners
-			//if([[[obj properties] valueForKey:@"number"] isEqual:@"0"]){
+			if([[[obj properties] valueForKey:@"number"] isEqual:@"0"]){
 				// If there is a match set result to YES
 				if([[[obj properties] valueForKey:@"version"] compare:HDHOMERUN_VERSION] == NSOrderedAscending){
 					
@@ -178,7 +178,7 @@
 					// Close the window
 					[_upgradeWindow close];
 				}
-			//}
+			}
 		}
 	}
 }
