@@ -388,6 +388,9 @@
 
 -(void)tunerWillChangeChannel:(NSNotification *)notification{
 	//NSLog(@"tuner will change channel");
+	//[_tunercontroller setSelectionIndexes:[_tunerview selectedRowIndexes]];
+	//[_channelcontroller setSelectionIndexes:[_channelview selectedRowIndexes]];
+	
 	[[[_tunercontroller selectedObjects] objectAtIndex:0] setChannel:[[_channelcontroller selectedObjects] objectAtIndex:0]];
 }
 
