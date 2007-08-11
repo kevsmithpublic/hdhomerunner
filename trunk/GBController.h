@@ -30,33 +30,32 @@
 #import "GBChannel.h";
 
 @interface GBController : NSObject {
-		NSMutableArray							*tuners;
-		NSMutableArray							*channels;
+		NSMutableArray							*tuners;						// The array of tuners found on the network
+		NSMutableArray							*channels;						// The array of channels
 				
-		IBOutlet	NSMenuItem					*importhdhrcontrol;
-		IBOutlet	NSMenuItem					*exporthdhrcontrol;
-		IBOutlet	NSMenuItem					*importxml;
-		IBOutlet	NSMenuItem					*exportxml;
+		IBOutlet	NSMenuItem					*importhdhrcontrol;				// The menu item associated with importing HDHomeRunControl ChannelMaps
+		IBOutlet	NSMenuItem					*exporthdhrcontrol;				// The menu item associated with exporting HDHomeRunControl ChannelMaps
+		IBOutlet	NSMenuItem					*importxml;						// The menu item associated with importing a XML ChannelMap
+		IBOutlet	NSMenuItem					*exportxml;						// The menu item associated with exporting a XML ChannelMap
 		
-		IBOutlet	NSWindow					*_mainWindow;
-		IBOutlet	NSWindow					*_upgradeWindow;
+		IBOutlet	NSWindow					*_mainWindow;					// The main window
+		IBOutlet	NSWindow					*_upgradeWindow;				// The upgrade window
 		
-		IBOutlet	NSProgressIndicator			*progress_indicator;
-		IBOutlet	NSProgressIndicator			*upgrade_progress_indicator;
+		IBOutlet	NSProgressIndicator			*progress_indicator;			// The progress indicator on the main window
+		IBOutlet	NSProgressIndicator			*upgrade_progress_indicator;	// The progress indicator on the upgrade window
 		
-		IBOutlet	NSArrayController			*_tunercontroller;
-		IBOutlet	NSArrayController			*_channelcontroller;
-		//IBOutlet	NSObjectController			*_preferencecontroller;
+		IBOutlet	NSArrayController			*_tunercontroller;				// The array controller which manages the tuners
+		IBOutlet	NSArrayController			*_channelcontroller;			// The array controller which manages the channels
 		
-		IBOutlet	NSTableView					*_tunerview;
-		IBOutlet	NSTableView					*_channelview;
+		IBOutlet	NSTableView					*_tunerview;					// The tableview that displays available tuners
+		IBOutlet	NSTableView					*_channelview;					// The tableview that displays available channels
 		
-					BOOL						fullscreen;
-					BOOL						autoupdate;
+					BOOL						fullscreen;						// The value that specifies whether VLC should be launched in fullscreen
+					BOOL						autoupdate;						// The value that specifies if tuners should be autoupdated.
 					
-					NSAppleScript				*vlc;
+					NSAppleScript				*vlc;							// The script to launch and control VLC
 					
-					NSURL						*firmware;
+					NSURL						*firmware;						// The location of the most up-to-date firmware
 }
 -(NSArray *)tuners;
 -(void)setTuners:(NSArray *)newTuners;
