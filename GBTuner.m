@@ -83,9 +83,11 @@
 		}
 		
 		if((dev_id != nil)){
+			[self willChangeValueForKey:@"properties"];
 			[properties setValue:[NSString stringWithFormat:@"%x", dev_id] forKey:@"identification"];
 			[properties setValue:[NSString stringWithFormat:@"%x", dev_id] forKey:@"description"];
 			[properties setValue:[NSString stringWithFormat:@"%i", tuner] forKey:@"number"];
+			[self didChangeValueForKey:@"properties"];
 			
 			NSLog(@"creating device with id: %x tuner: %d", dev_id, tuner);
 			hdhr = [self deviceWithID:[properties valueForKey:@"identification"] andNumber:[properties valueForKey:@"number"]];

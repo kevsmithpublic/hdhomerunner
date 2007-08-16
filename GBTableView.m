@@ -40,4 +40,14 @@
 	//}
 	return NSDragOperationEvery;
 }
+
+-(void)selectionDidChange:(NSNotification *)notification{
+	[[self dataSource] setSelectionIndexes:[self selectedRowIndexes]];
+}
+
+- (void)awakeFromNib
+{
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];		
+	[nc addObserver:self selector: @selector(selectionDidChange:) name:NSTableViewSelectionDidChangeNotification object:self];
+}
 @end

@@ -28,4 +28,5 @@
 
 }
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag;
+-(void)selectionDidChange:(NSNotification *)notification;
 @end

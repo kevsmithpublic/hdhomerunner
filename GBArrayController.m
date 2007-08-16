@@ -106,18 +106,9 @@
 	return YES;
 }
 
--(void)selectionDidChange:(NSNotification *)notification{
-	//[self setSelectionIndexes:[tableView selectedRowIndexes]];
-	
-	//NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	//[nc postNotificationName:@"GBTunerWillChangeChannel" object:nil];
-}
-
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
 	[tableView registerForDraggedTypes:[NSArray arrayWithObject:GBTableViewDataType]];
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];		
-	[nc addObserver:self selector: @selector(selectionDidChange:) name:NSTableViewSelectionDidChangeNotification object:nil];
 }
 @end

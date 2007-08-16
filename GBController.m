@@ -257,6 +257,20 @@
 	}
 }
 
+-(NSString *)lineuplocation{
+	return lineuplocation;
+}
+
+-(void)setLineuplocation:(NSString *)newLocation{
+	if(![newLocation isEqualToString:lineuplocation]){
+		[self willChangeValueForKey:@"lineuplocation"];
+	
+		[newLocation autorelease];
+		lineuplocation = [newLocation copy];
+	
+		[self didChangeValueForKey:@"lineuplocation"];
+	}
+}
 -(IBAction)importChannels:(id)sender{
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 	NSArray *fileTypes;
