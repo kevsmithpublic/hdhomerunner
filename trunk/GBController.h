@@ -56,6 +56,8 @@
 					NSAppleScript				*vlc;							// The script to launch and control VLC
 					
 					NSURL						*firmware;						// The location of the most up-to-date firmware
+					
+					NSString					*lineuplocation;				// The location to retrieve channel data for
 }
 -(NSArray *)tuners;
 -(void)setTuners:(NSArray *)newTuners;

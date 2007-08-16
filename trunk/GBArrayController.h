@@ -28,8 +28,6 @@
 @interface GBArrayController : NSArrayController {
 		IBOutlet NSTableView *tableView;		// The tableview associated with the array controller
 }
--(void)selectionDidChange:(NSNotification *)notification;
-
 /*
  support for drag and drop
  */
