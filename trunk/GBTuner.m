@@ -38,6 +38,7 @@
 		[properties setValue:@"none" forKey:@"lock"];
 		[properties setValue:@"none" forKey:@"target"];
 		[properties setValue:@"0" forKey:@"number"];
+		//[properties setValue:@"90210" forKey:@"lineuplocation"];
 		[properties setObject:[NSNumber numberWithInt:0] forKey:@"strength"];
 		[properties setObject:[NSNumber numberWithInt:0] forKey:@"snr"];
 		[properties setObject:[NSNumber numberWithInt:0] forKey:@"seq"];
@@ -225,6 +226,25 @@
 			[properties setValue:[NSString stringWithFormat:@"%u.%u.%u.%u", (tmp >> 24) & 0xFF, (tmp >> 16) & 0xFF,
 				(tmp >> 8) & 0xFF, (tmp >> 0) & 0xFF] forKey:@"address"];
 			[self didChangeValueForKey:@"address"];
+		}
+	}
+}
+
+-(NSArray *)autoscan{
+	//extern int hdhomerun_device_set_lineup_location(struct hdhomerun_device_t *hd, const char *location);
+}
+
+-(NSString *)lineuplocation{
+	return lineuplocation;
+}
+
+-(void)setLineuplocation:(NSString *)newLineuplocation{
+	if(![lineuplocation isEqual:newLineuplocation] && [newLineuplocation isEqual:@""]){
+		if(hdhomerun_device_set_lineup_location(hdhr, [newLineuplocation UTF8String]) == 1){
+			[self willChangeValueForKey:@"lineuplocation"];
+			[lineuplocation autorelease];
+			lineuplocation = [newLineuplocation copy];
+			[self didChangeValueForKey:@"lineuplocation"];
 		}
 	}
 }
