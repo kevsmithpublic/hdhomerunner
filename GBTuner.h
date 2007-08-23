@@ -35,6 +35,8 @@
 				
 		NSString			*status_key;		// The current tuner's status
 		NSDictionary		*status;			// The status -> icon mappings
+		
+		NSString			*lineuplocation;	// The location of the tuner
 			
 		struct		hdhomerun_device_t	*hdhr;	// The tuner
 }
@@ -55,7 +57,12 @@
 -(GBChannel *)channel;
 -(void)setChannel:(GBChannel *)newChannel;
 
+-(NSString *)lineuplocation;
+-(void)setLineuplocation:(NSString *)newLineuplocation;
+
 -(void)update:(NSTimer*)timer;
+
+-(NSArray *)autoscanForLocation;
 
 -(void)playChannel;
 

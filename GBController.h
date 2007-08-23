@@ -40,6 +40,7 @@
 		
 		IBOutlet	NSWindow					*_mainWindow;					// The main window
 		IBOutlet	NSWindow					*_upgradeWindow;				// The upgrade window
+		IBOutlet	NSWindow					*_autoscanSheet;				// The autoscan window
 		
 		IBOutlet	NSProgressIndicator			*progress_indicator;			// The progress indicator on the main window
 		IBOutlet	NSProgressIndicator			*upgrade_progress_indicator;	// The progress indicator on the upgrade window
@@ -57,7 +58,7 @@
 					
 					NSURL						*firmware;						// The location of the most up-to-date firmware
 					
-					NSString					*lineuplocation;				// The location to retrieve channel data for
+					NSNumber					*lineuplocation;				// The location to retrieve channel data for
 }
 -(NSArray *)tuners;
 -(void)setTuners:(NSArray *)newTuners;
@@ -72,6 +73,9 @@
 
 -(void)addChannel:(GBChannel *)newChannel;
 
+-(NSNumber *)lineuplocation;
+-(void)setLineuplocation:(NSNumber *)newLocation;
+
 -(IBAction)importChannels:(id)sender;
 -(IBAction)exportChannels:(id)sender;
 -(IBAction)discover:(id)sender;
@@ -85,4 +89,7 @@
 -(void)filePanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 
 -(void)tunerWillChangeChannel:(NSNotification *)notification;
+
+-(IBAction)autoscan:(id)sender;
+- (IBAction)doneConfiguring:(id)sender;
 @end

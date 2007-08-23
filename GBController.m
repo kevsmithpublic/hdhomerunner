@@ -23,7 +23,7 @@
 
 #import "GBController.h"
 
-#define HDHOMERUN_VERSION @"20070716"
+#define HDHOMERUN_VERSION @"20070815"
 
 @implementation GBController
 -(id)init{
@@ -34,6 +34,14 @@
 		
 		fullscreen = [[NSUserDefaults standardUserDefaults] boolForKey:@"fullscreen"];
 		autoupdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoupdate"];
+		
+		
+		
+		if([[NSUserDefaults standardUserDefaults] objectForKey:@"lineuplocation"]){
+			lineuplocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"lineuplocation"];
+		} else {
+			lineuplocation = [[NSNumber alloc] initWithInt:90210];
+		}
 		
 		// vlc handles VLC controls
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"launchVLC" ofType:@"scpt"];
@@ -257,11 +265,11 @@
 	}
 }
 
--(NSString *)lineuplocation{
+-(NSNumber *)lineuplocation{
 	return lineuplocation;
 }
 
--(void)setLineuplocation:(NSString *)newLocation{
+-(void)setLineuplocation:(NSNumber *)newLocation{
 	if(![newLocation isEqualToString:lineuplocation]){
 		[self willChangeValueForKey:@"lineuplocation"];
 	
@@ -446,6 +454,16 @@
 	[[[_tunercontroller selectedObjects] objectAtIndex:0] playChannel];
 }
 
+-(IBAction)autoscan:(id)sender{
+	 [NSApp beginSheet:_autoscanSheet modalForWindow:_mainWindow
+        modalDelegate:self didEndSelector:NULL contextInfo:nil];
+}
+
+- (IBAction)doneConfiguring:(id)sender{
+    [_autoscanSheet orderOut:nil];
+    [NSApp endSheet:_autoscanSheet];
+}
+
 -(void)applicationWillTerminate:(NSNotification *)notification{
 	//NSLog(@"will terminate");
 	
@@ -473,6 +491,7 @@
 	
 	[standardUserDefaults setObject:tmp forKey:@"channels"];
 	[standardUserDefaults setBool:fullscreen forKey:@"fullscreen"];
+	//[standardUserDefaults setObject:lineuplocation forKey:@"lineuplocation"];
 	
 	[standardUserDefaults synchronize];
 }
