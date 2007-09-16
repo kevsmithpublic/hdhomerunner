@@ -17,7 +17,13 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-struct channelscan_entry_t;
+//struct channelscan_entry_t;
+struct channelscan_entry_t {
+	struct channelscan_entry_t *next;
+	uint8_t channel_map;
+	uint8_t channel;
+	uint32_t frequency;
+};
 
 #define HDHOMERUN_CHANNELSCAN_MODE_SCAN 0
 #define HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST 1

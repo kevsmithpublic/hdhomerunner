@@ -9,23 +9,26 @@
         }, 
         {
             ACTIONS = {
-                autoscan = id; 
                 discover = id; 
                 doneConfiguring = id; 
                 exportChannels = id; 
                 importChannels = id; 
                 playChannel = id; 
+                scanChannels = id; 
             }; 
             CLASS = GBController; 
             LANGUAGE = ObjC; 
             OUTLETS = {
                 "_autoscanSheet" = NSWindow; 
+                "_autoscancontroller" = NSArrayController; 
+                "_autoscanview" = NSTableView; 
                 "_channelcontroller" = NSArrayController; 
                 "_channelview" = NSTableView; 
                 "_mainWindow" = NSWindow; 
                 "_tunercontroller" = NSArrayController; 
                 "_tunerview" = NSTableView; 
                 "_upgradeWindow" = NSWindow; 
+                "autoscan_total_level" = NSProgressIndicator; 
                 exporthdhrcontrol = NSMenuItem; 
                 exportxml = NSMenuItem; 
                 importhdhrcontrol = NSMenuItem; 

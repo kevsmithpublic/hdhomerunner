@@ -23,6 +23,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "hdhomerun.h";
+#import "ThreadWorker.h"
 
 @class GBChannel;
 
@@ -62,7 +63,11 @@
 
 -(void)update:(NSTimer*)timer;
 
--(NSArray *)autoscanForLocation;
+//-(void)startAutoscan;
+- (id)startAutoscan:(id)someData worker:(ThreadWorker *)tw;
+-(void)scanDidFinish:(id)userInfo;
+-(int)numberOfChannelsToScan;
+int autoscancallback(va_list ap, const char *type, const char *str);
 
 -(void)playChannel;
 

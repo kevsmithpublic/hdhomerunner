@@ -29,12 +29,12 @@
 #define CHANNEL_MAP_US_HRC 3
 #define CHANNEL_MAP_US_IRC 4
 
-struct channelscan_entry_t {
+/*struct channelscan_entry_t {
 	struct channelscan_entry_t *next;
 	uint8_t channel_map;
 	uint8_t channel;
 	uint32_t frequency;
-};
+};*/
 
 struct channelscan_map_range_t {
 	uint8_t channel_map;

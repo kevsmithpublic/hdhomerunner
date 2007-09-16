@@ -157,7 +157,8 @@
 -(BOOL)isEqual:(GBChannel *)obj{
 	BOOL result = NO;
 	
-	if([properties isEqual:[obj properties]]){
+	//if([properties isEqual:[obj properties]]){
+	if([[properties objectForKey:@"channel"] isEqualToNumber:[[obj properties] objectForKey:@"channel"]] && [[properties objectForKey:@"program"] isEqualToNumber:[[obj properties] objectForKey:@"program"]]){
 		
 		result = YES;
 	}
