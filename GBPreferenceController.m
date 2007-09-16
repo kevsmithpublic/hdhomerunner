@@ -72,13 +72,13 @@
 	//NSLog(@"class = %@", [sender className]);
 	if([[sender className] isEqualToString:@"NSToolbarItem"]){
 		if([[sender itemIdentifier] isEqual:[_donate itemIdentifier]]){
-			NSLog(@"Going to pane %@", [sender itemIdentifier]);
+			//NSLog(@"Going to pane %@", [sender itemIdentifier]);
 			[self setView:_donateview];
 		} else if([[sender itemIdentifier] isEqual:[_update itemIdentifier]]){
-			NSLog(@"Going to pane %@", [sender itemIdentifier]);
+			//NSLog(@"Going to pane %@", [sender itemIdentifier]);
 			[self setView:_updateview];
 		} else if([[sender itemIdentifier] isEqual:[_general itemIdentifier]]){
-			NSLog(@"Going to pane %@", [sender itemIdentifier]);
+			//NSLog(@"Going to pane %@", [sender itemIdentifier]);
 			[self setView:_generalview];
 		}
 	}
@@ -159,10 +159,17 @@
     
     // This is the label that will appear in the toolbar
     [item setLabel:itemIdentifier];
-    
-    // This is the label that will appear in the config panel
-    //[tbi setPaletteLabel:itemIdentifier];
-    //[tbi setImage:image];
+	
+	if ( [itemIdentifier isEqualToString:@"General"] ) {
+		[item setPaletteLabel:[item label]];
+		[item setImage:[NSImage imageNamed:@"General Preferences"]];
+    } else if ( [itemIdentifier isEqualToString:@"Donate"] ) {
+		[item setPaletteLabel:[item label]];
+		[item setImage:[NSImage imageNamed:@"Users"]];
+    } else if ( [itemIdentifier isEqualToString:@"Update"] ) {
+		[item setPaletteLabel:[item label]];
+		[item setImage:[NSImage imageNamed:@"reload"]];
+    }
 	
     return [item autorelease];
 }

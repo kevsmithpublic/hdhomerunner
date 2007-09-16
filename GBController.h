@@ -24,6 +24,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
 #import "hdhomerun.h"
+#import "ThreadWorker.h"
 
 #import "GBPreferenceController.h";
 #import "GBTuner.h";
@@ -32,6 +33,8 @@
 @interface GBController : NSObject {
 		NSMutableArray							*tuners;						// The array of tuners found on the network
 		NSMutableArray							*channels;						// The array of channels
+		NSMutableArray							*threads;						// An array of threads
+		NSMutableArray							*autoscan;						// An array to hold the autoscan results
 				
 		IBOutlet	NSMenuItem					*importhdhrcontrol;				// The menu item associated with importing HDHomeRunControl ChannelMaps
 		IBOutlet	NSMenuItem					*exporthdhrcontrol;				// The menu item associated with exporting HDHomeRunControl ChannelMaps
@@ -44,12 +47,15 @@
 		
 		IBOutlet	NSProgressIndicator			*progress_indicator;			// The progress indicator on the main window
 		IBOutlet	NSProgressIndicator			*upgrade_progress_indicator;	// The progress indicator on the upgrade window
+		IBOutlet	NSProgressIndicator			*autoscan_total_level;			// The progress on scanning a given tuner
 		
 		IBOutlet	NSArrayController			*_tunercontroller;				// The array controller which manages the tuners
 		IBOutlet	NSArrayController			*_channelcontroller;			// The array controller which manages the channels
+		IBOutlet	NSArrayController			*_autoscancontroller;			// The array controller which manages the results from the autoscan
 		
 		IBOutlet	NSTableView					*_tunerview;					// The tableview that displays available tuners
 		IBOutlet	NSTableView					*_channelview;					// The tableview that displays available channels
+		IBOutlet	NSTableView					*_autoscanview;					// The tableview that displays channels discovered by the autoscan feature
 		
 					BOOL						fullscreen;						// The value that specifies whether VLC should be launched in fullscreen
 					BOOL						autoupdate;						// The value that specifies if tuners should be autoupdated.
@@ -90,6 +96,11 @@
 
 -(void)tunerWillChangeChannel:(NSNotification *)notification;
 
--(IBAction)autoscan:(id)sender;
+-(IBAction)scanChannels:(id)sender;
+-(void)autoscanDidFinish:(NSNotification *)notification;
+
+-(void)setAutoscan:(NSArray *)newArray;
+-(NSArray *)autoscan;
+
 - (IBAction)doneConfiguring:(id)sender;
 @end

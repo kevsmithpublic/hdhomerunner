@@ -23,7 +23,7 @@
 
 #import "GBController.h"
 
-#define HDHOMERUN_VERSION @"20070815"
+#define HDHOMERUN_VERSION @"20070830"
 
 @implementation GBController
 -(id)init{
@@ -31,6 +31,8 @@
 		
 		tuners = [[NSMutableArray alloc] initWithCapacity:0];
 		channels = [[NSMutableArray alloc] initWithCapacity:0];
+		autoscan = [[NSMutableArray alloc] initWithCapacity:0];
+		threads = [[NSMutableArray alloc] initWithCapacity:0];
 		
 		fullscreen = [[NSUserDefaults standardUserDefaults] boolForKey:@"fullscreen"];
 		autoupdate = [[NSUserDefaults standardUserDefaults] boolForKey:@"autoupdate"];
@@ -270,14 +272,14 @@
 }
 
 -(void)setLineuplocation:(NSNumber *)newLocation{
-	if(![newLocation isEqualToString:lineuplocation]){
+	/*if(![newLocation isEqualToString:lineuplocation]){
 		[self willChangeValueForKey:@"lineuplocation"];
 	
 		[newLocation autorelease];
 		lineuplocation = [newLocation copy];
 	
 		[self didChangeValueForKey:@"lineuplocation"];
-	}
+	}*/
 }
 -(IBAction)importChannels:(id)sender{
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
@@ -454,14 +456,138 @@
 	[[[_tunercontroller selectedObjects] objectAtIndex:0] playChannel];
 }
 
--(IBAction)autoscan:(id)sender{
-	 [NSApp beginSheet:_autoscanSheet modalForWindow:_mainWindow
+-(IBAction)scanChannels:(id)sender{
+	//NSLog(@"running autoscan sheet");
+		
+	[NSApp beginSheet:_autoscanSheet modalForWindow:_mainWindow
         modalDelegate:self didEndSelector:NULL contextInfo:nil];
+	
+	NSEnumerator *enumerator = [tuners objectEnumerator];
+	
+	GBTuner *object;
+	int count = 0;
+	
+	[autoscan_total_level setIndeterminate:YES];
+    [autoscan_total_level startAnimation:self];
+	
+	while(object = [enumerator nextObject]){
+		count += [object numberOfChannelsToScan];
+	}
+	
+	[autoscan_total_level stopAnimation:self];
+	[autoscan_total_level setIndeterminate:NO];
+	
+	//NSLog(@"total number of channels to scan = %i", count);
+	[autoscan_total_level setMaxValue:(double)count];
+	[autoscan_total_level setDoubleValue:0.00];
+	
+	enumerator = [tuners objectEnumerator];
+
+    // Prep things we'll need in the other thread.
+    // Any GUI components should be accessed this way.
+    NSMutableDictionary *thingsIllNeed = [NSMutableDictionary dictionary];
+    [thingsIllNeed setObject:autoscan_total_level forKey:@"progress"];
+    [thingsIllNeed setObject:[NSMutableArray arrayWithCapacity:0] forKey:@"data"];
+	//[thingsIllNeed setObject:[NSMutableDictionary dictionaryWithCapacity:0] forKey:@"data"];
+	//NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; // pool is created
+    
+	
+	while(object = [enumerator nextObject]){
+	
+		ThreadWorker				*_tw;
+		
+		_tw = [[ThreadWorker workOn:object 
+                  withSelector:@selector(startAutoscan:worker:) 
+                  withObject:thingsIllNeed
+                  didEndSelector:@selector(scanDidFinish:)] retain];
+				  
+		[threads addObject:_tw];
+		
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];		
+		[nc addObserver:self selector: @selector(autoscanDidFinish:) name:@"GBTunerAutoscanDidFinish" object:object];
+	}
+	
+	//[pool release];
 }
 
 - (IBAction)doneConfiguring:(id)sender{
+	if([[sender title] isEqualToString:@"OK"]){
+		//NSLog(@"Ok button");
+		NSEnumerator *enumerator = [[_autoscancontroller selectedObjects] objectEnumerator];
+		
+		id object;
+		
+		while(object = [enumerator nextObject]){
+			[self addChannel:object];
+		}
+		
+	} else {
+		//NSLog(@"cancelling..");
+		
+		NSEnumerator *enumerator = [threads objectEnumerator];
+	
+		ThreadWorker *aThread;
+		
+		while(aThread = [enumerator nextObject]){
+			if( aThread ){
+				[aThread markAsCancelled];
+			}
+		}
+	}
+	
     [_autoscanSheet orderOut:nil];
     [NSApp endSheet:_autoscanSheet];
+}
+
+-(void)autoscanDidFinish:(NSNotification *)notification{
+	//NSLog(@"autoscandidfinish result = %@", [notification userInfo]);
+	NSArray *tmp = [[notification userInfo] objectForKey:@"data"];
+	NSMutableArray *tmp1 = [[NSMutableArray alloc] initWithCapacity:0];
+	NSEnumerator *enumerator = [tmp objectEnumerator];
+	
+	id object;
+	
+	while(object = [enumerator nextObject]){
+		[tmp1 addObject:[[GBChannel alloc] initWithDictionary:object]];
+	}
+	
+	
+	NSEnumerator *enumerator1 = [channels objectEnumerator];
+	
+	id chan_object;
+	//NSLog(@"tmp before trimming = %@", tmp);
+	
+	while(chan_object = [enumerator1 nextObject]){
+		NSEnumerator *enumerator2 = [tmp1 objectEnumerator];
+		id auto_object;
+		
+		while(auto_object = [enumerator2 nextObject]){
+			if([chan_object isEqual:auto_object]){
+				[tmp1 removeObject:auto_object];
+			}
+		}
+	}
+	
+	//NSLog(@"tmp1 after trimming = %@", tmp1);
+	[self setAutoscan:tmp1];
+
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc removeObserver:self name:@"GBTunerAutoscanDidFinish" object:[notification object]];
+}
+
+-(void)setAutoscan:(NSArray *)newArray{
+	if(newArray && ![autoscan isEqual:newArray]){
+		[self willChangeValueForKey:@"autoscan"];
+	
+		[autoscan removeAllObjects];
+		[autoscan addObjectsFromArray:newArray];
+	
+		[self didChangeValueForKey:@"autoscan"];
+	}
+}
+
+-(NSArray *)autoscan{
+	return autoscan;
 }
 
 -(void)applicationWillTerminate:(NSNotification *)notification{

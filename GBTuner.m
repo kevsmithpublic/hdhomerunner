@@ -22,6 +22,7 @@
 //
 
 #import "GBTuner.h"
+
 #define HDHOMERUN_DEVICE_IP_WILDCARD 0x00000000
 #define UPDATE_TIMER_INTERVAL 1
 
@@ -230,8 +231,133 @@
 	}
 }
 
--(NSArray *)autoscan{
-	//extern int hdhomerun_device_set_lineup_location(struct hdhomerun_device_t *hd, const char *location);
+- (id)startAutoscan:(id)someData worker:(ThreadWorker *)tw{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; // pool is created
+	
+	NSDictionary        *thingsIllNeed;
+    NSProgressIndicator *progress;
+	NSMutableArray		*data;
+	int count = 0;
+	int _channel = 0;
+
+	// Get stuff I'll need to talk to on the other thread.
+    thingsIllNeed	= (NSDictionary *)someData;
+    progress		= (NSProgressIndicator *)[thingsIllNeed objectForKey:@"progress"];
+	data			= (NSMutableArray *)[thingsIllNeed objectForKey:@"data"];
+	//data			= (NSMutableDictionary *)[thingsIllNeed objectForKey:@"data"];
+
+	channelscan_execute_all(hdhr, HDHOMERUN_CHANNELSCAN_MODE_SCAN, &autoscancallback, &count, &_channel, progress, data, tw);
+	
+	[pool release];
+	//return userInfo; // Will be passed to didEndSelector
+	return someData;
+}
+
+-(int)numberOfChannelsToScan{
+	int count = 0;
+	int _channel = 0;
+	channelscan_execute_all(hdhr, HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST, &autoscancallback, &count, &_channel, nil, nil, nil); 
+	
+	return count;
+}
+
+-(void)scanDidFinish:(id)userInfo{
+	/*NSDictionary        *thingsIllNeed;
+    NSProgressIndicator *progress;
+
+	// Get stuff I'll need to talk to on the other thread.
+    thingsIllNeed  = (NSDictionary *)userInfo;
+    progress       = (NSProgressIndicator *)[thingsIllNeed objectForKey:@"progress"];
+
+	NSLog(@"autoscan did finish");
+	[progress incrementBy:1.0];*/
+	
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc postNotificationName:@"GBTunerAutoscanDidFinish" object:self userInfo:userInfo];
+}
+
+int autoscancallback(va_list ap, const char *type, const char *str){
+		int *tmp;
+		int *chan;
+		NSProgressIndicator *progress;
+		//NSMutableDictionary *data;
+		NSMutableArray *data;
+		ThreadWorker	*tw;
+		
+		tmp = va_arg(ap, int *);
+		chan = va_arg(ap, int *);
+		progress = va_arg(ap, NSProgressIndicator *);
+		data = va_arg(ap, NSMutableArray *);
+		//data = va_arg(ap, NSMutableDictionary *);
+		tw = va_arg(ap, ThreadWorker *);
+
+		//NSLog(@"chan = %i mem = %i", (*chan), chan);
+	
+	if(strcmp(type, "SCANNING") == 0){
+		//NSLog(@"type: %s", type);
+		//NSLog(@"string: %s", str);
+		
+		(*tmp)++;
+		
+		char *first_index = strrchr(str, ':');
+		char *last_index = strrchr(str,')');
+		//NSLog(@"first = %i", first_index-str);
+		//NSLog(@"last = %i", last_index-str);
+				
+		int i = first_index-str;
+		int j = last_index-str;
+		//NSLog(@"i = %i", i);
+		//NSLog(@"j = %i", j);
+		
+		NSString *ns_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(i+1, j-i-1)];
+		//NSLog(@"ns_str = %i", [ns_str intValue]);
+		
+		(*chan) = [ns_str intValue];
+		
+		[progress incrementBy:1.0];
+		[progress displayIfNeeded];
+	}
+	/*if(strcmp(type, "LOCK") == 0){
+		NSLog(@"type: %s", type);
+		NSLog(@"string: %s", str);
+	}*/
+	if(strcmp(type, "PROGRAM") == 0){
+		//NSLog(@"type: %s", type);
+		//NSLog(@"string: %s", str);
+		
+		char *first_index = strrchr(str, '.');
+		
+		int i = first_index-str;
+		int j = strcspn(str,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		//NSLog(@"i = %i", i);
+		//NSLog(@"j = %i", j);
+		
+		if((first_index != NULL) && (j>0)){//(last_index != NULL)){
+			NSString *ns_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(0, i-1)];
+			NSString *desc_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(j, strlen(str) - j)];
+		
+			NSMutableDictionary *properties;
+			properties = [[NSMutableDictionary alloc] initWithCapacity:0];
+		
+			[properties setValue:desc_str forKey:@"description"];
+			[properties setObject:[[NSNumber alloc] initWithInt:(*chan)] forKey:@"channel"];
+			[properties setObject:[[NSNumber alloc] initWithInt:[ns_str intValue]] forKey:@"program"];
+		
+			//NSLog(@"properties = %@", properties);
+			
+			//GBChannel *newChannel = [[GBChannel alloc] initWithDictionary:properties];
+			[data addObject:properties];
+			//[data addObject:newChannel];
+		}
+	}
+
+	BOOL result = 1;
+	
+	if([tw cancelled]){
+		result = 0;
+	}
+	
+	return result;
 }
 
 -(NSString *)lineuplocation{
@@ -293,7 +419,7 @@
 	char ip_cstr[64];
 	strcpy(ip_cstr, [ip_str UTF8String]);
 	//NSLog(@"ip = %s", ip_cstr);
-	
+	NSLog(@"channel = %@", [[[channel properties] objectForKey:@"channel"] stringValue]);
 	while(	(!(hdhomerun_device_set_tuner_channel(hdhr, [[[[channel properties] objectForKey:@"channel"] stringValue] UTF8String]) > 0) ||
 			!(hdhomerun_device_set_tuner_program(hdhr, [[[[channel properties] objectForKey:@"program"] stringValue] UTF8String]) > 0) ||
 			!(hdhomerun_device_set_tuner_target(hdhr, ip_cstr) > 0)) &&
