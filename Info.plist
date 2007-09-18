@@ -19,12 +19,12 @@
 	<key>CFBundleSignature</key>
 	<string>iGJB</string>
 	<key>CFBundleVersion</key>
-	<string>0.70</string>
+	<string>0.71</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
-	<string>http://www.barchard.net/appcast/hdhomerunner.xml</string>
+	<string>http://feeds.feedburner.com/Hdhomerunner</string>
 </dict>
 </plist>
