@@ -13,8 +13,8 @@
 		B02C33F10C8A556100809D08 /* General Preferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B02C33F00C8A556100809D08 /* General Preferences.tiff */; };
 		B02C33FB0C8A568900809D08 /* Users.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B02C33FA0C8A568900809D08 /* Users.tiff */; };
 		B02C33FD0C8A56A600809D08 /* reload.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B02C33FC0C8A56A600809D08 /* reload.tiff */; };
+		B03AAA710CA33678005A4E84 /* hdhomerun_firmware_20070914.bin in Resources */ = {isa = PBXBuildFile; fileRef = B03AAA700CA33678005A4E84 /* hdhomerun_firmware_20070914.bin */; };
 		B0545BCF0C820B6F00978980 /* tv.icns in Resources */ = {isa = PBXBuildFile; fileRef = B0545BCE0C820B6F00978980 /* tv.icns */; };
-		B0551D900C97957E00A4965E /* hdhomerun_firmware_20070830.bin in Resources */ = {isa = PBXBuildFile; fileRef = B0551D8F0C97957E00A4965E /* hdhomerun_firmware_20070830.bin */; };
 		B076B7C80C5AA65800174C3B /* GBChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = B076B7C40C5AA65800174C3B /* GBChannel.m */; };
 		B076B7C90C5AA65800174C3B /* GBTuner.m in Sources */ = {isa = PBXBuildFile; fileRef = B076B7C70C5AA65800174C3B /* GBTuner.m */; };
 		B076B7D10C5AA66500174C3B /* GBPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = B076B7CE0C5AA66500174C3B /* GBPreferenceController.m */; };
@@ -102,8 +102,8 @@
 		B02C33F00C8A556100809D08 /* General Preferences.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "General Preferences.tiff"; sourceTree = "<group>"; };
 		B02C33FA0C8A568900809D08 /* Users.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Users.tiff; sourceTree = "<group>"; };
 		B02C33FC0C8A56A600809D08 /* reload.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = reload.tiff; sourceTree = "<group>"; };
+		B03AAA700CA33678005A4E84 /* hdhomerun_firmware_20070914.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = hdhomerun_firmware_20070914.bin; sourceTree = "<group>"; };
 		B0545BCE0C820B6F00978980 /* tv.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tv.icns; sourceTree = "<group>"; };
-		B0551D8F0C97957E00A4965E /* hdhomerun_firmware_20070830.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = hdhomerun_firmware_20070830.bin; sourceTree = "<group>"; };
 		B076B7C30C5AA65800174C3B /* GBChannel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GBChannel.h; sourceTree = "<group>"; };
 		B076B7C40C5AA65800174C3B /* GBChannel.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GBChannel.m; sourceTree = "<group>"; };
 		B076B7C60C5AA65800174C3B /* GBTuner.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GBTuner.h; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B0551D8F0C97957E00A4965E /* hdhomerun_firmware_20070830.bin */,
+				B03AAA700CA33678005A4E84 /* hdhomerun_firmware_20070914.bin */,
 				B02C33FC0C8A56A600809D08 /* reload.tiff */,
 				B02C33FA0C8A568900809D08 /* Users.tiff */,
 				B02C33F00C8A556100809D08 /* General Preferences.tiff */,
@@ -417,7 +417,7 @@
 				B02C33F10C8A556100809D08 /* General Preferences.tiff in Resources */,
 				B02C33FB0C8A568900809D08 /* Users.tiff in Resources */,
 				B02C33FD0C8A56A600809D08 /* reload.tiff in Resources */,
-				B0551D900C97957E00A4965E /* hdhomerun_firmware_20070830.bin in Resources */,
+				B03AAA710CA33678005A4E84 /* hdhomerun_firmware_20070914.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
