@@ -86,6 +86,7 @@
 	[nc addObserver:self selector: @selector(tunerWillChangeChannel:) name:@"GBTunerWillChangeChannel" object:nil];
 }
 
+
 -(NSArray *)findDevices{
 	// Set the result list to size 128 to hold up to 128 autodiscovered devices.
 	struct hdhomerun_discover_device_t result_list[128];

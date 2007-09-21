@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Classes</key>
+	<dict>
+		<key>GBChannel</key>
+		<dict>
+			<key>Description</key>
+			<string>A channel object</string>
+			<key>Name</key>
+			<string>channel</string>
+			<key>PluralName</key>
+			<string>channels</string>
+		</dict>
+		<key>GBTuner</key>
+		<dict>
+			<key>Description</key>
+			<string>A tuner object</string>
+			<key>Name</key>
+			<string>tuner</string>
+			<key>PluralName</key>
+			<string>tuners</string>
+		</dict>
+	</dict>
+	<key>Commands</key>
+	<dict>
+		<key>nextchannel</key>
+		<dict>
+			<key>Description</key>
+			<string>Change the channel to the next channel.</string>
+			<key>Name</key>
+			<string>nextchannel</string>
+		</dict>
+		<key>previouschannel</key>
+		<dict>
+			<key>Description</key>
+			<string>Change the channel to the previous channel.</string>
+			<key>Name</key>
+			<string>previouschannel</string>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>Applescript Dictionary for hdhomerunner</string>
+	<key>Name</key>
+	<string>hdhomerunner</string>
+</dict>
+</plist>

@@ -1,6 +1,7 @@
 {
     IBClasses = (
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = GBApplication; LANGUAGE = ObjC; SUPERCLASS = NSApplication; }, 
         {
             CLASS = GBArrayController; 
             LANGUAGE = ObjC; 
