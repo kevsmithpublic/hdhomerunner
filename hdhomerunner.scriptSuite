@@ -6,17 +6,10 @@
 	<string>HDHR</string>
 	<key>Classes</key>
 	<dict>
-		<key>GBChannel</key>
+		<key>GBApplication</key>
 		<dict>
 			<key>AppleEventCode</key>
-			<string>chan</string>
-			<key>Superclass</key>
-			<string>NSCoreSuite.AbstractObject</string>
-		</dict>
-		<key>GBTuner</key>
-		<dict>
-			<key>AppleEventCode</key>
-			<string>tune</string>
+			<string>gapp</string>
 			<key>Superclass</key>
 			<string>NSCoreSuite.AbstractObject</string>
 		</dict>
@@ -28,26 +21,9 @@
 			<key>AppleEventClassCode</key>
 			<string>HDHR</string>
 			<key>AppleEventCode</key>
-			<string>tune</string>
+			<string>next</string>
 			<key>CommandClass</key>
 			<string>NSScriptCommand</string>
-			<key>ResultAppleEventCode</key>
-			<string>tune</string>
-			<key>Type</key>
-			<string>GBTuner</string>
-		</dict>
-		<key>previouschannel</key>
-		<dict>
-			<key>AppleEventClassCode</key>
-			<string>HDHR</string>
-			<key>AppleEventCode</key>
-			<string>tune</string>
-			<key>CommandClass</key>
-			<string>NSScriptCommand</string>
-			<key>ResultAppleEventCode</key>
-			<string>tune</string>
-			<key>Type</key>
-			<string>GBTuner</string>
 		</dict>
 	</dict>
 	<key>Name</key>

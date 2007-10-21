@@ -23,7 +23,7 @@
 
 #import "GBController.h"
 
-#define HDHOMERUN_VERSION @"20070914"
+#define HDHOMERUN_VERSION @"20071015"
 
 @implementation GBController
 -(id)init{
