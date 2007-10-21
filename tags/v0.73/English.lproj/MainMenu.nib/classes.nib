@@ -1,0 +1,66 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = GBApplication; LANGUAGE = ObjC; SUPERCLASS = NSApplication; }, 
+        {
+            CLASS = GBArrayController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {tableView = NSTableView; }; 
+            SUPERCLASS = NSArrayController; 
+        }, 
+        {
+            ACTIONS = {
+                discover = id; 
+                doneConfiguring = id; 
+                exportChannels = id; 
+                importChannels = id; 
+                playChannel = id; 
+                scanChannels = id; 
+            }; 
+            CLASS = GBController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_autoscanSheet" = NSWindow; 
+                "_autoscancontroller" = NSArrayController; 
+                "_autoscanview" = NSTableView; 
+                "_channelcontroller" = NSArrayController; 
+                "_channelview" = NSTableView; 
+                "_mainWindow" = NSWindow; 
+                "_tunercontroller" = NSArrayController; 
+                "_tunerview" = NSTableView; 
+                "_upgradeWindow" = NSWindow; 
+                "autoscan_total_level" = NSProgressIndicator; 
+                exporthdhrcontrol = NSMenuItem; 
+                exportxml = NSMenuItem; 
+                importhdhrcontrol = NSMenuItem; 
+                importxml = NSMenuItem; 
+                "progress_indicator" = NSProgressIndicator; 
+                "upgrade_progress_indicator" = NSProgressIndicator; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {goTo = id; }; 
+            CLASS = GBPreferenceController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_donatelink" = NSButton; 
+                "_donateview" = NSView; 
+                "_generalview" = NSView; 
+                "_updateview" = NSView; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = GBTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
+        {CLASS = GBTuner; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = HUDWindow; LANGUAGE = ObjC; SUPERCLASS = NSPanel; }, 
+        {CLASS = NSLevelIndicator; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            ACTIONS = {checkForUpdates = id; }; 
+            CLASS = SUUpdater; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
