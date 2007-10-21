@@ -197,7 +197,7 @@
 		[self didChangeValueForKey:@"seq"];
 		
 		[self willChangeValueForKey:@"bitrate"];
-		[properties setValue:[NSString stringWithFormat:@"%f", (hdhr_status.raw_bits_per_second/1000000.0)] forKey:@"bitrate"];
+		[properties setValue:[NSString stringWithFormat:@"%f", (hdhr_status.raw_bits_per_second/10000000.0)] forKey:@"bitrate"];
 		[self didChangeValueForKey:@"bitrate"];
 		
 		[self willChangeValueForKey:@"lock"];
