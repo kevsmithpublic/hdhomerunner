@@ -23,7 +23,7 @@
 
 #import "GBController.h"
 
-#define HDHOMERUN_VERSION @"20071015"
+#define HDHOMERUN_VERSION @"20071120"
 
 @implementation GBController
 -(id)init{
@@ -95,8 +95,9 @@
 	NSMutableArray *tmp = [[NSMutableArray alloc] init];
 	
 	// Query the network for devices. Return the number of devices into count and populate the devices into the result list.
-	//int count = hdhomerun_discover_find_devices_custom(IP_WILD_CARD, HDHOMERUN_DEVICE_TYPE_TUNER, HDHOMERUN_DEVICE_ID_WILDCARD, result_list, 128);
-	int count = hdhomerun_discover_find_devices(HDHOMERUN_DEVICE_TYPE_TUNER, result_list, 128);
+	uint32_t IP_WILD_CARD = 0xFFFFFFFF;
+	int count = hdhomerun_discover_find_devices_custom(IP_WILD_CARD, HDHOMERUN_DEVICE_TYPE_TUNER, HDHOMERUN_DEVICE_ID_WILDCARD, result_list, 128);
+	//int count = hdhomerun_discover_find_devices(HDHOMERUN_DEVICE_TYPE_TUNER, result_list, 128);
 	
 	// Print the number of devices found.
 	NSLog(@"found %d devices", count);
@@ -180,8 +181,17 @@
 					// Start the progress indicator
 					[upgrade_progress_indicator startAnimation:nil];
 
-					
-					NSLog(@"resut %i", [obj upgrade:firmware]);
+					// If the upgrade is successful wait 30 secons for the hdhomerun to reboot.
+					// This is better than before when control was returned to the user before the hdhomerun had some time to come back online.
+					if([obj upgrade:firmware]){
+						[upgrade_status_field setStringValue:@"Upgrade Complete! Please wait while your hdhomerun restarts."];
+									
+					// Upgrade fails. No way to check at the moment why..
+					} else {
+						[upgrade_status_field setStringValue:@"Upgrade Failed! Please wait while your hdhomerun restarts."];
+					}
+					// Sleep for 30 seconds
+					usleep(30);
 					
 					// Stop the progress indicator
 					[upgrade_progress_indicator stopAnimation:nil];
