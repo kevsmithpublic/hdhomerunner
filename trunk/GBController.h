@@ -47,6 +47,7 @@
 		
 		IBOutlet	NSProgressIndicator			*progress_indicator;			// The progress indicator on the main window
 		IBOutlet	NSProgressIndicator			*upgrade_progress_indicator;	// The progress indicator on the upgrade window
+		IBOutlet	NSTextField					*upgrade_status_field;			// The upgrade status field on the upgrade window
 		IBOutlet	NSProgressIndicator			*autoscan_total_level;			// The progress on scanning a given tuner
 		
 		IBOutlet	NSArrayController			*_tunercontroller;				// The array controller which manages the tuners
