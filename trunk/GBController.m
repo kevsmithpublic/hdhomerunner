@@ -95,7 +95,7 @@
 	NSMutableArray *tmp = [[NSMutableArray alloc] init];
 	
 	// Query the network for devices. Return the number of devices into count and populate the devices into the result list.
-	uint32_t IP_WILD_CARD = 0xFFFFFFFF;
+	uint32_t IP_WILD_CARD = 0;
 	int count = hdhomerun_discover_find_devices_custom(IP_WILD_CARD, HDHOMERUN_DEVICE_TYPE_TUNER, HDHOMERUN_DEVICE_ID_WILDCARD, result_list, 128);
 	//int count = hdhomerun_discover_find_devices(HDHOMERUN_DEVICE_TYPE_TUNER, result_list, 128);
 	
@@ -190,8 +190,8 @@
 					} else {
 						[upgrade_status_field setStringValue:@"Upgrade Failed! Please wait while your hdhomerun restarts."];
 					}
-					// Sleep for 30 seconds
-					usleep(30);
+					// Sleep for 15 seconds
+					usleep(15000);
 					
 					// Stop the progress indicator
 					[upgrade_progress_indicator stopAnimation:nil];

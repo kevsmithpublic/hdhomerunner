@@ -25,6 +25,7 @@
 #import <Carbon/Carbon.h>
 #import "hdhomerun.h"
 #import "ThreadWorker.h"
+#import "DIController.h"
 
 #import "GBPreferenceController.h";
 #import "GBTuner.h";
