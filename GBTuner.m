@@ -229,6 +229,11 @@
 			[self didChangeValueForKey:@"address"];
 		}
 	}
+	
+	// If the tuner is playing show the signal strength in the dock icon
+	/*if(hdhr && [status_key isEqual:@"Playing"]){
+		
+	}*/
 }
 
 - (id)startAutoscan:(id)someData worker:(ThreadWorker *)tw{
