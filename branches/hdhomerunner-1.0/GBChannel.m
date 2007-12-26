@@ -1,23 +1,8 @@
-//    This file is part of hdhomerunner.
-
-//    hdhomerunner is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 3 of the License, or
-//    (at your option) any later version.
-
-//    hdhomerunner is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-
-//    You should have received a copy of the GNU General Public License
-//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 //
 //  GBChannel.m
 //  hdhomerunner
 //
-//  Created by Gregory Barchard on 7/22/07.
+//  Created by Gregory Barchard on 12/21/07.
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
@@ -25,155 +10,117 @@
 
 
 @implementation GBChannel
--(id)init{
+
+- (id)init{
 	if(self = [super init]){
 		properties = [[NSMutableDictionary alloc] initWithCapacity:0];
 		
-		[properties setValue:@"New Channel" forKey:@"description"];
-		[properties setObject:[[NSNumber alloc] initWithInt:0] forKey:@"channel"];
-		[properties setObject:[[NSNumber alloc] initWithInt:0] forKey:@"program"];
-		
-		status = [[NSDictionary alloc] initWithObjectsAndKeys:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"offline" ofType:@"tiff"]], @"Offline",
-															[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"idle" ofType:@"tiff"]], @"Idle",
-															[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"playing" ofType:@"tiff"]], @"Playing",
-															[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"recording" ofType:@"tiff"]], @"Recording", nil];
-		
-		status_key = [[NSString alloc] initWithString:@"Offline"];
-		
-		tuners = [[NSMutableArray alloc] initWithCapacity:0];
-		
-		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-		[nc addObserver:self selector: @selector(tunerWillPlayChannel:) name:@"GBTunerWillPlayChannel" object:nil];
-		[nc addObserver:self selector: @selector(tunerWillStopPlayingChannel:) name:@"GBTunerWillStopPlayingChannel" object:nil]; 
 	}
 	
 	return self;
 }
 
--(id)initWithDictionary:(NSDictionary *)newProperties{
-	[self init];
-	
-	[self setProperties:newProperties];
-	
-	return self;
-}
+#pragma mark - Accessor Methods
 
-- (id)copyWithZone:(NSZone *)zone{
-	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[properties valueForKey:@"description"], @"description",
-																	[properties objectForKey:@"channel"], @"channel",
-																	[properties objectForKey:@"program"], @"program", nil];
-
-	GBChannel *copy = [[GBChannel alloc] initWithDictionary:dict];
-	
-	return copy;
-}
-
--(NSDictionary *)properties{
+// Get properties
+- (NSDictionary *)properties{
 	return properties;
 }
 
--(void)setProperties:(NSDictionary *)newProperties{
+// Set properties
+- (void)setProperties:(NSDictionary *)newProperties{
+	// Update the properties and remain key value coding compliant
 	[self willChangeValueForKey:@"properties"];
-	if([newProperties valueForKey:@"description"]){
-		[properties setValue:[newProperties valueForKey:@"description"] forKey:@"description"];
-	}
-	if([newProperties valueForKey:@"channel"]){
-		[properties setValue:[newProperties valueForKey:@"channel"] forKey:@"channel"];
-	}
-	if([newProperties valueForKey:@"program"]){
-		[properties setValue:[newProperties valueForKey:@"program"] forKey:@"program"];
-	}
+	[properties setDictionary:newProperties];
 	[self didChangeValueForKey:@"properties"];
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder{
-	[encoder encodeObject:properties forKey:@"channel"];
+// Get identification number
+- (NSNumber *)identification{
+	return [properties objectForKey:@"identification"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder{
-	[self init];
+// Get the description
+- (NSString *)description{
+	return [properties objectForKey:@"description"];
+}
 
-	if([decoder containsValueForKey:@"channel"]){
-		[self setProperties:[decoder decodeObjectForKey:@"channel"]];
-	}
+// Set the description
+- (void)setDescription:(NSString *)aDescription{
+	// If the new description is not the same as the existing description
+	if([[self description] compare:aDescription] != NSOrderedSame){
 	
-	return self;
-}
-
--(NSImage *)status{
-	return [status objectForKey:status_key];
-}
-
--(void)setStatus:(NSString *)newStatusKey{
-	if(![newStatusKey isEqual:status_key] && [status valueForKey:newStatusKey]){
-		[self willChangeValueForKey:@"status"];
-		[status_key autorelease];
-		status_key = [newStatusKey copy];
-		//NSLog(@"set channel status = %@", status_key);
-		[self didChangeValueForKey:@"status"];
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"description"];
+		[properties setObject:aDescription forKey:@"description"];
+		[self didChangeValueForKey:@"description"];
 	}
 }
 
--(NSArray *)statusKeys{
-	return [status allKeys];
+// Get the channel number
+- (NSNumber *)number{
+	return [properties objectForKey:@"number"];
 }
 
--(void)updateStatus{
-	//NSLog(@"updatestatus count %i", [tuners count]);
-	if([tuners count] > 0){
-		[self setStatus:@"Playing"];
-	} else {
-		[self setStatus:@"Offline"];
+// Set the channel number
+- (void)setNumber:(NSNumber *)aNumber{
+	// If the new number is not the same as the existing number
+	if([[self number] compare:aNumber] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"number"];
+		[properties setObject:aNumber forKey:@"number"];
+		[self didChangeValueForKey:@"number"];
 	}
 }
 
--(void)tunerWillStopPlayingChannel:(NSNotification *)notification{
-	//NSLog(@"channel got the message about stop playing");
-	GBChannel *tmp = [[notification userInfo] 
-						objectForKey:@"channel"];
+// Get the program number
+- (NSNumber *)program{
+	return [properties objectForKey:@"program"];
+}
+
+// Set the program number
+- (void)setProgram:(NSNumber *)aProgram{
+	// If the new number is not the same as the existing number
+	if([[self program] compare:aProgram] != NSOrderedSame){
 	
-	if([self isEqual:tmp] && [tuners containsObject:[notification object]]){
-		
-		NSLog(@"we are stopping this channel %@", [[self properties] valueForKey:@"description"]);
-		[tuners removeObject:[notification object]];
-		[self updateStatus];
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"program"];
+		[properties setObject:aProgram forKey:@"program"];
+		[self didChangeValueForKey:@"program"];
 	}
 }
 
-
--(void)tunerWillPlayChannel:(NSNotification *)notification{
-	//NSLog(@"channel got the message about playing");
-	GBChannel *tmp = [[notification userInfo] 
-						objectForKey:@"channel"];
-						
-	if([self isEqual:tmp]){
-	
-		NSLog(@"we are playing this channel %@", [[self properties] valueForKey:@"description"]);
-		[tuners addObject:[notification object]];
-		[self updateStatus];
+- (NSImage *)icon{
+	return [properties objectForKey:@"icon"];
+}
+- (void)setIcon:(NSImage *)newImage{
+	if(![[self icon] isEqual:newImage]){
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"icon"];
+		[properties setObject:newImage forKey:@"icon"];
+		[self didChangeValueForKey:@"icon"];
 	}
 }
 
--(BOOL)isEqual:(GBChannel *)obj{
-	BOOL result = NO;
-	
-	//if([properties isEqual:[obj properties]]){
-	if([[properties objectForKey:@"channel"] isEqualToNumber:[[obj properties] objectForKey:@"channel"]] && [[properties objectForKey:@"program"] isEqualToNumber:[[obj properties] objectForKey:@"program"]]){
-		
-		result = YES;
-	}
-	
-	return result;
+- (NSURL *)url{
+	return [properties objectForKey:@"url"];
 }
 
--(void)dealloc{
-	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
+- (void)setURL:(NSURL *)newURL{
+	if(![[[self url] absoluteString] isEqualToString:[newURL absoluteString]]){
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"url"];
+		[properties setObject:newURL forKey:@"url"];
+		[self didChangeValueForKey:@"url"];
+	}
+}
+
+#pragma mark - Clean up
+
+- (void)dealloc{
 	[properties release];
-	[status release];
-	[tuners release];
-	[status_key release];
-	
+
 	[super dealloc];
 }
 @end

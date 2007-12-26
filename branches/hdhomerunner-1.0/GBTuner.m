@@ -12,464 +12,582 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 //
 //  GBTuner.m
 //  hdhomerunner
 //
-//  Created by Gregory Barchard on 7/14/07.
+//  Created by Gregory Barchard on 12/7/07.
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
 #import "GBTuner.h"
 
-#define HDHOMERUN_DEVICE_IP_WILDCARD 0x00000000
-#define UPDATE_TIMER_INTERVAL 1
+#define	MAX_TUNER_NUMBER				1
+#define DEFAULT_UPDATE_TIMER_INTERVAL	1
 
 @implementation GBTuner
--(id)init{
+- (id)init{
 	if(self = [super init]){
 		NSLog(@"init tuner");
 		properties = [[NSMutableDictionary alloc] initWithCapacity:0];
 		
-		[properties setValue:@"New Tuner" forKey:@"description"];
-		[properties setValue:@"none" forKey:@"address"];
-		[properties setValue:@"none" forKey:@"identification"];
-		[properties setValue:@"-" forKey:@"version"];
-		[properties setValue:@"none" forKey:@"lock"];
-		[properties setValue:@"none" forKey:@"target"];
-		[properties setValue:@"0" forKey:@"number"];
-		//[properties setValue:@"90210" forKey:@"lineuplocation"];
-		[properties setObject:[NSNumber numberWithInt:0] forKey:@"strength"];
-		[properties setObject:[NSNumber numberWithInt:0] forKey:@"snr"];
-		[properties setObject:[NSNumber numberWithInt:0] forKey:@"seq"];
-		[properties setValue:@"0" forKey:@"bitrate"];
-
-		channel = [[GBChannel alloc] init];
-				
-		status = [[NSDictionary alloc] initWithObjectsAndKeys:[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"offline" ofType:@"tiff"]], @"Offline",
-															[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"idle" ofType:@"tiff"]], @"Idle",
-															[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"playing" ofType:@"tiff"]], @"Playing",
-															[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"recording" ofType:@"tiff"]], @"Recording", nil];
+		NSImage *icon = [NSImage imageNamed:@"Network Utility"];
+		[self setIcon:icon];
 		
-		status_key = [[NSString alloc] initWithString:@"Offline"]; 
-		
-		// The tuner
 		hdhr = nil;
 		
-		updateTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_TIMER_INTERVAL target:self selector:@selector(update:) userInfo:nil repeats:YES];
+		updateTimer = [NSTimer scheduledTimerWithTimeInterval:DEFAULT_UPDATE_TIMER_INTERVAL target:self selector:@selector(update:) userInfo:nil repeats:YES];
 	}
 	
 	return self;
 }
 
--(id)initWithDictionary:(NSDictionary *)newProperties{
-	[self init];
+- (id)initWithDescription:(NSString *)description identification:(NSString *)anID ip:(NSString *)anIP andNumber:(NSNumber *)aNumber{
+	// Call the default init to set up variables
+	if(self = [self init]){
 	
-	if([newProperties count] > 0){
-	
-		[properties removeAllObjects];
-		[properties setDictionary:newProperties];
-		
-		hdhr = [self deviceWithID:[properties valueForKey:@"identification"] andNumber:[properties valueForKey:@"number"]];
 	}
-	
+
 	return self;
 }
 
--(id)initWithIdentification:(unsigned int)dev_id andTuner:(int)tuner{
-		[self init];
+- (id)initWithIdentification:(NSNumber *)dev_id andTuner:(NSNumber *)tuner_number{
+		// Call the default init to set up variables
+		if(self = [self init]){
 		
-		if((tuner != 0) && (tuner != 1)){
-			tuner = 0;
+			// If the tuner_number is not less than the MAX_TUNER_NUMBER + 1 and greater than or equal to 0, then default to tuner_number 0
+			// Doing it this way will allow room to grow. If SiliconDust releases a HDHomeRun with more than 2 tuners the code can easily be 
+			// be updated by changing MAX_TUNER_NUMBER
+			if(!(([tuner_number compare:[NSNumber numberWithInt:(MAX_TUNER_NUMBER + 1)]] == NSOrderedAscending) && 
+				([tuner_number compare:[NSNumber numberWithInt:0]] == (NSOrderedDescending || NSOrderedSame)))){
+			
+				// Set tuner_number to 0
+				tuner_number = [NSNumber numberWithInt:0];
+			}
+		
+			// If the device id (dev_id) is not nil
+			if([dev_id compare:nil] != NSOrderedSame){
+				[self setIdentification:dev_id];
+				[self setDescription:[dev_id stringValue]];
+				[self setNumber:tuner_number];
+			}
 		}
+
 		
-		if((dev_id != nil)){
-			[self willChangeValueForKey:@"properties"];
-			[properties setValue:[NSString stringWithFormat:@"%x", dev_id] forKey:@"identification"];
-			[properties setValue:[NSString stringWithFormat:@"%x", dev_id] forKey:@"description"];
-			[properties setValue:[NSString stringWithFormat:@"%i", tuner] forKey:@"number"];
-			[self didChangeValueForKey:@"properties"];
+		/*if((dev_id != nil)){
+			
 			
 			NSLog(@"creating device with id: %x tuner: %d", dev_id, tuner);
 			hdhr = [self deviceWithID:[properties valueForKey:@"identification"] andNumber:[properties valueForKey:@"number"]];
-		}
+		}*/
 		
 		return self;
 }
 
-- (id)initWithCoder:(NSCoder *)decoder{
-	[self init];
+// Get properties
+- (NSDictionary *)properties{
+	return properties;
+}
 
-	if([decoder containsValueForKey:@"tuner"]){
+// Set properties
+- (void)setProperties:(NSDictionary *)newProperties{
+	// Update the properties and remain key value coding compliant
+	[self willChangeValueForKey:@"properties"];
+	[properties setDictionary:newProperties];
+	[self didChangeValueForKey:@"properties"];
+}
+
+// Get identification number
+- (NSNumber *)identification{
+	return [properties objectForKey:@"identification"];
+}
+
+// Set identification number
+- (void)setIdentification:(NSNumber *)newID{
+	// If the new id is not the same as the existing ID
+	if([[self identification] compare:newID] != NSOrderedSame){
+		
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"identification"];
+		[properties setObject:newID forKey:@"identification"];
+		[self didChangeValueForKey:@"identification"];
+	}
+}
+
+// Get the hdhr device
+- (struct hdhomerun_device_t *)hdhr{
+	return hdhr;//[properties objectForKey:@"hdhr"];
+}
+
+// Set the hdhr device
+- (void)setHdhr:(struct	hdhomerun_device_t *)aHdhr{
+	// If aHdhr is not nil 
+	if(aHdhr){
 	
-		[self initWithDictionary:[decoder decodeObjectForKey:@"tuner"]];
+		// If hdhr already exists we should properly destroy the device instance
+		if([self hdhr]){
+		
+			// Destroy the device (hdhomerun_device.h)
+			hdhomerun_device_destroy([self hdhr]);
+		}
+		
+		// Set the hdhr key to aHdhr and remain key value coding compliant
+		[self willChangeValueForKey:@"hdhr"];
+		hdhr = aHdhr;
+		//[properties setObject:aHdhr forKey:@"hdhr"];
+		[self didChangeValueForKey:@"hdhr"];
+	}
+}
+
+// Get the description
+- (NSString *)description{
+	return [properties objectForKey:@"description"];
+}
+
+// Set the description
+- (void)setDescription:(NSString *)aDescription{
+	// If the new description is not the same as the existing description
+	if([[self description] compare:aDescription] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"description"];
+		[properties setObject:aDescription forKey:@"description"];
+		[self didChangeValueForKey:@"description"];
+	}
+}
+
+// Get the IP address
+- (NSString *)ip{
+	// Temporary variable to hold the return values from the function
+	unsigned int tmp_int;
+	NSString *tmp;
+	
+	// Return the ip of the device (hdhomerun_device.h)
+	if((tmp_int = hdhomerun_device_get_device_ip([self hdhr])) > 0){
+		
+		// Set the return value stored in tmp_int to tmp
+		tmp = [NSString stringWithFormat:@"%u.%u.%u.%u", (tmp_int >> 24) & 0xFF, (tmp_int >> 16) & 0xFF,
+				(tmp_int >> 8) & 0xFF, (tmp_int >> 0) & 0xFF];
+	} else {
+		
+		// Else return what is in the properties (cached) value
+		tmp = [NSString stringWithString:[properties objectForKey:@"ip"]];
+	}
+	
+	return tmp;
+}
+
+// Set the IP address
+- (void)setIp:(NSString *)aIp{
+	// If the new ip is not the same as the existing ip
+	if([[self ip] compare:aIp] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"ip"];
+		[properties setObject:aIp forKey:@"ip"];
+		[self didChangeValueForKey:@"ip"];
+	}
+}
+
+// Get the firmware version number
+- (NSNumber *)firmwareVersion{
+	return [properties objectForKey:@"version"];
+}
+
+// Set the firmware version number
+- (void)setFirmwareVersion:(NSNumber *)newVersion{
+	// If the new version is not the same as the existing version
+	if([[self firmwareVersion] compare:newVersion] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"version"];
+		[properties setObject:newVersion forKey:@"version"];
+		[self didChangeValueForKey:@"version"];
+	}
+}
+
+// Get the lock
+- (NSString *)lock{
+	return [properties objectForKey:@"lock"];
+}
+
+// Set the lock
+- (void)setLock:(NSString *)aLock{
+	// If the new description is not the same as the existing description
+	if([[self lock] compare:aLock] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"lock"];
+		[properties setObject:aLock forKey:@"lock"];
+		[self didChangeValueForKey:@"lock"];
+	}
+}
+
+// Get the target address
+- (NSString *)target{
+	// Temporary variable to hold the return values from the function
+	char *tmp_str;
+	NSString *tmp;
+	
+	// Return the channel from the device (hdhomerun_device.h)
+	if(hdhomerun_device_get_tuner_target([self hdhr], &tmp_str) > 0){
+		
+		// Set the return value stored in tmp_str to tmp
+		// previously used: [NSString stringWithCString:tmp_str encoding:NSASCIIStringEncoding]
+		tmp = [NSString stringWithCString:tmp_str encoding:NSASCIIStringEncoding];
+		//tmp = [NSString stringWithFormat:@"%u.%u.%u.%u", (tmp_str >> 24) & 0xFF, (tmp_str >> 16) & 0xFF,
+		//		(tmp_str >> 8) & 0xFF, (tmp_str >> 0) & 0xFF];
+	} else {
+		
+		// Else return what is in the properties (cached) value
+		tmp = [NSString stringWithString:[properties objectForKey:@"target"]];
+	}
+	
+	return tmp;
+}
+
+// Set the target address
+- (void)setTarget:(NSString *)aTarget{
+	// If the new target is not the same as the existing target
+	if([[self target] compare:aTarget] != NSOrderedSame){
+	
+		// Copy the target into a C-String. This works better and gets rid of a compiler warning
+		char ip_cstr[64];
+		strcpy(ip_cstr, [aTarget UTF8String]);
+	
+		// If the device accepts the set target request (response > 0)
+		if(hdhomerun_device_set_tuner_target([self hdhr], ip_cstr) > 0){
+		
+			// Update the properties to reflect the change and remain key value coding compliant
+			[self willChangeValueForKey:@"target"];
+			[properties setObject:aTarget forKey:@"target"];
+			[self didChangeValueForKey:@"target"];
+		}
+	}
+}
+
+// Get the tuner number
+- (NSNumber *)number{
+	return [properties objectForKey:@"number"];
+}
+
+// Set the tuner number
+- (void)setNumber:(NSNumber *)aNumber{
+	// If the new number is not the same as the existing number
+	if([[self number] compare:aNumber] != NSOrderedSame){
+	
+		// If the tuner number is between 0 and the MAX_TUNER_NUMBER + 1
+		if((([aNumber compare:[NSNumber numberWithInt:(MAX_TUNER_NUMBER + 1)]] == NSOrderedAscending) && 
+			([aNumber compare:[NSNumber numberWithInt:0]] == (NSOrderedDescending || NSOrderedSame)))){
+			
+			// Update the properties to reflect the change and remain key value coding compliant
+			[self willChangeValueForKey:@"number"];
+			[properties setObject:aNumber forKey:@"number"];
+			[self didChangeValueForKey:@"number"];
+		}
+	}
+}
+
+// Get the signal strength
+- (NSNumber *)signalStrength{
+	return [properties objectForKey:@"strength"];
+}
+
+// Set the firmware version number
+- (void)setSignalStrength:(NSNumber *)newStrength{
+	// If the new strength is not the same as the existing strength
+	if([[self signalStrength] compare:newStrength] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"strength"];
+		[properties setObject:newStrength forKey:@"strength"];
+		[self didChangeValueForKey:@"strength"];
+	}
+}
+
+// Get the signal to noise ratio
+- (NSNumber *)signalToNoiseRatio{
+	return [properties objectForKey:@"snr"];
+}
+
+// Set the firmware version number
+- (void)setSignalToNoiseRatio:(NSNumber *)newSnr{
+	// If the new snr is not the same as the existing snr
+	if([[self signalToNoiseRatio] compare:newSnr] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"snr"];
+		[properties setObject:newSnr forKey:@"snr"];
+		[self didChangeValueForKey:@"snr"];
+	}
+}
+
+// Get the symbol error quality
+- (NSNumber *)symbolErrorQuality{
+	return [properties objectForKey:@"seq"];
+}
+
+// Set the firmware version number
+- (void)setSymbolErrorQuality:(NSNumber *)newSeq{
+	// If the new seq is not the same as the existing seq
+	if([[self symbolErrorQuality] compare:newSeq] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"seq"];
+		[properties setObject:newSeq forKey:@"seq"];
+		[self didChangeValueForKey:@"seq"];
+	}
+}
+
+// Get the bitrate
+- (NSNumber *)bitrate{
+	return [properties objectForKey:@"bitrate"];
+}
+
+// Set the bitrate
+- (void)setBitrate:(NSNumber *)newBitrate{
+	// If the new bitrate is not the same as the existing bitrate
+	if([[self bitrate] compare:newBitrate] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"bitrate"];
+		[properties setObject:newBitrate forKey:@"bitrate"];
+		[self didChangeValueForKey:@"bitrate"];
+	}
+}
+
+// Get the current channel
+-(NSNumber *)channel{
+	// Temporary variable to hold the return values from the function
+	char *tmp_str;
+	NSString *tmp;
+	
+	// Return the channel from the device (hdhomerun_device.h)
+	if(hdhomerun_device_get_tuner_channel([self hdhr], &tmp_str) > 0){
+		
+		// Set the return value stored in tmp_str to tmp
+		// previously used: [NSString stringWithCString:tmp_str encoding:NSASCIIStringEncoding]
+		tmp = [NSString stringWithUTF8String:tmp_str];
+	} else {
+		
+		// Else return what is in the properties (cached) value
+		tmp = [NSString stringWithString:[properties objectForKey:@"channel"]];
+	}
+	
+	return [NSNumber numberWithInt:[tmp intValue]];
+}
+
+// Set the channel
+- (void)setChannel:(NSNumber *)newChannel{
+	// If the new channel is not the same as the existing channel
+	if([[self channel] compare:newChannel] != NSOrderedSame){
+	
+		// Apply the changes to the device (hdhomerun_device.h) 
+		// If the changes were received by the hdhr (response greater than 0),
+		if(hdhomerun_device_set_tuner_channel([self hdhr], [[newChannel stringValue] UTF8String]) > 0){
+		
+			// Update the properties to reflect the change and remain key value coding compliant
+			[self willChangeValueForKey:@"channel"];
+			[properties setObject:newChannel forKey:@"channel"];
+			[self didChangeValueForKey:@"channel"];
+		}
+	}
+}
+
+// Get the program
+- (NSNumber *)program{
+	// Temporary variable to hold the return values from the function
+	char *tmp_str;
+	NSString *tmp;
+	
+	// Return the channel from the device (hdhomerun_device.h)
+	if(hdhomerun_device_get_tuner_program([self hdhr], &tmp_str) > 0){
+		
+		// Set the return value stored in tmp_str to tmp
+		// previously used: [NSString stringWithCString:tmp_str encoding:NSASCIIStringEncoding]
+		tmp = [NSString stringWithUTF8String:tmp_str];
+	} else {
+		
+		// Else return what is in the properties (cached) value
+		tmp = [NSString stringWithString:[properties objectForKey:@"program"]];
+	}
+	
+	return [NSNumber numberWithInt:[tmp intValue]];
+}
+
+// Set the program
+- (void)setProgram:(NSNumber *)aProgram{
+	// If the new program is not the same as the existing channel
+	if([[self program] compare:aProgram] != NSOrderedSame){
+	
+		// Apply the changes to the device (hdhomerun_device.h) 
+		// If the changes were received by the hdhr (response greater than 0),
+		if(hdhomerun_device_set_tuner_channel([self hdhr], [[aProgram stringValue] UTF8String]) > 0){
+		
+			// Update the properties to reflect the change and remain key value coding compliant
+			[self willChangeValueForKey:@"program"];
+			[properties setObject:aProgram forKey:@"program"];
+			[self didChangeValueForKey:@"program"];
+		}
+	}
+}
+
+// Start the update timer
+- (void)startUpdateTimer{
+	// If the timer is not valid
+	if(![updateTimer isValid]){
+	
+		// Fire (start) the timer
+		[updateTimer fire];
+	}
+}
+
+// Stop the update timer
+- (void)stopUpdateTimer{
+	// If the timer is valid
+	if([updateTimer isValid]){
+	
+		// Invalidate (stop) the timer
+		[updateTimer invalidate];
+	}
+}
+
+// Get the update interval (in seconds)
+- (NSTimeInterval)updateInterval{
+	return [updateTimer timeInterval];
+}
+
+// Set the update timer interval
+- (void)setUpdateInterval:(NSTimeInterval)newTime{
+	
+	// If the newTime interval is greater than 0 and not equal to the existing update interval
+	if((newTime > 0) && (newTime != [self updateInterval])){
+	
+		// Set timer_active to YES if updateTimer is currently firing in the runloop
+		bool timer_active = [updateTimer isValid];
+		
+		// If the timer is currently active
+		if(timer_active){
+		
+			// Stop the timer
+			[self stopUpdateTimer];
+		}
+		
+		// Set up the new timer
+		updateTimer = [NSTimer scheduledTimerWithTimeInterval:newTime target:self selector:@selector(update:) userInfo:nil repeats:YES];
+		
+		// If the timer was active
+		if(timer_active){
+		
+			// Restart the timer
+			[self startUpdateTimer];
+		}
+	}
+}
+
+// The update selector is called whenever a timer is fired.
+// We will use this method to update all the properties of the tuner to the current state
+- (void)update:(NSTimer*)theTimer{
+
+}
+
+#pragma mark - GBParent Protocol Methods
+
+- (id)initChild{
+	if(self = [self init]){
+		[self setIsChild:YES];
 	}
 	
 	return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder{
-	[encoder encodeObject:properties forKey:@"tuner"];
+- (BOOL)isChild{
+	return [[properties objectForKey:@"isChild"] boolValue];
 }
 
-
--(struct hdhomerun_device_t	*)deviceWithID:(NSString *)anID andNumber:(NSString *)aNumber{
-	struct hdhomerun_device_t	*val = nil;
-
-	if(![anID isEqualToString:@""] && ([aNumber isEqualToString:@"0"] || [aNumber isEqualToString:@"1"])){//([aNumber isEqualToNumber:[NSNumber numberWithInt:0]] || [aNumber isEqualToNumber:[NSNumber numberWithInt:1]])){
-		NSString *dev_str = [[anID stringByAppendingString:@"-"] stringByAppendingString:aNumber];
+- (void)setIsChild:(BOOL)flag{
+	if(flag != [self isChild]){
 		
-		char tmp[64];
-		strcpy(tmp, [dev_str UTF8String]);
-		//NSLog(@"tmp = %s", tmp);
-		
-		val = hdhomerun_device_create_from_str(tmp);
-	}
-	
-	return val;
-}
-
--(BOOL)upgrade:(NSURL *)newFirmware{
-	BOOL result = NO;
-	
-	if(newFirmware){
-		int tmp;
-		//NSLog(@"trying to upgrade %@", [newFirmware absoluteString]);
-		FILE *upgrade_file = fopen([[newFirmware absoluteString] UTF8String], "rb");
-		tmp = hdhomerun_device_upgrade(hdhr, upgrade_file);
-		
-		if(tmp < 1){
-			result = NO;
-		} else {
-			result = YES;
-		}
-	}
-	
-	return result;
-}
-
--(NSImage *)status{
-	return [status objectForKey:status_key];
-}
-
--(void)setStatus:(NSString *)newStatusKey{
-	if(![newStatusKey isEqual:status_key] && [status valueForKey:newStatusKey]){
-		[self willChangeValueForKey:@"status"];
-		[status_key autorelease];
-		status_key = [newStatusKey copy];
-		[self didChangeValueForKey:@"status"];
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"isChild"];
+		[properties setObject:[NSNumber numberWithBool:flag] forKey:@"isChild"];
+		[self didChangeValueForKey:@"isChild"];
 	}
 }
 
--(NSArray *)statusKeys{
-	return [status allKeys];
+- (NSMutableArray *)children{
+	return nil;
 }
 
--(NSDictionary *)properties{
-	return properties;
+- (void)setChildren:(NSArray *)newContents{
+
 }
 
--(void)setProperties:(NSDictionary *)newProperties{	
-	[self willChangeValueForKey:@"properties"];
-	[properties removeAllObjects];
-	[properties addEntriesFromDictionary:newProperties];
-	[self didChangeValueForKey:@"properties"];
+- (int)numberOfChildren{
+	return 0;
 }
 
--(void)update:(NSTimer*)timer{
-	
-	if( (hdhr != nil) && ![status_key isEqual:@"Offline"]){
-		// The hdhr status struct
-		struct hdhomerun_tuner_status_t hdhr_status;
-		hdhomerun_device_get_tuner_status(hdhr, &hdhr_status);
+- (NSImage *)icon{
+	return [properties objectForKey:@"icon"];
+}
+
+- (void)setIcon:(NSImage *)newImage{
+	// If the new icon is not the same as the existing icon
+	if([[self icon] isEqual:newImage] != NSOrderedSame){
 		
-		[self willChangeValueForKey:@"strength"];
-		[properties setObject:[NSNumber numberWithInt:(hdhr_status.signal_strength/10)] forKey:@"strength"];
-		[self didChangeValueForKey:@"strength"];
-		
-		[self willChangeValueForKey:@"snr"];
-		[properties setObject:[NSNumber numberWithInt:(hdhr_status.signal_to_noise_quality/10)] forKey:@"snr"];
-		[self didChangeValueForKey:@"snr"];
-		
-		[self willChangeValueForKey:@"seq"];
-		[properties setObject:[NSNumber numberWithInt:(hdhr_status.symbol_error_quality/10)] forKey:@"seq"];
-		[self didChangeValueForKey:@"seq"];
-		
-		[self willChangeValueForKey:@"bitrate"];
-		[properties setValue:[NSString stringWithFormat:@"%f", (hdhr_status.raw_bits_per_second/10000000.0)] forKey:@"bitrate"];
-		[self didChangeValueForKey:@"bitrate"];
-		
-		[self willChangeValueForKey:@"lock"];
-		[properties setValue:[NSString stringWithCString:hdhr_status.lock_str encoding:NSASCIIStringEncoding] forKey:@"lock"];
-		[self didChangeValueForKey:@"lock"];
-	}
-	
-	if(hdhr && ![status_key isEqual:@"Offline"]){
-		unsigned int tmp_int;
-		char *tmp_str;
-	
-		int result = 0;
-		result = hdhomerun_device_get_version(hdhr, &tmp_str, &tmp_int);
-	
-		if(result == 1){
-			
-			[self willChangeValueForKey:@"version"];
-			[properties setValue:[NSString stringWithCString:tmp_str encoding:NSASCIIStringEncoding] forKey:@"version"];
-			[self didChangeValueForKey:@"version"];
-		}
-		
-		unsigned int tmp = 0;
-		tmp = hdhomerun_device_get_device_ip(hdhr);
-	
-		if(tmp > 0){
-			[self willChangeValueForKey:@"address"];
-			[properties setValue:[NSString stringWithFormat:@"%u.%u.%u.%u", (tmp >> 24) & 0xFF, (tmp >> 16) & 0xFF,
-				(tmp >> 8) & 0xFF, (tmp >> 0) & 0xFF] forKey:@"address"];
-			[self didChangeValueForKey:@"address"];
-		}
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"icon"];
+		[properties setObject:newImage forKey:@"icon"];
+		[self didChangeValueForKey:@"icon"];
 	}
 }
 
-- (id)startAutoscan:(id)someData worker:(ThreadWorker *)tw{
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; // pool is created
-	
-	NSDictionary        *thingsIllNeed;
-    NSProgressIndicator *progress;
-	NSMutableArray		*data;
-	int count = 0;
-	int _channel = 0;
-
-	// Get stuff I'll need to talk to on the other thread.
-    thingsIllNeed	= (NSDictionary *)someData;
-    progress		= (NSProgressIndicator *)[thingsIllNeed objectForKey:@"progress"];
-	data			= (NSMutableArray *)[thingsIllNeed objectForKey:@"data"];
-	//data			= (NSMutableDictionary *)[thingsIllNeed objectForKey:@"data"];
-
-	channelscan_execute_all(hdhr, HDHOMERUN_CHANNELSCAN_MODE_SCAN, &autoscancallback, &count, &_channel, progress, data, tw);
-	
-	[pool release];
-	//return userInfo; // Will be passed to didEndSelector
-	return someData;
+- (NSString *)title{
+	return [self description];
 }
 
--(int)numberOfChannelsToScan{
-	int count = 0;
-	int _channel = 0;
-	channelscan_execute_all(hdhr, HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST, &autoscancallback, &count, &_channel, nil, nil, nil); 
-	
-	return count;
+- (void)setTitle:(NSString *)newTitle{
+	[self setDescription:newTitle];
 }
 
--(void)scanDidFinish:(id)userInfo{
-	/*NSDictionary        *thingsIllNeed;
-    NSProgressIndicator *progress;
-
-	// Get stuff I'll need to talk to on the other thread.
-    thingsIllNeed  = (NSDictionary *)userInfo;
-    progress       = (NSProgressIndicator *)[thingsIllNeed objectForKey:@"progress"];
-
-	NSLog(@"autoscan did finish");
-	[progress incrementBy:1.0];*/
-	
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc postNotificationName:@"GBTunerAutoscanDidFinish" object:self userInfo:userInfo];
+- (NSComparisonResult)compare:(<GBParent> *)aParent{
+	return NSOrderedSame;
 }
 
-int autoscancallback(va_list ap, const char *type, const char *str){
-		int *tmp;
-		int *chan;
-		NSProgressIndicator *progress;
-		//NSMutableDictionary *data;
-		NSMutableArray *data;
-		ThreadWorker	*tw;
-		
-		tmp = va_arg(ap, int *);
-		chan = va_arg(ap, int *);
-		progress = va_arg(ap, NSProgressIndicator *);
-		data = va_arg(ap, NSMutableArray *);
-		//data = va_arg(ap, NSMutableDictionary *);
-		tw = va_arg(ap, ThreadWorker *);
-
-		//NSLog(@"chan = %i mem = %i", (*chan), chan);
-	
-	if(strcmp(type, "SCANNING") == 0){
-		//NSLog(@"type: %s", type);
-		//NSLog(@"string: %s", str);
-		
-		(*tmp)++;
-		
-		char *first_index = strrchr(str, ':');
-		char *last_index = strrchr(str,')');
-		//NSLog(@"first = %i", first_index-str);
-		//NSLog(@"last = %i", last_index-str);
-				
-		int i = first_index-str;
-		int j = last_index-str;
-		//NSLog(@"i = %i", i);
-		//NSLog(@"j = %i", j);
-		
-		NSString *ns_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(i+1, j-i-1)];
-		//NSLog(@"ns_str = %i", [ns_str intValue]);
-		
-		(*chan) = [ns_str intValue];
-		
-		[progress incrementBy:1.0];
-		[progress displayIfNeeded];
-	}
-	/*if(strcmp(type, "LOCK") == 0){
-		NSLog(@"type: %s", type);
-		NSLog(@"string: %s", str);
-	}*/
-	if(strcmp(type, "PROGRAM") == 0){
-		//NSLog(@"type: %s", type);
-		//NSLog(@"string: %s", str);
-		
-		char *first_index = strrchr(str, '.');
-		
-		int i = first_index-str;
-		int j = strcspn(str,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-		//NSLog(@"i = %i", i);
-		//NSLog(@"j = %i", j);
-		
-		if((first_index != NULL) && (j>0)){//(last_index != NULL)){
-			NSString *ns_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(0, i-1)];
-			NSString *desc_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(j, strlen(str) - j)];
-		
-			NSMutableDictionary *properties;
-			properties = [[NSMutableDictionary alloc] initWithCapacity:0];
-		
-			[properties setValue:desc_str forKey:@"description"];
-			[properties setObject:[[NSNumber alloc] initWithInt:(*chan)] forKey:@"channel"];
-			[properties setObject:[[NSNumber alloc] initWithInt:[ns_str intValue]] forKey:@"program"];
-		
-			//NSLog(@"properties = %@", properties);
-			
-			//GBChannel *newChannel = [[GBChannel alloc] initWithDictionary:properties];
-			[data addObject:properties];
-			//[data addObject:newChannel];
-		}
-	}
-
-	BOOL result = 1;
-	
-	if([tw cancelled]){
-		result = 0;
-	}
-	
-	return result;
+// Return YES if the tuner is equal to the given aParent
+- (BOOL)isEqual:(GBTuner <GBParent> *)aParent{
+	return ([[self description] isEqualToString:[aParent description]] &&
+			[[self title] isEqualToString:[aParent title]] &&
+			[[self identification] isEqualToNumber:[aParent identification]] && 
+			[[self number] isEqualToNumber:[aParent number]]);
 }
 
--(NSString *)lineuplocation{
-	return lineuplocation;
+// Get isExpandable
+- (BOOL)isExpandable{
+	return [[properties objectForKey:@"isExpandable"] boolValue];
 }
 
--(void)setLineuplocation:(NSString *)newLineuplocation{
-	if(![lineuplocation isEqual:newLineuplocation] && [newLineuplocation isEqual:@""]){
-		if(hdhomerun_device_set_lineup_location(hdhr, [newLineuplocation UTF8String]) == 1){
-			[self willChangeValueForKey:@"lineuplocation"];
-			[lineuplocation autorelease];
-			lineuplocation = [newLineuplocation copy];
-			[self didChangeValueForKey:@"lineuplocation"];
-		}
+// Set isExpandable
+- (void)setIsExpandable:(BOOL)newState{
+	if([self isExpandable] != newState){
+		
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"isExpandable"];
+		[properties setObject:[NSNumber numberWithBool:newState] forKey:@"isExpandable"];
+		[self didChangeValueForKey:@"isExpandable"];
 	}
 }
 
--(GBChannel *)channel{
-	// Return the current channel of the tuner
-	return channel;
-}
 
--(void)setChannel:(GBChannel *)newChannel{
-	NSLog(@"channel = %@ newChannel = %@", [[channel properties] valueForKey:@"description"], [[newChannel properties] valueForKey:@"description"]); 
-	if(![channel isEqual:newChannel]){
-		
-		[self willChangeValueForKey:@"channel"];
-		//[channel setStatus:@"Offline"];
-		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-		//NSLog(@"posting stop playing channel notification");
-		[nc postNotificationName:@"GBTunerWillStopPlayingChannel" object:self userInfo:[NSDictionary dictionaryWithObject:channel forKey:@"channel"]];
+// Clean up
+- (void)dealloc{
+	hdhomerun_device_destroy([self hdhr]);
 
-		[channel autorelease];
-		channel = [newChannel copy];//retain];//[newChannel copy];
-		[self didChangeValueForKey:@"channel"];
-		
-		if([status_key isEqual:@"Playing"]){
-			[self playChannel];
-			//NSLog(@"replay");
-		}
-		
-	}
-}
-
--(void)playChannel{
-	
-	int retries;
-	retries = 0;
-	
-	unsigned int ip;
-	ip = hdhomerun_device_get_local_machine_addr(hdhr);
-	
-	NSString *ip_str;
-	ip_str = [NSString stringWithFormat:@"%u.%u.%u.%u:%u", (ip >> 24) & 0xFF, (ip >> 16) & 0xFF,
-			(ip >> 8) & 0xFF, (ip >> 0) & 0xFF, 1234];
-	
-	NSLog(@"ip = %@", ip_str);
-		 
-	char ip_cstr[64];
-	strcpy(ip_cstr, [ip_str UTF8String]);
-	//NSLog(@"ip = %s", ip_cstr);
-	NSLog(@"channel = %@", [[[channel properties] objectForKey:@"channel"] stringValue]);
-	while(	(!(hdhomerun_device_set_tuner_channel(hdhr, [[[[channel properties] objectForKey:@"channel"] stringValue] UTF8String]) > 0) ||
-			!(hdhomerun_device_set_tuner_program(hdhr, [[[[channel properties] objectForKey:@"program"] stringValue] UTF8String]) > 0) ||
-			!(hdhomerun_device_set_tuner_target(hdhr, ip_cstr) > 0)) &&
-			(retries < 5)){
-			
-			retries++;
-	}
-	
-
-	if(retries < 5){
-		[self willChangeValueForKey:@"target"];
-		[properties setValue:ip_str forKey:@"target"];
-		[self didChangeValueForKey:@"target"];
-		
-		[self setStatus:@"Playing"];
-		//[channel setStatus:@"Playing"];
-		
-		//NSLog(@"posting notification GBTunerWillPlayChannel");
-		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-		[nc postNotificationName:@"GBTunerWillPlayChannel" object:self userInfo:[NSDictionary dictionaryWithObject:channel forKey:@"channel"]];
-	}
-
-	//char *tmp;
-	//hdhomerun_device_get_tuner_target(hdhr, &tmp);
-	//NSLog(@"ip is = %s", tmp);
-}
-
--(BOOL)isEqual:(GBTuner *)obj{
-	BOOL result = NO;
-	
-	if(([[properties valueForKey:@"identification"] isEqual:[[obj properties] valueForKey:@"identification"]] &&
-	[[properties valueForKey:@"number"] isEqual:[[obj properties] valueForKey:@"number"]])){
-		
-		result = YES;
-	}
-	
-	return result;
-}
-
--(void)dealloc{
-	[updateTimer invalidate];
-
-	[updateTimer release];
-	
 	[properties release];
-	[channel release];
-
-	hdhomerun_device_destroy(hdhr);
+	
+	[self stopUpdateTimer];
+	[updateTimer release];
 
 	[super dealloc];
 }
-
 @end
