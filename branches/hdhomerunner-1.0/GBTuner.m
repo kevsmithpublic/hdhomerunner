@@ -28,11 +28,13 @@
 @implementation GBTuner
 - (id)init{
 	if(self = [super init]){
-		NSLog(@"init tuner");
+		//NSLog(@"init tuner");
 		properties = [[NSMutableDictionary alloc] initWithCapacity:0];
 		
 		NSImage *icon = [NSImage imageNamed:@"Network Utility"];
 		[self setIcon:icon];
+		
+		[self setIsExpandable:NO];
 		
 		hdhr = nil;
 		

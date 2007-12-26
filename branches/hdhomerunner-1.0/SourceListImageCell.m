@@ -47,6 +47,10 @@
 	
 	/* Now draw our image. */
 	NSImage *img = [self image];
+	
+	// Added 12/25/07 by GB to make other images that aren't natively 16x16 fit into the image cell
+	[img setSize:NSMakeSize(16, 16)];
+	
 	NSSize imgSize = [img size];
 	NSPoint drawPoint = NSMakePoint(cellFrame.origin.x + (floor(cellFrame.size.width / 2) - floor(imgSize.width / 2)), cellFrame.origin.y + cellFrame.size.height);
 	
