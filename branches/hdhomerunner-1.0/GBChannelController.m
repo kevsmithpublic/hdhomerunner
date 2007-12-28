@@ -24,8 +24,10 @@
 
 
 @implementation GBChannelController
-- (id)init{
-	if(self = [super init]){
+
+// Override the designated initializer to make sure that these variables get initialized
+- (id)initWithWindow:(NSWindow *)window{
+	if(self = [super initWithWindow:window]){
 		[self setDescription:@"CHANNELS"];								// Set the description of the collection
 		[self setTitle:@"CHANNELS"];									// Set the title of the collection
 		[self setIsExpandable:YES];										// Set this is an expandable collection
@@ -37,6 +39,43 @@
 	
 	return self;
 }
+
+- (void)awakeFromNib{
+	// This is required when subclassing NSWindowController.
+	[self setWindowFrameAutosaveName:@"Channel Window"];
+	
+}
+
+- (NSView *)view{
+	return mainView;
+}
+
+#pragma mark - WebView delegate
+
+// -------------------------------------------------------------------------------
+//	webView:makeFirstResponder
+//
+//	We want to keep the outline view in focus as the user clicks various URLs.
+//
+//	So this workaround applies to an unwanted side affect to some web pages that might have
+//	JavaScript code thatt focus their text fields as we target the web view with a particular URL.
+//
+// -------------------------------------------------------------------------------
+/*- (void)webView:(WebView *)sender makeFirstResponder:(NSResponder *)responder
+{
+	if (retargetWebView)
+	{
+		// we are targeting the webview ourselves as a result of the user clicking
+		// a url in our outlineview: don't do anything, but reset our target check flag
+		//
+		retargetWebView = NO;
+	}
+	else
+	{
+		// continue the responder chain
+		[[self window] makeFirstResponder:sender];
+	}
+}*/
 
 #pragma mark - Clean up
 

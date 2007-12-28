@@ -23,7 +23,7 @@
 #import <Cocoa/Cocoa.h>
 #import "GBParent.h"
 
-@interface GBController : NSObject <GBParent, NSCoding, NSCopying> {
+@interface GBController : NSWindowController <GBParent, NSCoding, NSCopying> {
 		NSMutableDictionary			*properties;
 }
 - (NSDictionary *)properties;
@@ -40,7 +40,7 @@
 - (NSMutableArray *)children;
 - (void)setChildren:(NSArray *)newContents;
 - (int)numberOfChildren;
-- (void)addChild:(id <GBParent>)aChild;
+- (void)addChildToParent:(id <GBParent>)aChild;
 
 - (NSImage *)icon;
 - (void)setIcon:(NSImage *)newImage;

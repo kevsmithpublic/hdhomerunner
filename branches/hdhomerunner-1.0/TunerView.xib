@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.01">
+	<data>
+		<int key="IBDocument.SystemTarget">1050</int>
+		<string key="IBDocument.SystemVersion">9B18</string>
+		<string key="IBDocument.InterfaceBuilderVersion">629</string>
+		<string key="IBDocument.AppKitVersion">949</string>
+		<string key="IBDocument.HIToolboxVersion">343.00</string>
+		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+		</object>
+		<object class="NSArray" key="IBDocument.PluginDependencies">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<string id="1056111513">com.apple.InterfaceBuilder.CocoaPlugin</string>
+		</object>
+		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSCustomObject" id="1001">
+				<string key="NSClassName">GBTunerController</string>
+			</object>
+			<object class="NSCustomObject" id="1003">
+				<string key="NSClassName">FirstResponder</string>
+			</object>
+			<object class="NSCustomObject" id="1004">
+				<string key="NSClassName">NSApplication</string>
+			</object>
+			<object class="NSWindowTemplate" id="14360101">
+				<int key="NSWindowStyleMask">15</int>
+				<int key="NSWindowBacking">2</int>
+				<string key="NSWindowRect">{{196, 240}, {480, 270}}</string>
+				<int key="NSWTFlags">603979776</int>
+				<string key="NSWindowTitle">Window</string>
+				<string key="NSWindowClass">NSWindow</string>
+				<nil key="NSViewClass"/>
+				<object class="NSView" key="NSWindowView" id="222151790">
+					<nil key="NSNextResponder"/>
+					<int key="NSvFlags">256</int>
+					<string key="NSFrameSize">{480, 270}</string>
+				</object>
+				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+			</object>
+		</object>
+		<object class="IBObjectContainer" key="IBDocument.Objects">
+			<object class="NSMutableArray" key="connectionRecords">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+			</object>
+			<object class="IBMutableOrderedSet" key="objectRecords">
+				<object class="NSArray" key="orderedObjects">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="IBObjectRecord">
+						<int key="objectID">0</int>
+						<object class="NSArray" key="object" id="1002">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
+						<reference key="children" ref="1000"/>
+						<nil key="parent"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">-2</int>
+						<reference key="object" ref="1001"/>
+						<reference key="parent" ref="1002"/>
+						<string type="base64-UTF8" key="objectName">RmlsZSdzIE93bmVyA</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">-1</int>
+						<reference key="object" ref="1003"/>
+						<reference key="parent" ref="1002"/>
+						<string key="objectName">First Responder</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">-3</int>
+						<reference key="object" ref="1004"/>
+						<reference key="parent" ref="1002"/>
+						<string key="objectName">Application</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1</int>
+						<reference key="object" ref="14360101"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="222151790"/>
+						</object>
+						<reference key="parent" ref="1002"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2</int>
+						<reference key="object" ref="222151790"/>
+						<reference key="parent" ref="14360101"/>
+					</object>
+				</object>
+			</object>
+			<object class="NSMutableDictionary" key="flattenedProperties">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="NSMutableArray" key="dict.sortedKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>-1.IBPluginDependency</string>
+					<string>-2.IBPluginDependency</string>
+					<string>-3.IBPluginDependency</string>
+					<string>1.IBPluginDependency</string>
+					<string>1.NSWindowTemplate.visibleAtLaunch</string>
+					<string>2.IBPluginDependency</string>
+				</object>
+				<object class="NSMutableArray" key="dict.values">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<reference ref="1056111513"/>
+					<reference ref="1056111513"/>
+					<reference ref="1056111513"/>
+					<string id="385446464">com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="1"/>
+					<reference ref="385446464"/>
+				</object>
+			</object>
+			<object class="NSMutableDictionary" key="unlocalizedProperties">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="NSArray" key="dict.sortedKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+				</object>
+				<object class="NSMutableArray" key="dict.values">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+				</object>
+			</object>
+			<nil key="activeLocalization"/>
+			<object class="NSMutableDictionary" key="localizations">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="NSArray" key="dict.sortedKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+				</object>
+				<object class="NSMutableArray" key="dict.values">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+				</object>
+			</object>
+			<nil key="sourceID"/>
+			<int key="maxID">2</int>
+		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+			</object>
+		</object>
+		<int key="IBDocument.localizationMode">0</int>
+		<nil key="IBDocument.LastKnownRelativeProjectPath"/>
+		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableData" key="IBDocument.RunnableNib">
+			<bytes key="NS.bytes">YnBsaXN0MDDUAQIDBAUGCQpYJHZlcnNpb25UJHRvcFkkYXJjaGl2ZXJYJG9iamVjdHMSAAGGoNEHCF1J
+Qi5vYmplY3RkYXRhgAFfEA9OU0tleWVkQXJjaGl2ZXKvECoLDDE1Njw9QlZXWFlhYmZnam5xdXt+f4GH
+jpWWl5iZnJ+mra6vU7CztrlVJG51bGzfEBINDg8QERITFBUWFxgZGhscHR4fICEiIyQlJicoKSorLC0u
+LzBWTlNSb290ViRjbGFzc11OU09iamVjdHNLZXlzXxAPTlNDbGFzc2VzVmFsdWVzXxAZTlNBY2Nlc3Np
+YmlsaXR5T2lkc1ZhbHVlc11OU0Nvbm5lY3Rpb25zW05TTmFtZXNLZXlzW05TRnJhbWV3b3JrXU5TQ2xh
+c3Nlc0tleXNaTlNPaWRzS2V5c11OU05hbWVzVmFsdWVzXxAZTlNBY2Nlc3NpYmlsaXR5Q29ubmVjdG9y
+c11OU0ZvbnRNYW5hZ2VyXxAQTlNWaXNpYmxlV2luZG93c18QD05TT2JqZWN0c1ZhbHVlc18QF05TQWNj
+ZXNzaWJpbGl0eU9pZHNLZXlzWU5TTmV4dE9pZFxOU09pZHNWYWx1ZXOAAoApgBOAH4AogBGAGIAFgB6A
+IIAZgCaAAIAGgBeAJxAEgCHSDjIzNFtOU0NsYXNzTmFtZYAEgANfEBFHQlR1bmVyQ29udHJvbGxlctI3
+ODk6WCRjbGFzc2VzWiRjbGFzc25hbWWiOjteTlNDdXN0b21PYmplY3RYTlNPYmplY3RfEBBJQkNvY29h
+RnJhbWV3b3Jr0g4+P0BaTlMub2JqZWN0c4AQoUGAB9pDDkRFRkdISUpLTE1OT1BRUlNUK1xOU1dpbmRv
+d1ZpZXdcTlNTY3JlZW5SZWN0XU5TV2luZG93VGl0bGVZTlNXVEZsYWdzXU5TV2luZG93Q2xhc3NcTlNX
+aW5kb3dSZWN0XxAPTlNXaW5kb3dCYWNraW5nXxARTlNXaW5kb3dTdHlsZU1hc2tbTlNWaWV3Q2xhc3OA
+C4APgA6ACRIkAAAAgAqACBACEA+AAF8QGHt7MTk2LCAyNDB9LCB7NDgwLCAyNzB9fVZXaW5kb3dYTlNX
+aW5kb3fUWg5bXCteX2BfEA9OU05leHRSZXNwb25kZXJYTlN2RmxhZ3NbTlNGcmFtZVNpemWAAIANEQEA
+gAxaezQ4MCwgMjcwfdI3OGNko2RlO1ZOU1ZpZXdbTlNSZXNwb25kZXJfEBV7ezAsIDB9LCB7MTI4MCwg
+Nzc4fX3SNzhoaaJpO18QEE5TV2luZG93VGVtcGxhdGXSNzhrbKNsbTtcTlNNdXRhYmxlU2V0VU5TU2V0
+0g4+b3CAEqDSNzhyc6NzdDteTlNNdXRhYmxlQXJyYXlXTlNBcnJhedIOPnZ3gBajQUx6gAeAC4AU0g4y
+M32ABIAVXU5TQXBwbGljYXRpb27SNziAdKJ0O9IOPnaDgBajH0EfgAKAB4AC0g4+domAFqRBH3pMgAeA
+AoAUgAvSDj52kIAWpJGSk5SAGoAbgByAHV8QD1dpbmRvdyAoV2luZG93KVxGaWxlJ3MgT3duZXJbQXBw
+bGljYXRpb25cQ29udGVudCBWaWV30g4+dpuAFqDSDj52noAWoNIOPnahgBakQR96TIAHgAKAFIAL0g4+
+dqiAFqSpqqusgCKAI4AkgCUQARADE//////////90g4+b7KAEqDSDj52tYAWoNIOPna4gBag0jc4urui
+uzteTlNJQk9iamVjdERhdGEACAARABoAHwApADIANwA6AEgASgBcAIkAjwC2AL0AxADSAOQBAAEOARoB
+JgE0AT8BTQFpAXcBigGcAbYBwAHNAc8B0QHTAdUB1wHZAdsB3QHfAeEB4wHlAecB6QHrAe0B7wHxAfYC
+AgIEAgYCGgIfAigCMwI2AkUCTgJhAmYCcQJzAnUCdwKMApkCpgK0Ar4CzALZAusC/wMLAw0DDwMRAxMD
+GAMaAxwDHgMgAyIDPQNEA00DVgNoA3EDfQN/A4EDhAOGA5EDlgOaA6EDrQPFA8oDzQPgA+UD6QP2A/wE
+AQQDBAQECQQNBBwEJAQpBCsELwQxBDMENQQ6BDwEPgRMBFEEVARZBFsEXwRhBGMEZQRqBGwEcQRzBHUE
+dwR5BH4EgASFBIcEiQSLBI0EnwSsBLgExQTKBMwEzQTSBNQE1QTaBNwE4QTjBOUE5wTpBO4E8AT1BPcE
++QT7BP0E/wUBBQoFDwURBRIFFwUZBRoFHwUhBSIFJwUqAAAAAAAAAgEAAAAAAAAAvAAAAAAAAAAAAAAA
+AAAABTk</bytes>
+		</object>
+	</data>
+</archive>

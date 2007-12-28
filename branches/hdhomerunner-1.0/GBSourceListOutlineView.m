@@ -22,23 +22,22 @@
 
 #import "GBSourceListOutlineView.h"
 
-
 @implementation GBSourceListOutlineView
 - (void)awakeFromNib
 {
 	//[self setDelegate:self];
 	
-		/* Make the intercell spacing similar to that used in iCal's Calendars list. */
+	/* Make the intercell spacing similar to that used in iCal's Calendars list. */
 	[self setRowHeight:18];
     [self setIntercellSpacing:NSMakeSize(0.0, 0.0)];
     
-		/* Use our custom NSImageCell subclass for the first column. */
+	/* Use our custom NSImageCell subclass for the first column. */
     NSTableColumn *firstCol = [[self tableColumns] objectAtIndex:0];
 	SourceListImageCell *theImageCell = [[SourceListImageCell alloc] init];
 	[firstCol setDataCell:theImageCell];
 	[theImageCell release];
     
-		/* Use our custom NSTextFieldCell subclass for the second column. */
+	/* Use our custom NSTextFieldCell subclass for the second column. */
     NSTableColumn *secondCol = [[self tableColumns] objectAtIndex:1];
     SourceListTextCell *theTextCell = [[SourceListTextCell alloc] init];
     [secondCol setDataCell:theTextCell];

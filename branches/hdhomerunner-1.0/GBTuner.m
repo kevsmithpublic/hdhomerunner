@@ -580,6 +580,76 @@
 	}
 }
 
+#pragma mark - Archiving And Copying Support
+
+- (id)initWithDictionary:(NSDictionary*)dictionary{
+	
+	// Call the default init
+	if(self = [self init]){
+	
+		// Set the properties to the dictionary
+		[self setProperties:dictionary];		
+	}
+	
+	return self;
+}
+
+- (NSDictionary*)dictionaryRepresentation{
+	return properties;
+}
+
+#pragma mark - NSCoding Protocol
+
+- (id)initWithCoder:(NSCoder*)coder{
+	// Initialize
+	if(self = [self init]){
+	
+		// Make sure the archive has a key for Controller
+		if([coder containsValueForKey:@"Tuner"]){
+			
+			// Initialize with the archived dictionary
+			[self initWithDictionary:[coder decodeObjectForKey:@"Tuner"]];
+		}
+	}
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder*)coder{
+
+	// Encode the object into the coder
+	[coder encodeObject:properties forKey:@"Tuner"];
+}
+
+#pragma mark - NSCopying Protocol
+
+// Copy with zone as specified in the NSCopying protocol
+- (id)copyWithZone:(NSZone*)zone{
+
+	// Initiate a newNode with the specified zone
+	GBTuner *newNode = [[[self class] allocWithZone:zone] init];
+	
+	// Set new node to be a copy of self's properties
+	[newNode setProperties:[self properties]];
+	
+	return newNode;
+}
+
+// Set the nil value for an empty title and description
+- (void)setNilValueForKey:(NSString*)key{
+
+	// If the empty key is the title or description
+	if ([key isEqualToString:@"title"] || [key isEqualToString:@"description"]){
+		
+		// Set the key to a default value. In this case "Untitled"
+		[properties setObject:@"Untitled" forKey:key];
+	} else{
+	
+		// Else call the super's setNilValueForKey
+		[super setNilValueForKey:key];
+	}
+}
+#pragma mark - Clean up
 
 // Clean up
 - (void)dealloc{

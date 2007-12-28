@@ -24,7 +24,7 @@
 #import "hdhomerun.h"
 #import "GBParent.h"
 
-@interface GBTuner : NSObject <GBParent> {
+@interface GBTuner : NSObject <GBParent, NSCoding, NSCopying> {
 		NSMutableDictionary			*properties;		// The key value coded properties of the tuner
 		
 		struct hdhomerun_device_t	*hdhr;
@@ -107,4 +107,14 @@
 
 - (BOOL)isExpandable;
 - (void)setIsExpandable:(BOOL)newState;
+
+// NSCopying and NSCoding Protocol
+- (id)initWithDictionary:(NSDictionary*)dictionary;
+- (NSDictionary*)dictionaryRepresentation;
+
+- (id)initWithCoder:(NSCoder*)coder;
+- (void)encodeWithCoder:(NSCoder*)coder;
+
+- (id)copyWithZone:(NSZone*)zone;
+- (void)setNilValueForKey:(NSString*)key;
 @end

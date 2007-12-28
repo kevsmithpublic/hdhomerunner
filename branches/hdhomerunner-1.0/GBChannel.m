@@ -259,9 +259,9 @@
 
 // Return a dictionary representation of the controller AND all its children
 - (NSDictionary*)dictionaryRepresentation{
-
+	return properties;
 	// The dictionary to return. Default is the properties dictionary
-	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:properties];
+	/*NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:properties];
 	
 	// If the dictionary contains children...
 	if([[dictionary allKeys] containsObject:@"children"]){
@@ -294,7 +294,7 @@
 		[dictionary setObject:dictChildren forKey:@"children"];
 	}
 	
-	return dictionary;
+	return dictionary;*/
 }
 
 #pragma mark - NSCoding Protocol

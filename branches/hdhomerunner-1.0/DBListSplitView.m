@@ -14,7 +14,8 @@
 
 
 #define MIN_TOP_VIEW_HEIGHT 90
-#define MIN_BOTTOM_VIEW_HEIGHT 60
+//#define MIN_BOTTOM_VIEW_HEIGHT 60
+#define MIN_BOTTOM_VIEW_HEIGHT 125
 
 #import "DBListSplitView.h"
 
@@ -37,10 +38,10 @@
 
 
 
-/*- (float)dividerThickness
+- (float)dividerThickness
 {
 	return (8);
-}*/
+}
 
 
 

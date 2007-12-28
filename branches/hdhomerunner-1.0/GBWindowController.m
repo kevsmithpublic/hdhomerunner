@@ -31,14 +31,22 @@
 
 #define COLUMNID_NAME			@"NameColumn"	// the single column name in our outline view
 
+#define CHANNEL_NIB_NAME		@"ChannelView"	// nib name for the channel view
+#define TUNER_NIB_NAME			@"TunerView"		// nib name for the file view
+#define CHILDEDIT_NAME			@"ChildEdit"	// nib name for the child edit window controller
+
 @implementation GBWindowController
 
 - (id)init{
 	if(self == [super init]){
 		contents = [[NSMutableArray alloc] init];
+	
+		[contents addObject:[[GBTunerController alloc] initWithWindowNibName:TUNER_NIB_NAME]];
+		[contents addObject:[[GBChannelController alloc] initWithWindowNibName:CHANNEL_NIB_NAME]];
 		
-		[contents addObject:[[GBTunerController alloc] init]];
-		[contents addObject:[[GBChannelController alloc] init]];
+		
+		//[GBOutlineView setIndentationPerLevel:16.0];
+		//NSLog(@"indent = %f", [GBOutlineView indentationPerLevel]);
 	}
 	
 	return self;
@@ -64,6 +72,171 @@
 	// Place the content view in the right panel.
 	[contentView setFrameSize:[contentViewPlaceholder frame].size];
 	[contentViewPlaceholder addSubview:contentView];
+	
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc addObserver:self selector: @selector(applicationWillFinishLaunching:) name:NSApplicationWillFinishLaunchingNotification object:nil];
+	[nc addObserver:self selector: @selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:nil];
+}
+
+// The application will finish launching. Load contents from disk
+-(void)applicationWillFinishLaunching:(NSNotification *)notification{
+	
+	// If the user was using a previous version of hdhomerunner we need to upgrade their preferences
+	if([self resetUserDefaultsRequired]){
+	
+		// Reset the user defaults
+		[self resetUserDefaults];
+	}
+	
+	// Load the user defaults
+	//[self loadUserDefaults];
+}
+
+#pragma mark - User Defaults
+
+- (void)loadUserDefaults{
+
+	// The keys to load from disk
+	NSArray	*keys = [NSArray arrayWithObjects:	DEVICES_NAME,
+												CHANNELS_NAME,
+												GROUPS_NAME,
+												nil];
+	
+	// Key enumerator
+	NSEnumerator *key_enumerator = [keys objectEnumerator];
+	
+	// A key in the enumerator
+	NSString *key;
+	
+	// Loop over the keys
+	while(key = [key_enumerator nextObject]){
+	
+		// Initialize an array to the standard user defaults
+		NSArray *tmp = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:key]];
+		
+		// The enumerator to loop over
+		NSEnumerator *enumerator = [tmp objectEnumerator];
+		
+		// Dictionary in the enumerator
+		NSDictionary *object;
+		
+		// Loop over all the tuners stored on disk
+		while(object = [enumerator nextObject]){
+			
+			// Add the tuners to the collection as tuners
+			//[self addTuner:[[GBTuner alloc] initWithDictionary:object]];
+		}
+	}
+	
+	// Initialize an array to the standard user defaults
+	/*NSArray *tmp = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICES_NAME]];
+	
+	// The enumerator to loop over
+	NSEnumerator *enumerator = [tmp objectEnumerator];
+	
+	// Dictionary in the enumerator
+	NSDictionary *object;
+	
+	// Loop over all the tuners stored on disk
+	while(object = [enumerator nextObject]){
+		
+		// Add the tuners to the collection as tuners
+		//[self addTuner:[[GBTuner alloc] initWithDictionary:object]];
+	}
+	
+	// Load all the channels stored on disk into the temporary array
+	tmp = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:CHANNELS_NAME]];
+	
+	// Set the enumerator to the new value
+	enumerator = [tmp objectEnumerator];
+	
+	// Loop over the objects in the enumerator
+	while(object = [enumerator nextObject]){
+	
+		// Add the channels to the collection as children
+		//[self addChannel:[[GBChannel alloc] initWithDictionary:object]];
+	}
+	
+	// Load all the channels stored on disk into the temporary array
+	tmp = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:GROUPS_NAME]];
+	
+	// Set the enumerator to the new value
+	enumerator = [tmp objectEnumerator];
+	
+	// Loop over the objects in the enumerator
+	while(object = [enumerator nextObject]){
+	
+		// Add the channels to the collection as children
+		//[self addChannel:[[GBChannel alloc] initWithDictionary:object]];
+	}*/
+}
+
+// Reset the user defaults
+- (void)resetUserDefaults{
+
+	// Run the alert sheet notifying the user
+	NSBeginAlertSheet(@"Preference Reset Required", @"OK", @"Cancel",
+		nil, [self window], self, NULL,
+		@selector(endAlertSheet:returnCode:contextInfo:),
+		NULL,
+		@"A previous version of hdhomerunner preferences have been detected. In order to maintain forward compatibilty these preferences need to be deleted and all existing preferences will be lost. Is this okay?");
+}
+
+- (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo{
+	
+	// If the user agreed to reset the preferences
+	if (returnCode == NSAlertDefaultReturn) {
+		NSLog(@"Clicked OK");
+		// Perform the reset
+		[NSUserDefaults resetStandardUserDefaults];
+		
+		// The standard user defaults used to write preferences to disk
+		NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+		
+		// Write the changes to disk
+		[standardUserDefaults synchronize];
+	}
+	else if (returnCode == NSAlertAlternateReturn) {
+	
+		// Don't do anything. The user cancelled the action
+		NSLog(@"Clicked Cancel");
+	}
+}
+
+
+// Check whether the user is upgrading from a previous version and is required to be compatible with the latest version
+- (BOOL)resetUserDefaultsRequired{
+	
+	// Assume the defaults don't need to be reset
+	BOOL result = NO;
+	
+	// If the tuners key is in the defaults then we are using hdhomerunner version 0.5x - 0.7x
+	if([[NSUserDefaults standardUserDefaults] objectForKey:@"tuners"]){
+		result = YES;
+		
+		NSLog(@"defaults = %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+	}
+	
+	return result;
+}
+
+#pragma mark - Accessor methods
+
+// Get the contents
+- (NSMutableArray *)contents{
+	return contents;
+}
+
+// Set the contents
+- (void)setContents:(NSArray *)newContents{
+// If the new contents is not the same as the existing children
+	if(![[self contents] isEqualToArray:newContents]){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"contents"];
+		[contents setArray:newContents];
+		[self didChangeValueForKey:@"contents"];
+	}
 }
 
 #pragma mark - Toolbar actions
@@ -290,6 +463,14 @@
 	[placeHolderView displayIfNeeded];	// we want the removed views to disappear right away
 }*/
 
+- (void)changeContentView:(NSView *)newView{
+	
+	// 
+	if(newView){
+		[currentView addSubview:newView];
+	}
+}
+
 // -------------------------------------------------------------------------------
 //	changeItemView:
 // ------------------------------------------------------------------------------
@@ -403,7 +584,9 @@
 //	outlineViewSelectionDidChange:notification
 // -------------------------------------------------------------------------------
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification{
-	NSLog(@"selection did change notification");
+	NSLog(@"selection did change notification %@", [GBOutlineView itemAtRow:[GBOutlineView selectedRow]]);
+	
+	[self changeContentView:[[contents objectAtIndex:1] view]];
 	/*if (buildingOutlineView)	// we are currently building the outline view, don't change any view selections
 		return;
 
@@ -538,7 +721,10 @@
 				GBChannel *tmp = [[GBChannel alloc] initWithDictionary:dict];
 				
 				// Add the channel to the GBChannelController as a child
-				[[contents objectAtIndex:1] addChild:tmp];
+				[[contents objectAtIndex:1] addChildToParent:tmp];
+				
+				// Reload the data in the OutlineView
+				[GBOutlineView reloadData];
 			}
 		} else if(contextInfo = exporthdhrcontrol){
 			// If the sender was exporthdhrcontrol
@@ -549,6 +735,33 @@
 
 
 #pragma mark - Cleanup
+
+// The application will terminate. Save contents to disk
+-(void)applicationWillTerminate:(NSNotification *)notification{
+	
+	// The standard user defaults used to write preferences to disk
+	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	
+	// Temporary array to hold objects that will be written to disk
+	//NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:0];
+	
+	// Enumerator to loop over
+	NSEnumerator *enumerator = [contents objectEnumerator];
+	
+	// Object in the enumerator
+	id object;
+	
+	// Loop over contents
+	while(object = [enumerator nextObject]){
+	
+		// Add the dictionary representation of the object to the user defaults and use the object's title
+		// (which is how it appears in the outlineview) for the key
+		[standardUserDefaults setObject:[object dictionaryRepresentation] forKey:[object title]];
+	}
+	
+	// Write the changes to disk
+	[standardUserDefaults synchronize];
+}
 
 // Cleanup after ourselves
 - (void)dealloc{

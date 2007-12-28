@@ -24,14 +24,20 @@
 
 
 @implementation GBController
-- (id)init{
-	if(self = [super init]){
+- (id)initWithWindow:(NSWindow *)window{
+	if(self = [super initWithWindow:window]){
 		properties = [[NSMutableDictionary alloc] initWithCapacity:0];
 		
 		[self setIsChild:NO];
 	}
 	
 	return self;
+}
+
+- (void)awakeFromNib{
+	// This is required when subclassing NSWindowController.
+	[self setWindowFrameAutosaveName:@"Window"];
+	
 }
 
 // Get properties
@@ -91,7 +97,7 @@
 	}
 }
 
-- (void)addChild:(id <GBParent>)aChild{
+- (void)addChildToParent:(id <GBParent>)aChild{
 	
 	if(aChild && ![[self children] containsObject:aChild]){
 	
@@ -233,40 +239,42 @@
 }
 
 // Return a dictionary representation of the controller AND all its children
-- (NSDictionary*)dictionaryRepresentation{
+- (NSDictionary *)dictionaryRepresentation{
 
 	// The dictionary to return. Default is the properties dictionary
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:properties];
 	
 	// If the dictionary contains children...
 	if([[dictionary allKeys] containsObject:@"children"]){
-	
+		
 		// Set the existing collection of children to existingChildren
 		NSArray *existingChildren = [dictionary objectForKey:@"children"];
+		
+		// We should only continue if there are items in the array
+		if([existingChildren count] > 0){
+					
+			// Initialize dictChildren to be the array for the dictionary representation of the children
+			NSMutableArray	*dictChildren = [NSMutableArray array];
+					
+			// The enumerator to loop over
+			NSEnumerator	*enumerator = [existingChildren objectEnumerator];
+					
+			// Assign each object in the enumeration to object.
+			id	object;
+	 
+			while ((object = [enumerator nextObject])){
+					
+				// Take each child and make a dictionary representation of that object
+				NSDictionary *dictChild = [object dictionaryRepresentation];
 				
-		// Initialize dictChildren to be the array for the dictionary representation of the children
-		NSMutableArray	*dictChildren = [NSMutableArray array];
-				
-		// The enumerator to loop over
-		NSEnumerator	*enumerator = [existingChildren objectEnumerator];
-				
-		// Assign each object in the enumeration to object.
-		id	object;
- 
-		while ((object = [enumerator nextObject])){
-				
-			// Take each child and make a dictionary representation of that object
-			NSDictionary *dictChild = [object dictionaryRepresentation];
+				// Add the dictionary version of the child to dictChildren
+				[dictChildren addObject:dictChild];
+			}
 			
-			// Add the dictionary version of the child to dictChildren
-			[dictChildren addObject:dictChild];
-			
-			// Release the dictChild because dictChildren will retain it
-			[dictChild release];
-		}
-				
-		// Set the children in dictionary to dictChildren
-		[dictionary setObject:dictChildren forKey:@"children"];
+			// Set the children in dictionary to dictChildren
+			[dictionary setObject:dictChildren forKey:@"children"];
+		
+		}			
 	}
 	
 	return dictionary;

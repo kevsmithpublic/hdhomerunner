@@ -24,8 +24,10 @@
 
 
 @implementation GBTunerController
-- (id)init{
-	if(self = [super init]){
+
+// Override the designated initializer to make sure that these variables get initialized
+- (id)initWithWindow:(NSWindow *)window{
+	if(self = [super initWithWindow:window]){
 				
 		[self setDescription:@"HDHomerun Tuners"];						// Set the description of the collection
 		[self setTitle:@"DEVICES"];										// Set the title of the collection
@@ -36,6 +38,12 @@
 	}
 	
 	return self;
+}
+
+- (void)awakeFromNib{
+	// This is required when subclassing NSWindowController.
+	[self setWindowFrameAutosaveName:@"Tuner Window"];
+	
 }
 
 - (void)discoverDevices{
@@ -93,7 +101,7 @@
 										userInfo:[NSDictionary dictionaryWithObjectsAndKeys:new_object, @"tuner", nil ]];
 			
 			// Add the tuner to the collection
-			[self addChild:new_object];
+			[self addChildToParent:new_object];
 		}
 	}
 	

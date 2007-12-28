@@ -21,32 +21,24 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
 #import "GBController.h"
 
 @interface GBChannelController : GBController {
-		//NSMutableDictionary			*properties;
+		// The view
+		IBOutlet		NSView			*mainView;
+
+		// The webview to show the channel's URL
+		IBOutlet		WebView			*webView;
+		
+		// The iconview to show the Channel's icon
+		IBOutlet		NSImageView		*iconView;
+		
+		// The textfields to show the relevant info
+		IBOutlet		NSTextField		*titleField;
 }
 
-/*- (id)initChild;
+- (NSView *)view;
 
-- (BOOL)isChild;
-- (void)setChild:(BOOL)flag;
-
-- (NSMutableArray *)children;
-- (void)setChildren:(NSArray *)newContents;
-- (int)numberOfChildren;
-
-- (NSImage *)icon;
-- (void)setIcon:(NSImage *)newImage;
-
-- (NSString *)title;
-- (void)setTitle:(NSString *)newTitle;
-
-//- (id)representedObject;
-//- (void)setRepresentedObject:(id)newObject;
-
-- (NSComparisonResult)compare:(<GBParent> *)aParent;
-
-- (BOOL)isExpandable;*/
 @end

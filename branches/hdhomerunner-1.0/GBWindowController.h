@@ -28,6 +28,8 @@
 #import "GBTunerController.h"
 #import "GBChannelController.h"
 
+#import "GBSourceListOutlineView.h"
+
 #import "GBTuner.h"
 #import "GBChannel.h"
 
@@ -68,19 +70,28 @@
 	
 	// Source View elements
 	IBOutlet		NSView					*sourceView;
+	IBOutlet		GBSourceListOutlineView	*GBOutlineView;
 	
 	// Content View elements
 	IBOutlet		NSView					*contentView;
+	
+	// Current View portion of the Content View
+	IBOutlet		NSView					*currentView;
 	
 	// The menu item associated with importing HDHomeRunControl ChannelMaps
 	IBOutlet		NSMenuItem				*importhdhrcontrol;				
 	
 	// The menu item associated with exporting HDHomeRunControl ChannelMaps
-	IBOutlet	NSMenuItem					*exporthdhrcontrol;
+	IBOutlet		NSMenuItem				*exporthdhrcontrol;
 
 	
 					NSMutableArray			*contents;
 }
+
+- (NSMutableArray *)contents;
+- (void)setContents:(NSArray *)newContents;
+
+- (void)changeContentView:(NSView *)newView;
 
 // Toolbar actions
 - (IBAction)play:(id)sender;
@@ -115,5 +126,10 @@
 -(IBAction)exportChannels:(id)sender;
 -(void)filePanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 
+// User Default methods
+- (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+- (void)resetUserDefaults;
+- (BOOL)resetUserDefaultsRequired;
+- (void)loadUserDefaults;
 
 @end

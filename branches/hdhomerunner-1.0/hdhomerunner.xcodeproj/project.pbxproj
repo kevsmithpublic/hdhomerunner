@@ -46,6 +46,9 @@
 		B076B9900C5AA7B900174C3B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B9660C5AA73500174C3B /* Sparkle.framework */; };
 		B076B9B10C5AA82100174C3B /* HUDWindow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7F00C5AA67900174C3B /* HUDWindow.h */; };
 		B076B9BE0C5AA88100174C3B /* launchVLC.scpt in Resources */ = {isa = PBXBuildFile; fileRef = B076B8060C5AA68B00174C3B /* launchVLC.scpt */; };
+		B08508F50D243E770040E78F /* ChannelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08508F40D243E770040E78F /* ChannelView.xib */; };
+		B08509000D2443A10040E78F /* TunerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08508FF0D2443A10040E78F /* TunerView.xib */; };
+		B08509060D2444720040E78F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B08509050D2444720040E78F /* WebKit.framework */; };
 		B0887F890D1F89E300FCC050 /* DIController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0887F860D1F89E300FCC050 /* DIController.m */; };
 		B0887F8A0D1F89E300FCC050 /* NSBezierPath+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0887F880D1F89E300FCC050 /* NSBezierPath+Additions.m */; };
 		B08C486B0D1B853700187D4A /* HUD.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B08C486A0D1B853700187D4A /* HUD.tiff */; };
@@ -153,6 +156,9 @@
 		B076B8230C5AA70000174C3B /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		B076B8BB0C5AA72800174C3B /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Carbon.framework; sourceTree = "<group>"; };
 		B076B9660C5AA73500174C3B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		B08508F40D243E770040E78F /* ChannelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelView.xib; sourceTree = "<group>"; };
+		B08508FF0D2443A10040E78F /* TunerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TunerView.xib; sourceTree = "<group>"; };
+		B08509050D2444720040E78F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		B0887F850D1F89E300FCC050 /* DIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIController.h; sourceTree = "<group>"; };
 		B0887F860D1F89E300FCC050 /* DIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIController.m; sourceTree = "<group>"; };
 		B0887F870D1F89E300FCC050 /* NSBezierPath+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+Additions.h"; sourceTree = "<group>"; };
@@ -216,6 +222,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				B076B8BC0C5AA72800174C3B /* Carbon.framework in Frameworks */,
 				B076B9670C5AA73500174C3B /* Sparkle.framework in Frameworks */,
+				B08509060D2444720040E78F /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +288,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B08508FF0D2443A10040E78F /* TunerView.xib */,
+				B08508F40D243E770040E78F /* ChannelView.xib */,
 				B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */,
 				B0545BCE0C820B6F00978980 /* tv.icns */,
 				B076B8220C5AA70000174C3B /* MainMenu.nib */,
@@ -296,6 +305,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B08509050D2444720040E78F /* WebKit.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -599,6 +609,8 @@
 				B08C488E0D1B85DD00187D4A /* Folder.tiff in Resources */,
 				B08C48900D1B85EC00187D4A /* Network Utility.tiff in Resources */,
 				B08C48920D1B863800187D4A /* Get Info.tiff in Resources */,
+				B08508F50D243E770040E78F /* ChannelView.xib in Resources */,
+				B08509000D2443A10040E78F /* TunerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
