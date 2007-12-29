@@ -158,6 +158,50 @@
 
 }
 
+// Configure the Controller to the specified dictionary
+- (void)configureWithDictionary:(NSDictionary *)dictionary{
+	
+	// If dictionary is not null...
+	if(dictionary){
+	
+		// Set the properties dictionary to dictionary
+		//[properties setDictionary:dictionary];
+		[self setProperties:dictionary];
+		
+		// If there are children associated with the properities then convert the children
+		// from dictionary objects into normal children
+		if([[properties allKeys] containsObject:@"children"]){
+		
+			// Set the dictionary collection of children to dictChildren
+			NSArray *dictChildren = [dictionary objectForKey:@"children"];
+			
+			// Initialize newChildren to be the array for the new children
+			NSMutableArray	*newChildren = [NSMutableArray array];
+			
+			// The enumerator to loop over
+			NSEnumerator	*enumerator = [dictChildren objectEnumerator];
+			
+			// Assign each object in the enumeration to object.
+			id object;
+
+			while ((object = [enumerator nextObject])){
+			
+				// Take each dictionary object and create and init a new child
+				id newChild = [[GBTuner alloc] initWithDictionary:object];
+				
+				// Add the new child to the newChildren array
+				[newChildren addObject:newChild];
+				
+				// Release the newChild because newChildren will retain it
+				[newChild release];
+			}
+			
+			// Set the children to newChildren
+			[self setChildren:newChildren];
+		}
+	}
+}
+
 // Cleanup
 - (void)dealloc{
 

@@ -34,27 +34,6 @@
 #import "GBChannel.h"
 
 @interface GBWindowController : NSWindowController {
-
-	// Main Window
-	/*IBOutlet DBSourceSplitView *sourceSplitView;
-	IBOutlet DBListSplitView *listSplitView;
-	IBOutlet NSView *sourceViewPlaceholder;
-	IBOutlet NSView *contentViewPlaceholder;
-	
-	// Source View
-	IBOutlet	NSView						*sourceView;
-	IBOutlet	GBSourceListOutlineView		*outlineView;
-	
-	
-	IBOutlet	NSSplitView					*splitView;
-	IBOutlet	NSView						*contentView;
-	
-	IBOutlet	NSTreeController	*treeController;
-	IBOutlet	NSButton			*addFolderButton;
-	IBOutlet	NSButton			*removeButton;
-	IBOutlet	NSPopUpButton		*actionButton;
-	
-				NSMutableArray		*contents;*/
 				
 	// Main window elements
 	IBOutlet		DBSourceSplitView		*splitView;
@@ -84,14 +63,26 @@
 	// The menu item associated with exporting HDHomeRunControl ChannelMaps
 	IBOutlet		NSMenuItem				*exporthdhrcontrol;
 
-	
+	// The contents of the source list
 					NSMutableArray			*contents;
+	
+	// The toolbar items
+					NSMutableDictionary		*toolbarItems;
+					NSToolbar				*theToolbar;
+	
+	// Items involving the autscan sheet
+	IBOutlet	NSWindow					*_autoscanSheet;
 }
 
 - (NSMutableArray *)contents;
 - (void)setContents:(NSArray *)newContents;
 
 - (void)changeContentView:(NSView *)newView;
+
+// Toolbar delegate methods
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag;
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 
 // Toolbar actions
 - (IBAction)play:(id)sender;
@@ -125,6 +116,11 @@
 -(IBAction)importChannels:(id)sender;
 -(IBAction)exportChannels:(id)sender;
 -(void)filePanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+
+// Autoscan channels
+- (IBAction)autoscanChannels:(id)sender;
+- (IBAction)closeSheet:(id)sender;
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 
 // User Default methods
 - (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;

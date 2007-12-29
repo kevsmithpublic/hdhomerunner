@@ -39,14 +39,103 @@
 
 - (id)init{
 	if(self == [super init]){
+	
 		contents = [[NSMutableArray alloc] init];
 	
 		[contents addObject:[[GBTunerController alloc] initWithWindowNibName:TUNER_NIB_NAME]];
 		[contents addObject:[[GBChannelController alloc] initWithWindowNibName:CHANNEL_NIB_NAME]];
 		
+		toolbarItems = [[NSMutableDictionary alloc] initWithCapacity:0];
 		
-		//[GBOutlineView setIndentationPerLevel:16.0];
-		//NSLog(@"indent = %f", [GBOutlineView indentationPerLevel]);
+		// Initialize the toolbaritem
+		NSToolbarItem *_record = [[NSToolbarItem alloc] initWithItemIdentifier:@"Record"];
+		[_record setAction:@selector(record:)];
+		[_record setTarget:self];
+		[_record setPaletteLabel:@"Record"];
+		[_record setLabel:@"Record"];
+		[_record setToolTip:@"Record"];
+		[_record setImage:[NSImage imageNamed:@"Record"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_record forKey:@"Record"];
+		
+		// Release the toolbar item
+		[_record release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_previous = [[NSToolbarItem alloc] initWithItemIdentifier:@"Previous"];
+		[_previous setAction:@selector(previous:)];
+		[_previous setTarget:self];
+		[_previous setPaletteLabel:@"Previous"];
+		[_previous setLabel:@"Previous"];
+		[_previous setToolTip:@"Previous"];
+		//[_previous setImage:[NSImage imageNamed:@"Record"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_previous forKey:@"Previous"];
+		
+		// Release the toolbar item
+		[_previous release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_play = [[NSToolbarItem alloc] initWithItemIdentifier:@"Play"];
+		[_play setAction:@selector(previous:)];
+		[_play setTarget:self];
+		[_play setPaletteLabel:@"Play"];
+		[_play setLabel:@"Play"];
+		[_play setToolTip:@"Play"];
+		[_play setImage:[NSImage imageNamed:@"Play"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_play forKey:@"Play"];
+		
+		// Release the toolbar item
+		[_play release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_next = [[NSToolbarItem alloc] initWithItemIdentifier:@"Next"];
+		[_next setAction:@selector(next:)];
+		[_next setTarget:self];
+		[_next setPaletteLabel:@"Next"];
+		[_next setLabel:@"Next"];
+		[_next setToolTip:@"Next"];
+		//[_next setImage:[NSImage imageNamed:@"Next"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_next forKey:@"Next"];
+		
+		// Release the toolbar item
+		[_next release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_info = [[NSToolbarItem alloc] initWithItemIdentifier:@"Info"];
+		[_info setAction:@selector(getInfo:)];
+		[_info setTarget:self];
+		[_info setPaletteLabel:@"Info"];
+		[_info setLabel:@"Info"];
+		[_info setToolTip:@"Info"];
+		[_info setImage:[NSImage imageNamed:@"Get Info"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_info forKey:@"Info"];
+		
+		// Release the toolbar item
+		[_info release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_preferences = [[NSToolbarItem alloc] initWithItemIdentifier:@"Preferences"];
+		[_preferences setAction:@selector(openPreferences:)];
+		[_preferences setTarget:self];
+		[_preferences setPaletteLabel:@"Preferences"];
+		[_preferences setLabel:@"Preferences"];
+		[_preferences setToolTip:@"Preferences"];
+		[_preferences setImage:[NSImage imageNamed:@"General Preferences"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_preferences forKey:@"Preferences"];
+		
+		// Release the toolbar item
+		[_preferences release];		
 	}
 	
 	return self;
@@ -73,6 +162,19 @@
 	[contentView setFrameSize:[contentViewPlaceholder frame].size];
 	[contentViewPlaceholder addSubview:contentView];
 	
+	// Set up the toolbar on the main window
+	//NSToolbar *toolbar;
+	theToolbar = [[NSToolbar alloc] initWithIdentifier:@"toolbar"];
+	[theToolbar setDelegate:self];
+    
+	// Make the toolbar configurable
+	[theToolbar setAllowsUserCustomization:YES];
+	[theToolbar setAutosavesConfiguration:YES];
+    
+	// Attach the toolbar to the window
+	[[self window] setToolbar:theToolbar];
+	
+	// Register for notifications
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector: @selector(applicationWillFinishLaunching:) name:NSApplicationWillFinishLaunchingNotification object:nil];
 	[nc addObserver:self selector: @selector(applicationWillTerminate:) name:NSApplicationWillTerminateNotification object:nil];
@@ -89,7 +191,7 @@
 	}
 	
 	// Load the user defaults
-	//[self loadUserDefaults];
+	[self loadUserDefaults];
 }
 
 #pragma mark - User Defaults
@@ -111,64 +213,29 @@
 	// Loop over the keys
 	while(key = [key_enumerator nextObject]){
 	
-		// Initialize an array to the standard user defaults
-		NSArray *tmp = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:key]];
+		//NSLog(@"class = %@", [[[NSUserDefaults standardUserDefaults] objectForKey:key] class]);
+		NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:key];
 		
-		// The enumerator to loop over
-		NSEnumerator *enumerator = [tmp objectEnumerator];
-		
-		// Dictionary in the enumerator
-		NSDictionary *object;
-		
-		// Loop over all the tuners stored on disk
-		while(object = [enumerator nextObject]){
+		if([key isEqualToString:DEVICES_NAME]){
 			
-			// Add the tuners to the collection as tuners
-			//[self addTuner:[[GBTuner alloc] initWithDictionary:object]];
+			// Configure the first object with the Devices from disk
+			// I am using this method as opposed to creating a new object because the
+			// Controller is already initialized with the proper window NIB.
+			// initWithDictionary does not handle the windowNibName
+			[[contents objectAtIndex:0] configureWithDictionary:dict];
+			
+		} else if([key isEqualToString:CHANNELS_NAME]){
+			
+			// Configure the first object with the Devices from disk
+			// I am using this method as opposed to creating a new object because the
+			// Controller is already initialized with the proper window NIB.
+			// initWithDictionary does not handle the windowNibName
+			[[contents objectAtIndex:1] configureWithDictionary:dict];
+			
+		} else if([key isEqualToString:GROUPS_NAME]){
+		
 		}
 	}
-	
-	// Initialize an array to the standard user defaults
-	/*NSArray *tmp = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICES_NAME]];
-	
-	// The enumerator to loop over
-	NSEnumerator *enumerator = [tmp objectEnumerator];
-	
-	// Dictionary in the enumerator
-	NSDictionary *object;
-	
-	// Loop over all the tuners stored on disk
-	while(object = [enumerator nextObject]){
-		
-		// Add the tuners to the collection as tuners
-		//[self addTuner:[[GBTuner alloc] initWithDictionary:object]];
-	}
-	
-	// Load all the channels stored on disk into the temporary array
-	tmp = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:CHANNELS_NAME]];
-	
-	// Set the enumerator to the new value
-	enumerator = [tmp objectEnumerator];
-	
-	// Loop over the objects in the enumerator
-	while(object = [enumerator nextObject]){
-	
-		// Add the channels to the collection as children
-		//[self addChannel:[[GBChannel alloc] initWithDictionary:object]];
-	}
-	
-	// Load all the channels stored on disk into the temporary array
-	tmp = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:GROUPS_NAME]];
-	
-	// Set the enumerator to the new value
-	enumerator = [tmp objectEnumerator];
-	
-	// Loop over the objects in the enumerator
-	while(object = [enumerator nextObject]){
-	
-		// Add the channels to the collection as children
-		//[self addChannel:[[GBChannel alloc] initWithDictionary:object]];
-	}*/
 }
 
 // Reset the user defaults
@@ -214,7 +281,7 @@
 	if([[NSUserDefaults standardUserDefaults] objectForKey:@"tuners"]){
 		result = YES;
 		
-		NSLog(@"defaults = %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+		//NSLog(@"defaults = %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 	}
 	
 	return result;
@@ -237,6 +304,39 @@
 		[contents setArray:newContents];
 		[self didChangeValueForKey:@"contents"];
 	}
+}
+
+#pragma mark - Toolbar Delegate methods
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag{
+	return [toolbarItems objectForKey:itemIdentifier];
+}
+
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar{
+
+	// Return all the keys as valid items plus the standard toolbar items
+	return [[toolbarItems allKeys] arrayByAddingObjectsFromArray:
+							[NSArray arrayWithObjects:NSToolbarSeparatorItemIdentifier,
+													NSToolbarSpaceItemIdentifier,
+													NSToolbarFlexibleSpaceItemIdentifier,
+													NSToolbarCustomizeToolbarItemIdentifier,
+													nil]];
+}
+
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar{
+
+	return [NSArray arrayWithObjects:NSToolbarSpaceItemIdentifier,
+									@"Record",
+									NSToolbarSeparatorItemIdentifier,
+									@"Previous",
+									@"Play",
+									@"Next",
+									NSToolbarSeparatorItemIdentifier,
+									@"Get Info",
+									NSToolbarFlexibleSpaceItemIdentifier,
+									@"Preferences",
+									NSToolbarCustomizeToolbarItemIdentifier,
+									nil];
 }
 
 #pragma mark - Toolbar actions
@@ -733,6 +833,62 @@
 	}
 }
 
+#pragma mark - Autoscan Channels
+
+- (IBAction)autoscanChannels:(id)sender{
+
+	// Open the sheet
+	[NSApp beginSheet:_autoscanSheet modalForWindow:[self window]
+        modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
+
+	// Build our channels on a separate thread,
+	// This is an expensive process and should not tie up the GUI
+	/*[NSThread detachNewThreadSelector:	@selector(autoscan:)	// method to detach in a new thread
+										toTarget:self						// we are the target
+										withObject:nil];*/
+}
+
+// Handle the event where the sheet should be closed
+- (IBAction)closeSheet:(id)sender{
+	[NSApp endSheet:_autoscanSheet];
+}
+
+// Clean up the sheet based on the OK or Cancel buttons being selected
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo{
+	
+	// Close the sheet
+	[_autoscanSheet orderOut:self];
+}
+
+// Autoscan the tuners for any channels
+- (void)autoscan:(id)inObject{
+	
+	// Do this in a seperate thread to prevent the GUI from blocking
+	// Initialize an autorelease pool
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	/*buildingOutlineView = YES;		// indicate to ourselves we are building the default tree at startup
+		
+	[myOutlineView setHidden:YES];	// hide the outline view - don't show it as we are building the contents
+	
+	[self addDevicesSection];		// add the "Devices" outline section
+	[self addPlacesSection];		// add the "Places" outline section
+	[self populateOutline];			// add the disk-based outline content
+	
+	buildingOutlineView = NO;		// we're done building our default tree
+	
+	// remove the current selection
+	NSArray *selection = [treeController selectionIndexPaths];
+	[treeController removeSelectionIndexPaths:selection];
+	
+	[myOutlineView setHidden:NO];*/	// we are done populating the outline view content, show it again
+	
+
+	
+	[pool release];
+}
+
+
 
 #pragma mark - Cleanup
 
@@ -766,6 +922,7 @@
 // Cleanup after ourselves
 - (void)dealloc{
 	[contents release];
+	[toolbar release];
 	
 	[super dealloc];
 }

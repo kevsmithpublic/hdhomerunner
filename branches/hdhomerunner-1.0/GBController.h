@@ -55,6 +55,7 @@
 - (void)setIsExpandable:(BOOL)newState;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
+- (void)configureWithDictionary:(NSDictionary *)dictionary;
 - (NSDictionary*)dictionaryRepresentation;
 
 - (id)initWithCoder:(NSCoder*)coder;

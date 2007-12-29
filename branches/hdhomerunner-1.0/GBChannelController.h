@@ -24,6 +24,7 @@
 #import <WebKit/WebKit.h>
 
 #import "GBController.h"
+#import "GBChannel.h"
 
 @interface GBChannelController : GBController {
 		// The view
