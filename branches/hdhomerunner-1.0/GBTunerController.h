@@ -37,6 +37,8 @@
 - (NSString *)description;
 - (void)setDescription:(NSString *)aDescription;*/
 
+- (void)configureWithDictionary:(NSDictionary *)dictionary;
+
 - (void)discoverDevices;
 
 - (NSArray *)tuners;

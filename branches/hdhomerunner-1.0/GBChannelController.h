@@ -41,5 +41,6 @@
 }
 
 - (NSView *)view;
+- (void)configureWithDictionary:(NSDictionary *)dictionary;
 
 @end

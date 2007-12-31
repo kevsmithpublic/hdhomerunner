@@ -117,4 +117,8 @@
 
 - (id)copyWithZone:(NSZone*)zone;
 - (void)setNilValueForKey:(NSString*)key;
+
+// Channel scanning support
+- (NSNumber *)numberOfAvailableChannels;
+int channelscanCallback(va_list ap, const char *type, const char *str);
 @end

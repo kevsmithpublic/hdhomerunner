@@ -38,7 +38,7 @@
 - (void)setIsChild:(BOOL)flag;
 
 - (NSMutableArray *)children;
-- (void)setChildren:(NSArray *)newContents;
+- (void)setChildren:(NSMutableArray *)newContents;
 - (int)numberOfChildren;
 - (void)addChildToParent:(id <GBParent>)aChild;
 

@@ -21,6 +21,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
 #import "DBSourceSplitView.h"
 #import "DBListSplitView.h"
@@ -65,6 +66,9 @@
 
 	// The contents of the source list
 					NSMutableArray			*contents;
+					
+					GBChannelController		*channelController;
+					GBTunerController		*tunerController;
 	
 	// The toolbar items
 					NSMutableDictionary		*toolbarItems;
@@ -72,12 +76,16 @@
 	
 	// Items involving the autscan sheet
 	IBOutlet	NSWindow					*_autoscanSheet;
+	
+	// The view when a channel is selected
+	IBOutlet	NSView						*_channelView;
+	IBOutlet	WebView						*webView;
 }
 
 - (NSMutableArray *)contents;
 - (void)setContents:(NSArray *)newContents;
 
-- (void)changeContentView:(NSView *)newView;
+- (void)setCurrentView:(NSView *)newView;
 
 // Toolbar delegate methods
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag;

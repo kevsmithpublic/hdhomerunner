@@ -59,6 +59,7 @@
 		B08C488E0D1B85DD00187D4A /* Folder.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B08C488D0D1B85DD00187D4A /* Folder.tiff */; };
 		B08C48900D1B85EC00187D4A /* Network Utility.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B08C488F0D1B85EC00187D4A /* Network Utility.tiff */; };
 		B08C48920D1B863800187D4A /* Get Info.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B08C48910D1B863800187D4A /* Get Info.tiff */; };
+		B08D34340D278AB6003138A4 /* URLFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B08D34330D278AB6003138A4 /* URLFormatter.m */; };
 		B0C3C77B0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin in Resources */ = {isa = PBXBuildFile; fileRef = B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */; };
 		B0C859B30D1CBAAF00FA7EF7 /* GBChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C859B20D1CBAAF00FA7EF7 /* GBChannel.m */; };
 		B0C859D20D1CC5A300FA7EF7 /* GBChannelController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C859D10D1CC5A300FA7EF7 /* GBChannelController.m */; };
@@ -172,6 +173,8 @@
 		B08C488F0D1B85EC00187D4A /* Network Utility.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Network Utility.tiff"; sourceTree = "<group>"; };
 		B08C48910D1B863800187D4A /* Get Info.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Get Info.tiff"; sourceTree = "<group>"; };
 		B08C48B80D1B96C800187D4A /* GBParent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBParent.h; sourceTree = "<group>"; };
+		B08D34320D278AB6003138A4 /* URLFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLFormatter.h; sourceTree = "<group>"; };
+		B08D34330D278AB6003138A4 /* URLFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLFormatter.m; sourceTree = "<group>"; };
 		B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = hdhomerun_firmware_20071120.bin; sourceTree = "<group>"; };
 		B0C859B10D1CBAAF00FA7EF7 /* GBChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBChannel.h; sourceTree = "<group>"; };
 		B0C859B20D1CBAAF00FA7EF7 /* GBChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBChannel.m; sourceTree = "<group>"; };
@@ -273,6 +276,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B08D34310D278A9B003138A4 /* URLFormatter */,
 				B0887F840D1F89E300FCC050 /* DIController */,
 				B0D735E20D177D3C00B68D10 /* DBInterfaceDemo */,
 				B064153C0D03FBC1006A47BC /* libhdhomerun */,
@@ -384,6 +388,15 @@
 				B0887F880D1F89E300FCC050 /* NSBezierPath+Additions.m */,
 			);
 			path = DIController;
+			sourceTree = "<group>";
+		};
+		B08D34310D278A9B003138A4 /* URLFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				B08D34320D278AB6003138A4 /* URLFormatter.h */,
+				B08D34330D278AB6003138A4 /* URLFormatter.m */,
+			);
+			name = URLFormatter;
 			sourceTree = "<group>";
 		};
 		B0A800980D1C93900081EDF9 /* Protocols */ = {
@@ -654,6 +667,7 @@
 				B0C859DA0D1CC81700FA7EF7 /* GBController.m in Sources */,
 				B0887F890D1F89E300FCC050 /* DIController.m in Sources */,
 				B0887F8A0D1F89E300FCC050 /* NSBezierPath+Additions.m in Sources */,
+				B08D34340D278AB6003138A4 /* URLFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -37,14 +37,24 @@
 
 @implementation GBWindowController
 
-- (id)init{
-	if(self == [super init]){
+- (id)initWithWindow:(NSWindow *)window{
+	if(self = [super initWithWindow:window]){
 	
+		// Contents of the source list
 		contents = [[NSMutableArray alloc] init];
 	
-		[contents addObject:[[GBTunerController alloc] initWithWindowNibName:TUNER_NIB_NAME]];
-		[contents addObject:[[GBChannelController alloc] initWithWindowNibName:CHANNEL_NIB_NAME]];
+		// Add the objects to the contents
+		tunerController = [[GBTunerController alloc] initWithWindowNibName:TUNER_NIB_NAME];
+		channelController = [[GBChannelController alloc] initWithWindowNibName:CHANNEL_NIB_NAME];
+
+		[contents addObject:tunerController];
+		[contents addObject:channelController];
 		
+		// Ensure that the nibs are loaded
+		[[contents objectAtIndex:0] window];
+		[[contents objectAtIndex:1] window];
+		
+		// Mutable dictionary of the toolbar items
 		toolbarItems = [[NSMutableDictionary alloc] initWithCapacity:0];
 		
 		// Initialize the toolbaritem
@@ -394,7 +404,7 @@
 		
 	} else {
 		// Else return the parent at the specified index
-		return [contents objectAtIndex:index];;
+		return [contents objectAtIndex:index];
 	}
 	
 }
@@ -437,8 +447,8 @@
 	id result;
 	
 	// If the column requesting data is the name column
-	if([[tableColumn identifier] compare:COLUMNID_NAME] == NSOrderedSame){
-
+	if([[tableColumn identifier] isEqualToString:COLUMNID_NAME]){
+		NSLog(@"title = %@", [item title]);
 		result = [NSString stringWithString:[item title]];
 	} else {
 		
@@ -464,7 +474,7 @@
 	// Assume that the user entered a null value
 	BOOL result = YES;
 	
-	NSLog(@"selectionShouldChange %@", [outlineView stringValue]);
+	NSLog(@"selectionShouldChange");
 	
 	/*if ([[fieldEditor string] length] == 0)
 	{
@@ -486,7 +496,8 @@
 // -------------------------------------------------------------------------------
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item{
 	// Don't allow the main parents displayed to be edited or the imagecell
-	return !(([contents containsObject:[item representedObject]]) || ([tableColumn identifier] != COLUMNID_NAME));
+	//return !(([contents containsObject:[item representedObject]]) || ([tableColumn identifier] != COLUMNID_NAME));
+	return !(([contents containsObject:item]) || ([[tableColumn identifier] isEqualToString:COLUMNID_NAME]));
 }
 
 // -------------------------------------------------------------------------------
@@ -563,7 +574,7 @@
 	[placeHolderView displayIfNeeded];	// we want the removed views to disappear right away
 }*/
 
-- (void)changeContentView:(NSView *)newView{
+- (void)setCurrentView:(NSView *)newView{
 	
 	// 
 	if(newView){
@@ -684,9 +695,35 @@
 //	outlineViewSelectionDidChange:notification
 // -------------------------------------------------------------------------------
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification{
-	NSLog(@"selection did change notification %@", [GBOutlineView itemAtRow:[GBOutlineView selectedRow]]);
+	NSLog(@"selection did change notification %@", [[GBOutlineView itemAtRow:[GBOutlineView selectedRow]] class]);
+	NSLog(@"selected row = %i", [GBOutlineView selectedRow]);
+	id selectedObject = [GBOutlineView itemAtRow:[GBOutlineView selectedRow]];
 	
-	[self changeContentView:[[contents objectAtIndex:1] view]];
+	//[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[selectedObject url]]];
+	
+	// We are going to loop over the contents and find out who the selected item belongs to
+	NSEnumerator *enumerator = [contents objectEnumerator];
+	
+	// The parent in contents
+	id parent;
+	
+	while(parent = [enumerator nextObject]){
+		
+		// If the selected item is in children
+		if([[parent children] containsObject:selectedObject]){
+			
+			// We assume that we found the view somewhere,
+			// that the selected object is unique to all parents,
+			// and that all children do not have children themselves
+			// else we may never find the selected object if it is a nested child.
+			//[self setCurrentView:[parent viewForChild:selectedObject]];
+			NSLog(@"was found somewhere");
+		}
+	}
+	
+	//[self changeContentView:[[contents objectAtIndex:1] view]];
+	
+	//NSLog(@"trying %@", [[contents objectAtIndex:1] view]);
 	/*if (buildingOutlineView)	// we are currently building the outline view, don't change any view selections
 		return;
 
@@ -803,7 +840,7 @@
 			
 			// Loop over all imported channels
 			while ((new_channel = [newchannel_enumerator nextObject])) {
-			
+				
 				// All of the values in the new_object dictionary
 				NSArray *values =	[NSArray arrayWithObjects:[new_channel objectForKey:@"Description"], 
 									[new_channel objectForKey:@"Channel"],
@@ -811,13 +848,13 @@
 				
 				// The keys for new_object dictionary
 				NSArray *keys = [NSArray arrayWithObjects:	@"description",
-															@"channel",
+															@"number",
 															@"program", nil];
 				
 				// A new dictionary based on the translation from HDHRControl keys to hdhomerunner keys																						
 				NSDictionary *dict = [NSDictionary dictionaryWithObjects:values forKeys:keys];
 				
-				// Create a channel with the dictionar
+				// Create a channel with the dictionary
 				GBChannel *tmp = [[GBChannel alloc] initWithDictionary:dict];
 				
 				// Add the channel to the GBChannelController as a child

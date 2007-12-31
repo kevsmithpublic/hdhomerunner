@@ -591,6 +591,23 @@
 		[self setProperties:dictionary];		
 	}
 	
+	// If the title is null we should set it to be the same as the description (if it isn't null)
+	/*if(![self title]){
+	
+		// Make sure the description isn't null
+		if([self description]){
+		
+			// Set the title
+			[self setTitle:[self description]];
+			
+		} else {
+			
+			// Else the title and description are null and should be something.. more friendly
+			[self setTitle:@"Untitled"];
+			[self setDescription:@"Untitled"];
+		}
+	}*/
+
 	return self;
 }
 
@@ -649,6 +666,67 @@
 		[super setNilValueForKey:key];
 	}
 }
+
+#pragma mark - Channel Scanning Support
+
+// Build a channel list for the channel count
+- (NSNumber *)numberOfAvailableChannels{
+	
+	// The total number of channels
+	int count = 0;
+	
+	// The channel number
+	//int channel = 0;
+	
+	//
+	//NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+	
+	// This is an expensive process and should not up other processes
+	[NSThread detachNewThreadSelector:	@selector(executeChannelScan:)	// method to detach in a new thread
+										toTarget:self					// we are the target
+										withObject:[NSNumber numberWithInt:HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST]];
+	
+	// Tell the device to execute a channel scan
+	//channelscan_execute_all(hdhr, HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST, &channelscanCallback, &count, &channel, nil, nil, nil); 
+	
+	return [NSNumber numberWithInt:count];
+}
+
+- (void)executeChannelScan:(NSNumber *)mode{
+	
+	// Set up the autorelease pool for the thread
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	int result = 0;
+	
+	// The total number of channels scanned
+	int count = 0;
+	
+	// The channel number to scan
+	int channel = 0;
+	
+	// The program number to scan
+	int program = 0;
+	
+	// The channel data to return
+	NSMutableArray	*data;
+	
+	// Tell the device to execute a channel scan
+	result = channelscan_execute_all(hdhr, [mode intValue], &channelscanCallback, &count, &channel, &program, data);
+
+	// release the pool
+	[pool release];
+}
+
+// Return an array of available channels that the tuner is able to lock
+- (NSArray *)availableChannels{
+	return nil;
+}
+
+int channelscanCallback(va_list ap, const char *type, const char *str){
+	return 0;
+}
+
 #pragma mark - Clean up
 
 // Clean up

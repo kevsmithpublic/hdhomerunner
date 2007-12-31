@@ -86,7 +86,7 @@
 	return [properties valueForKey:@"children"];
 }
 
-- (void)setChildren:(NSArray *)newContents{
+- (void)setChildren:(NSMutableArray *)newContents{
 	// If the new children is not the same as the existing children
 	if(![[self children] isEqualToArray:newContents]){
 	
@@ -99,10 +99,8 @@
 
 - (void)addChildToParent:(id <GBParent>)aChild{
 	
+	// Make sure the child is not null or already in the children
 	if(aChild && ![[self children] containsObject:aChild]){
-	
-		// Update the properties to reflect the change and remain key value coding compliant
-		[self willChangeValueForKey:@"children"];
 		
 		// Temporary object to hold the current array contents
 		NSMutableArray	*tmp = [self children];
@@ -110,10 +108,8 @@
 		// Add the new child
 		[tmp addObject:aChild];
 		
-		// Update the properties with the additional child
-		[properties setObject:tmp forKey:@"children"];
-		
-		[self didChangeValueForKey:@"children"];
+		// Set the children
+		[self setChildren:tmp];
 	}
 }
 

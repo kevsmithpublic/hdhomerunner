@@ -172,10 +172,19 @@
 
 - (NSString *)title{
 	return [self description];
+	//return [properties objectForKey:@"title"];
 }
 
 - (void)setTitle:(NSString *)newTitle{
 	[self setDescription:newTitle];
+	// If the new title is not the same as the existing description
+	/*if([[self title] compare:newTitle] != NSOrderedSame){
+	
+		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"title"];
+		[properties setObject:newTitle forKey:@"title"];
+		[self didChangeValueForKey:@"title"];
+	}*/
 }
 
 - (NSComparisonResult)compare:(<GBParent> *)aParent{
@@ -186,7 +195,7 @@
 - (BOOL)isEqual:(GBChannel <GBParent> *)aParent{
 	return ([[self description] isEqualToString:[aParent description]] &&
 			[[self title] isEqualToString:[aParent title]] &&
-			[[self identification] isEqualToNumber:[aParent identification]] && 
+			[[self program] isEqualToNumber:[aParent program]] && 
 			[[self number] isEqualToNumber:[aParent number]]);
 }
 
@@ -252,6 +261,23 @@
 				[self setChildren:newChildren];
 			}
 		}
+		
+		// If the title is null we should set it to be the same as the description (if it isn't null)
+		/*if([[self title] isEqualToString:@""]){
+		
+			// Make sure the description isn't null
+			if(![[self description] isEqualToString:@""]){
+			
+				// Set the title
+				[self setTitle:[self description]];
+				
+			} else {
+				
+				// Else the title and description are null and should be something.. more friendly
+				[self setTitle:@"Untitled"];
+				[self setDescription:@"Untitled"];
+			}
+		}*/
 	}
 	
 	return self;
@@ -306,10 +332,10 @@
 	if(self = [self init]){
 	
 		// Make sure the archive has a key for Controller
-		if([coder containsValueForKey:@"Controller"]){
+		if([coder containsValueForKey:@"Channel"]){
 			
 			// Initialize with the archived dictionary
-			[self initWithDictionary:[coder decodeObjectForKey:@"Controller"]];
+			[self initWithDictionary:[coder decodeObjectForKey:@"Channel"]];
 		}
 	}
 	
@@ -320,7 +346,7 @@
 - (void)encodeWithCoder:(NSCoder*)coder{
 
 	// Encode the object into the coder
-	[coder encodeObject:properties forKey:@"Controller"];
+	[coder encodeObject:properties forKey:@"Channel"];
 
 	/*// The keys to encode
 	NSEnumerator *enumerator = [[properties allKeys] objectEnumerator];
