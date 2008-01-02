@@ -28,19 +28,22 @@
 
 @interface GBChannelController : GBController {
 		// The view
-		IBOutlet		NSView			*mainView;
+		IBOutlet		NSView			*_view;
 
 		// The webview to show the channel's URL
-		IBOutlet		WebView			*webView;
+		IBOutlet		WebView			*_web;
 		
 		// The iconview to show the Channel's icon
-		IBOutlet		NSImageView		*iconView;
+		IBOutlet		NSImageView		*_icon;
 		
 		// The textfields to show the relevant info
-		IBOutlet		NSTextField		*titleField;
+		IBOutlet		NSTextField		*_title;
+		IBOutlet		NSTextField		*_program;
+		IBOutlet		NSTextField		*_channel;
+		IBOutlet		NSTextField		*_url;
 }
 
-- (NSView *)view;
+- (NSView *)viewForChild:(GBChannel *)aChannel;
 - (void)configureWithDictionary:(NSDictionary *)dictionary;
 
 @end

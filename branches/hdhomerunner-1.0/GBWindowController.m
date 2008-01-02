@@ -29,7 +29,7 @@
 
 #define UNTITLED_NAME			@"Untitled"		// default name for added folders and leafs
 
-#define COLUMNID_NAME			@"NameColumn"	// the single column name in our outline view
+#define COLUMNID_NAME			@"nameColumn"	// the single column name in our outline view
 
 #define CHANNEL_NIB_NAME		@"ChannelView"	// nib name for the channel view
 #define TUNER_NIB_NAME			@"TunerView"		// nib name for the file view
@@ -184,6 +184,8 @@
 	// Attach the toolbar to the window
 	[[self window] setToolbar:theToolbar];
 	
+	[GBOutlineView setRoundedSelections:YES];
+	
 	// Register for notifications
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector: @selector(applicationWillFinishLaunching:) name:NSApplicationWillFinishLaunchingNotification object:nil];
@@ -204,7 +206,9 @@
 	[self loadUserDefaults];
 }
 
-#pragma mark - User Defaults
+#pragma mark -
+#pragma mark  User Defaults
+#pragma mark -
 
 - (void)loadUserDefaults{
 
@@ -393,7 +397,9 @@
 	NSLog(@"record toolbar item selected");
 }
 
-#pragma mark - NSOutlineView datasource methods
+#pragma mark -
+#pragma mark  NSOutlineView datasource methods
+#pragma mark -
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item{
 	NSLog(@"outlineView: child:%i ofItem:%@", index, item);
@@ -449,6 +455,7 @@
 	// If the column requesting data is the name column
 	if([[tableColumn identifier] isEqualToString:COLUMNID_NAME]){
 		NSLog(@"title = %@", [item title]);
+		
 		result = [NSString stringWithString:[item title]];
 	} else {
 		
@@ -459,7 +466,9 @@
 	return result;
 }
 
-#pragma mark - NSOutlineView delegate methods
+#pragma mark -
+#pragma mark  NSOutlineView delegate methods
+#pragma mark -
 
 // Should the outlineview select the item?
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item{
@@ -496,8 +505,12 @@
 // -------------------------------------------------------------------------------
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item{
 	// Don't allow the main parents displayed to be edited or the imagecell
-	//return !(([contents containsObject:[item representedObject]]) || ([tableColumn identifier] != COLUMNID_NAME));
-	return !(([contents containsObject:item]) || ([[tableColumn identifier] isEqualToString:COLUMNID_NAME]));
+	return !([contents containsObject:item]);
+}
+
+// Make the edits to the item
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)aValue forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item{
+	/* Do Nothing - just wanted to show off my fancy text field cell's editing */
 }
 
 // -------------------------------------------------------------------------------
@@ -577,9 +590,9 @@
 - (void)setCurrentView:(NSView *)newView{
 	
 	// 
-	if(newView){
+	//if(newView){
 		[currentView addSubview:newView];
-	}
+	//}
 }
 
 // -------------------------------------------------------------------------------
@@ -716,7 +729,7 @@
 			// that the selected object is unique to all parents,
 			// and that all children do not have children themselves
 			// else we may never find the selected object if it is a nested child.
-			//[self setCurrentView:[parent viewForChild:selectedObject]];
+			[self setCurrentView:[parent viewForChild:selectedObject]];
 			NSLog(@"was found somewhere");
 		}
 	}

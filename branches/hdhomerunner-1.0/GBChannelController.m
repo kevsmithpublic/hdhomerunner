@@ -90,8 +90,8 @@
 	}
 }
 
-- (NSView *)view{
-	return mainView;
+- (NSView *)viewForChild:(GBChannel *)aChannel{
+	return _view;
 }
 
 #pragma mark - WebView delegate

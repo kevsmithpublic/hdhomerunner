@@ -30,6 +30,7 @@
 #import "GBChannelController.h"
 
 #import "GBSourceListOutlineView.h"
+#import "DSGeneralOutlineView.h"
 
 #import "GBTuner.h"
 #import "GBChannel.h"
@@ -50,7 +51,7 @@
 	
 	// Source View elements
 	IBOutlet		NSView					*sourceView;
-	IBOutlet		GBSourceListOutlineView	*GBOutlineView;
+	IBOutlet		DSGeneralOutlineView	*GBOutlineView;
 	
 	// Content View elements
 	IBOutlet		NSView					*contentView;
@@ -117,6 +118,7 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item;
 - (BOOL)selectionShouldChangeInOutlineView:(NSOutlineView *)outlineView;
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item;
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)aValue forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
 - (void)outlineView:(NSOutlineView *)olv willDisplayCell:(NSCell*)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item;
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification;
 
