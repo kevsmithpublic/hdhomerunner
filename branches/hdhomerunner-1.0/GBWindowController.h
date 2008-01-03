@@ -86,7 +86,7 @@
 - (NSMutableArray *)contents;
 - (void)setContents:(NSArray *)newContents;
 
-- (void)setCurrentView:(NSView *)newView;
+- (void)changeCurrentView:(NSView *)newView;
 - (void)removeSubview;
 
 // Toolbar delegate methods

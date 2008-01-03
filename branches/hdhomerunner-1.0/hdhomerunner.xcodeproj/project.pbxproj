@@ -32,6 +32,7 @@
 		B064155D0D03FBC1006A47BC /* hdhomerun_pkt.c in Sources */ = {isa = PBXBuildFile; fileRef = B064154E0D03FBC1006A47BC /* hdhomerun_pkt.c */; };
 		B064155E0D03FBC1006A47BC /* hdhomerun_video.c in Sources */ = {isa = PBXBuildFile; fileRef = B06415500D03FBC1006A47BC /* hdhomerun_video.c */; };
 		B064155F0D03FBC1006A47BC /* lgpl.txt in Resources */ = {isa = PBXBuildFile; fileRef = B06415520D03FBC1006A47BC /* lgpl.txt */; };
+		B071DB5F0D2D47CD00C74EDE /* default.html in Resources */ = {isa = PBXBuildFile; fileRef = B071DB5E0D2D47CD00C74EDE /* default.html */; };
 		B076B7F30C5AA67900174C3B /* idle.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7D40C5AA67900174C3B /* idle.tiff */; };
 		B076B7F40C5AA67900174C3B /* recording.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7D50C5AA67900174C3B /* recording.tiff */; };
 		B076B7F50C5AA67900174C3B /* offline.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7D60C5AA67900174C3B /* offline.tiff */; };
@@ -147,6 +148,7 @@
 		B06415520D03FBC1006A47BC /* lgpl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lgpl.txt; sourceTree = "<group>"; };
 		B06415530D03FBC1006A47BC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		B06415540D03FBC1006A47BC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		B071DB5E0D2D47CD00C74EDE /* default.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = default.html; sourceTree = "<group>"; };
 		B076B7D40C5AA67900174C3B /* idle.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = idle.tiff; sourceTree = "<group>"; };
 		B076B7D50C5AA67900174C3B /* recording.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = recording.tiff; sourceTree = "<group>"; };
 		B076B7D60C5AA67900174C3B /* offline.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = offline.tiff; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B071DB5E0D2D47CD00C74EDE /* default.html */,
 				B08508FF0D2443A10040E78F /* TunerView.xib */,
 				B08508F40D243E770040E78F /* ChannelView.xib */,
 				B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */,
@@ -663,6 +666,7 @@
 				B08C48920D1B863800187D4A /* Get Info.tiff in Resources */,
 				B08508F50D243E770040E78F /* ChannelView.xib in Resources */,
 				B08509000D2443A10040E78F /* TunerView.xib in Resources */,
+				B071DB5F0D2D47CD00C74EDE /* default.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

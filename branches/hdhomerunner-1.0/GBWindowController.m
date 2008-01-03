@@ -192,7 +192,7 @@
 	[GBOutlineView setRowHeight:(ROW_HEIGHT)];
 	//[GBOutlineView setIndentationPerLevel:32.0];
 
-	[self setCurrentView:[channelController viewForChild:nil]];
+	//[self setCurrentView:[channelController viewForChild:nil]];
 	
 	// Register for notifications
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -622,15 +622,34 @@
 	[placeHolderView displayIfNeeded];	// we want the removed views to disappear right away
 }*/
 
-- (void)setCurrentView:(NSView *)newView{
-	NSLog(@"setting the view %@", newView);
+- (void)changeCurrentView:(NSView *)newView{
 	
-	//[self removeSubview];
-	// 
-	//if(newView){
+	// If the view is not null
+	if(newView){
+	
+		// Remove any subview that is present
+		//[self removeSubview];
+	
+		// Add the view as a subview to the current view
 		[currentView addSubview:newView];
+		
+		// Apply the changes immediately
 		[currentView displayIfNeeded];
-	//}
+		
+		// Get the bounds of the current view
+		NSRect newBounds;
+		newBounds.origin.x = 0;
+		newBounds.origin.y = 0;
+		newBounds.size.width = [[newView superview] frame].size.width;
+		newBounds.size.height = [[newView superview] frame].size.height;
+		
+		// Apply the bounds to the new view
+		[newView setFrame:[[newView superview] frame]];
+		
+		// Make sure our added subview is placed and resizes correctly
+		[newView setFrameOrigin:NSMakePoint(0,0)];
+		[newView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+	}
 }
 - (void)removeSubview{
 	// empty selection
@@ -777,8 +796,7 @@
 			// that the selected object is unique to all parents,
 			// and that all children do not have children themselves
 			// else we may never find the selected object if it is a nested child.
-			[self setCurrentView:[parent viewForChild:selectedObject]];
-			NSLog(@"was found somewhere");
+			[self changeCurrentView:[parent viewForChild:selectedObject]];
 		}
 	}
 	

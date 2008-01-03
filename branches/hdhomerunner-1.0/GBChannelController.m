@@ -91,6 +91,33 @@
 }
 
 - (NSView *)viewForChild:(GBChannel *)aChannel{
+
+	NSURL *aURL = [aChannel url];
+	
+	// If the url is null then set the url to the a default 
+	if(!aURL){
+		
+		// Get the path for the default.html resource
+		NSString *path = [NSBundle pathForResource:@"default" ofType:@"html" inDirectory:[[NSBundle mainBundle] bundlePath]];
+		
+		// Set aURL to the default url
+		aURL = nil;
+		aURL = [NSURL URLWithString:path];
+	}
+	
+	// Set the webview to load the appropriate URL
+	[[_web mainFrame] loadRequest:[NSURLRequest requestWithURL:aURL]]; 
+	//[[_web mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.abc.com"]]]; 
+	
+	// Set the image view to the channel's icon
+	[_icon setImage:[aChannel icon]];
+		
+	// The textfields to show the relevant info
+	[_title setStringValue:[aChannel title]];
+	[_program setIntValue:[[aChannel program] intValue]];
+	[_channel setIntValue:[[aChannel number] intValue]];
+	//	IBOutlet		NSTextField		*_url;
+	
 	return _view;
 }
 
