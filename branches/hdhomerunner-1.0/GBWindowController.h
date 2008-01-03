@@ -87,6 +87,7 @@
 - (void)setContents:(NSArray *)newContents;
 
 - (void)setCurrentView:(NSView *)newView;
+- (void)removeSubview;
 
 // Toolbar delegate methods
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag;

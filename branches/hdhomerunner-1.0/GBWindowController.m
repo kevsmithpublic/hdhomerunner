@@ -35,6 +35,9 @@
 #define TUNER_NIB_NAME			@"TunerView"		// nib name for the file view
 #define CHILDEDIT_NAME			@"ChildEdit"	// nib name for the child edit window controller
 
+#define FONT_HEIGHT				12.0
+#define ROW_HEIGHT				24.0
+
 @implementation GBWindowController
 
 - (id)initWithWindow:(NSWindow *)window{
@@ -46,7 +49,7 @@
 		// Add the objects to the contents
 		tunerController = [[GBTunerController alloc] initWithWindowNibName:TUNER_NIB_NAME];
 		channelController = [[GBChannelController alloc] initWithWindowNibName:CHANNEL_NIB_NAME];
-
+			
 		[contents addObject:tunerController];
 		[contents addObject:channelController];
 		
@@ -184,7 +187,12 @@
 	// Attach the toolbar to the window
 	[[self window] setToolbar:theToolbar];
 	
-	[GBOutlineView setRoundedSelections:YES];
+	// Configure the outline view
+	//[GBOutlineView setRoundedSelections:YES];
+	[GBOutlineView setRowHeight:(ROW_HEIGHT)];
+	//[GBOutlineView setIndentationPerLevel:32.0];
+
+	[self setCurrentView:[channelController viewForChild:nil]];
 	
 	// Register for notifications
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -402,7 +410,7 @@
 #pragma mark -
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item{
-	NSLog(@"outlineView: child:%i ofItem:%@", index, item);
+	//NSLog(@"outlineView: child:%i ofItem:%@", index, item);
 
 	// If the parent (item) is not nil then return the children of the parent at the specified index
 	if(item){
@@ -416,7 +424,7 @@
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item{
-	NSLog(@"outlineView: isItemExpandable:%@", [item class]);
+	//NSLog(@"outlineView: isItemExpandable:%@", [item class]);
 	
 	BOOL result = NO;
 	
@@ -431,7 +439,7 @@
 }
 
 - (int)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item{
-	NSLog(@"outlineView: numberOfChildrenofItem:%@", item);
+	//NSLog(@"outlineView: numberOfChildrenofItem:%@", item);
 	
 	// Default number of Children is the number of items in the content object
 	int result = [contents count];
@@ -447,14 +455,14 @@
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item{
-	NSLog(@"outlineView: objectValueForTableColumn:%i byItem:%@", [tableColumn identifier], item);
+	//NSLog(@"outlineView: objectValueForTableColumn:%i byItem:%@", [tableColumn identifier], item);
 
 	// The object to return
 	id result;
 	
 	// If the column requesting data is the name column
 	if([[tableColumn identifier] isEqualToString:COLUMNID_NAME]){
-		NSLog(@"title = %@", [item title]);
+		//NSLog(@"title = %@", [item title]);
 		
 		result = [NSString stringWithString:[item title]];
 	} else {
@@ -462,8 +470,39 @@
 		// Else we should return the icon of the item
 		result =  [[item icon] copy];
 	}
+		
+	/*// The object to return
+	id result;
+	
+	// If the column requesting data is the name column
+	//if([[tableColumn identifier] isEqualToString:COLUMNID_NAME]){
+	if (![contents containsObject:item]) {
+		NSLog(@"title = %@", [item title]);
+		
+		NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Chicago" size:FONT_HEIGHT], NSFontAttributeName, [NSColor textColor], NSForegroundColorAttributeName, nil];
+	
+		NSAttributedString *string = [[[NSAttributedString alloc] initWithString:[item title] attributes:attributes] autorelease];
+		NSImage *image = [[[NSImage alloc] initWithData:[[item icon] TIFFRepresentation]] autorelease];
+		
+		[image setScalesWhenResized:YES];
+		[image setSize:NSMakeSize( ROW_HEIGHT, ROW_HEIGHT )];
+		
+		//result = [NSDictionary dictionaryWithObjectsAndKeys:image, @"Image", string, @"String", nil];
+		result = [item title];
+	} else {
+		
+		// Else we should return the icon of the item
+		//result =  [[item icon] copy];
+		result = [item title];
+	}*/
 	
 	return result;
+}
+
+// Make the edits to the item
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)aValue forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item{
+	/* Do Nothing - just wanted to show off my fancy text field cell's editing */
+	NSLog(@"set object value");
 }
 
 #pragma mark -
@@ -483,7 +522,7 @@
 	// Assume that the user entered a null value
 	BOOL result = YES;
 	
-	NSLog(@"selectionShouldChange");
+	//NSLog(@"selectionShouldChange");
 	
 	/*if ([[fieldEditor string] length] == 0)
 	{
@@ -508,10 +547,6 @@
 	return !([contents containsObject:item]);
 }
 
-// Make the edits to the item
-- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)aValue forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item{
-	/* Do Nothing - just wanted to show off my fancy text field cell's editing */
-}
 
 // -------------------------------------------------------------------------------
 //	outlineView:willDisplayCell
@@ -588,11 +623,24 @@
 }*/
 
 - (void)setCurrentView:(NSView *)newView{
+	NSLog(@"setting the view %@", newView);
 	
+	//[self removeSubview];
 	// 
 	//if(newView){
 		[currentView addSubview:newView];
+		[currentView displayIfNeeded];
 	//}
+}
+- (void)removeSubview{
+	// empty selection
+	NSArray *subViews = [currentView subviews];
+	if ([subViews count] > 0)
+	{
+		[[subViews objectAtIndex:0] removeFromSuperview];
+	}
+	
+	[currentView displayIfNeeded];	// we want the removed views to disappear right away
 }
 
 // -------------------------------------------------------------------------------
@@ -709,7 +757,7 @@
 // -------------------------------------------------------------------------------
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification{
 	NSLog(@"selection did change notification %@", [[GBOutlineView itemAtRow:[GBOutlineView selectedRow]] class]);
-	NSLog(@"selected row = %i", [GBOutlineView selectedRow]);
+
 	id selectedObject = [GBOutlineView itemAtRow:[GBOutlineView selectedRow]];
 	
 	//[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[selectedObject url]]];
@@ -764,7 +812,9 @@
 	}*/
 }
 
-#pragma mark - Import/Export Channels
+#pragma mark -
+#pragma mark  Import/Export Channels
+#pragma mark -
 
 // Take action based on importing channel menuitem being selected
 -(IBAction)importChannels:(id)sender{
@@ -883,7 +933,9 @@
 	}
 }
 
-#pragma mark - Autoscan Channels
+#pragma mark -
+#pragma mark  Autoscan Channels
+#pragma mark -
 
 - (IBAction)autoscanChannels:(id)sender{
 
@@ -938,9 +990,9 @@
 	[pool release];
 }
 
-
-
-#pragma mark - Cleanup
+#pragma mark -
+#pragma mark  Cleanup
+#pragma mark -
 
 // The application will terminate. Save contents to disk
 -(void)applicationWillTerminate:(NSNotification *)notification{
