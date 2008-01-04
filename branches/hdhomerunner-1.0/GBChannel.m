@@ -111,6 +111,7 @@
 }
 
 - (void)setURL:(NSURL *)newURL{
+
 	if(![[[self url] absoluteString] isEqualToString:[newURL absoluteString]]){
 		// Update the properties to reflect the change and remain key value coding compliant
 		[self willChangeValueForKey:@"url"];
@@ -215,19 +216,32 @@
 	}
 }
 
-#pragma mark - Archiving And Copying Support
+#pragma mark -
+#pragma mark  Archiving And Copying Support
+#pragma mark -
 
 // Init with the contents of a dictionary
 - (id)initWithDictionary:(NSDictionary*)dictionary{
+	
+	// The dictionary to return
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:dictionary];
 	
 	// Run the initialization
 	if(self = [self init]){
 	
 		// If dictionary is not null...
-		if(dictionary){
+		if(dict){
+		
+			// If there is a URL set then convert the string into a NSURL
+			if([[dict allKeys] containsObject:@"url"]){
+				
+				// Set the URL properly
+				[dict setObject:[NSURL URLWithString:[dict objectForKey:@"url"]] forKey:@"url"];
+			}
 		
 			// Set the properties dictionary to dictionary
-			[properties setDictionary:dictionary];
+			[properties setDictionary:dict];
+			
 			
 			// If there are children associated with the properities then convert the children
 			// from dictionary objects into normal children
@@ -285,7 +299,18 @@
 
 // Return a dictionary representation of the controller AND all its children
 - (NSDictionary*)dictionaryRepresentation{
-	return properties;
+
+	// The dictionary to return
+	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:properties];
+	
+	// If there is a URL associated with the channel then change it to a string for archiving
+	if([[dictionary allKeys] containsObject:@"url"]){
+		
+		// Change the url to string
+		[dictionary setObject:[[dictionary objectForKey:@"url"] absoluteString] forKey:@"url"];
+	}
+
+	return dictionary;
 	// The dictionary to return. Default is the properties dictionary
 	/*NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithDictionary:properties];
 	

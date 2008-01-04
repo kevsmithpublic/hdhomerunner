@@ -27,7 +27,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification*)notification
 {
 	// load the app's main window for display
-	windowController = [[GBWindowController alloc] initWithWindow:[[NSApplication sharedApplication] mainWindow]];
+	//windowController = [[GBWindowController alloc] initWithWindow:[[NSApplication sharedApplication] mainWindow]];
 	//windowController = [[GBWindowController alloc] initWithWindowNibName:@"MainWindow"];
 	//[windowController showWindow:self];
 }

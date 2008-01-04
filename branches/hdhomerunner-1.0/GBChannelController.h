@@ -41,9 +41,14 @@
 		IBOutlet		NSTextField		*_program;
 		IBOutlet		NSTextField		*_channel;
 		IBOutlet		NSTextField		*_url;
+		
+						GBChannel		*selectedChannel;
 }
 
-- (NSView *)viewForChild:(GBChannel *)aChannel;
 - (void)configureWithDictionary:(NSDictionary *)dictionary;
+- (NSView *)viewForChild:(GBChannel *)aChannel;
+- (void)updateView;
+- (IBAction)editChannel:(id)sender;
+- (NSString*)autoCompletedHTTPStringFromString:(NSString*)urlString;
 
 @end

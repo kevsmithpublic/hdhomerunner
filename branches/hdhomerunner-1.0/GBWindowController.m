@@ -796,9 +796,7 @@
 	NSLog(@"selection did change notification %@", [[GBOutlineView itemAtRow:[GBOutlineView selectedRow]] class]);
 
 	id selectedObject = [GBOutlineView itemAtRow:[GBOutlineView selectedRow]];
-	
-	//[[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[selectedObject url]]];
-	
+		
 	// We are going to loop over the contents and find out who the selected item belongs to
 	NSEnumerator *enumerator = [contents objectEnumerator];
 	

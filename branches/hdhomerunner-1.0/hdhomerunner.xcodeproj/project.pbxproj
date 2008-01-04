@@ -62,7 +62,6 @@
 		B08C48920D1B863800187D4A /* Get Info.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B08C48910D1B863800187D4A /* Get Info.tiff */; };
 		B08D34340D278AB6003138A4 /* URLFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B08D34330D278AB6003138A4 /* URLFormatter.m */; };
 		B0AEDE840D2C146800876AA2 /* DSGeneralOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AEDE830D2C146800876AA2 /* DSGeneralOutlineView.m */; };
-		B0AEDE8D0D2C14F000876AA2 /* DSClickableURLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AEDE8C0D2C14F000876AA2 /* DSClickableURLTextField.m */; };
 		B0AEDEF70D2C25E500876AA2 /* DSImageAndTruncatingCenteringTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AEDEF60D2C25E500876AA2 /* DSImageAndTruncatingCenteringTextFieldCell.m */; };
 		B0C3C77B0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin in Resources */ = {isa = PBXBuildFile; fileRef = B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */; };
 		B0C859B30D1CBAAF00FA7EF7 /* GBChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C859B20D1CBAAF00FA7EF7 /* GBChannel.m */; };
@@ -182,8 +181,6 @@
 		B08D34330D278AB6003138A4 /* URLFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLFormatter.m; sourceTree = "<group>"; };
 		B0AEDE820D2C146800876AA2 /* DSGeneralOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSGeneralOutlineView.h; sourceTree = "<group>"; };
 		B0AEDE830D2C146800876AA2 /* DSGeneralOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSGeneralOutlineView.m; sourceTree = "<group>"; };
-		B0AEDE8B0D2C14F000876AA2 /* DSClickableURLTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSClickableURLTextField.h; sourceTree = "<group>"; };
-		B0AEDE8C0D2C14F000876AA2 /* DSClickableURLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSClickableURLTextField.m; sourceTree = "<group>"; };
 		B0AEDEF50D2C25E500876AA2 /* DSImageAndTruncatingCenteringTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSImageAndTruncatingCenteringTextFieldCell.h; sourceTree = "<group>"; };
 		B0AEDEF60D2C25E500876AA2 /* DSImageAndTruncatingCenteringTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSImageAndTruncatingCenteringTextFieldCell.m; sourceTree = "<group>"; };
 		B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = hdhomerun_firmware_20071120.bin; sourceTree = "<group>"; };
@@ -288,7 +285,6 @@
 			isa = PBXGroup;
 			children = (
 				B0AEDEF40D2C25CC00876AA2 /* DSImageAndTruncatingCenteringTextFieldCell */,
-				B0AEDE890D2C14DD00876AA2 /* DSClickableURLTextField */,
 				B0AEDE7F0D2C144F00876AA2 /* DSGeneralOutlineView */,
 				B08D34310D278A9B003138A4 /* URLFormatter */,
 				B0887F840D1F89E300FCC050 /* DIController */,
@@ -307,8 +303,8 @@
 			isa = PBXGroup;
 			children = (
 				B071DB5E0D2D47CD00C74EDE /* default.html */,
-				B08508FF0D2443A10040E78F /* TunerView.xib */,
 				B08508F40D243E770040E78F /* ChannelView.xib */,
+				B08508FF0D2443A10040E78F /* TunerView.xib */,
 				B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */,
 				B0545BCE0C820B6F00978980 /* tv.icns */,
 				B076B8220C5AA70000174C3B /* MainMenu.nib */,
@@ -429,15 +425,6 @@
 				B0AEDE830D2C146800876AA2 /* DSGeneralOutlineView.m */,
 			);
 			name = DSGeneralOutlineView;
-			sourceTree = "<group>";
-		};
-		B0AEDE890D2C14DD00876AA2 /* DSClickableURLTextField */ = {
-			isa = PBXGroup;
-			children = (
-				B0AEDE8B0D2C14F000876AA2 /* DSClickableURLTextField.h */,
-				B0AEDE8C0D2C14F000876AA2 /* DSClickableURLTextField.m */,
-			);
-			name = DSClickableURLTextField;
 			sourceTree = "<group>";
 		};
 		B0AEDEF40D2C25CC00876AA2 /* DSImageAndTruncatingCenteringTextFieldCell */ = {
@@ -712,7 +699,6 @@
 				B0887F8A0D1F89E300FCC050 /* NSBezierPath+Additions.m in Sources */,
 				B08D34340D278AB6003138A4 /* URLFormatter.m in Sources */,
 				B0AEDE840D2C146800876AA2 /* DSGeneralOutlineView.m in Sources */,
-				B0AEDE8D0D2C14F000876AA2 /* DSClickableURLTextField.m in Sources */,
 				B0AEDEF70D2C25E500876AA2 /* DSImageAndTruncatingCenteringTextFieldCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,8 +12,8 @@
 
 
 //#define MIN_LEFT_VIEW_WIDTH 72
-#define MIN_LEFT_VIEW_WIDTH 120
-#define MIN_RIGHT_VIEW_WIDTH 400
+#define MIN_LEFT_VIEW_WIDTH 200
+#define MIN_RIGHT_VIEW_WIDTH 520
 
 #import "DBSourceSplitView.h"
 

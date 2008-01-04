@@ -33,8 +33,6 @@
 		[self setTitle:@"DEVICES"];										// Set the title of the collection
 		[self setIsExpandable:YES];										// Set this is an expandable collection
 		[self setChildren:[NSMutableArray arrayWithCapacity:0]];		// Set the collection to initially be empty
-		
-		[self discoverDevices];
 	}
 	
 	return self;
@@ -43,6 +41,9 @@
 - (void)awakeFromNib{
 	// This is required when subclassing NSWindowController.
 	[self setWindowFrameAutosaveName:@"Tuner Window"];
+	
+	// Discover devices
+	[self discoverDevices];
 	
 }
 
