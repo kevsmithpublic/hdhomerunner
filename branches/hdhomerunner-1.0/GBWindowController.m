@@ -35,8 +35,8 @@
 #define TUNER_NIB_NAME			@"TunerView"		// nib name for the file view
 #define CHILDEDIT_NAME			@"ChildEdit"	// nib name for the child edit window controller
 
-#define FONT_HEIGHT				12.0
-#define ROW_HEIGHT				24.0
+#define FONT_HEIGHT				11.0
+#define ROW_HEIGHT				18.0
 
 @implementation GBWindowController
 
@@ -191,6 +191,8 @@
 	//[GBOutlineView setRoundedSelections:YES];
 	[GBOutlineView setRowHeight:(ROW_HEIGHT)];
 	//[GBOutlineView setIndentationPerLevel:32.0];
+	//[GBOutlineView setRowHeight:18.0];
+    //[GBOutlineView setIntercellSpacing:NSMakeSize(0.0, 0.0)];
 
 	//[self setCurrentView:[channelController viewForChild:nil]];
 	
@@ -462,9 +464,25 @@
 	
 	// If the column requesting data is the name column
 	if([[tableColumn identifier] isEqualToString:COLUMNID_NAME]){
-		//NSLog(@"title = %@", [item title]);
 		
-		result = [NSString stringWithString:[item title]];
+		// Attributes dictionary
+		NSDictionary *attributes;
+		
+		// If the item is in the main list
+		if([contents containsObject:item]){
+		
+			// Set the font to bold
+			attributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Lucida Grande Bold" size:FONT_HEIGHT], NSFontAttributeName, [NSColor textColor], NSForegroundColorAttributeName, nil];
+		} else {
+		
+			// Else if the item is a child set it to non bold
+			attributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Lucida Grande" size:FONT_HEIGHT], NSFontAttributeName, [NSColor textColor], NSForegroundColorAttributeName, nil];
+		}
+		
+	
+		// Set the NSAttributedString to return
+		result = [[[NSAttributedString alloc] initWithString:[item title] attributes:attributes] autorelease];
+	
 	} else {
 		
 		// Else we should return the icon of the item
@@ -939,7 +957,7 @@
 				GBChannel *tmp = [[GBChannel alloc] initWithDictionary:dict];
 				
 				// Add the channel to the GBChannelController as a child
-				[[contents objectAtIndex:1] addChildToParent:tmp];
+				[channelController addChildToParent:tmp];
 				
 				// Reload the data in the OutlineView
 				[GBOutlineView reloadData];
