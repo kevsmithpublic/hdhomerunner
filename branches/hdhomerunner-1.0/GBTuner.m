@@ -37,6 +37,7 @@
 		[self setIsExpandable:NO];
 		
 		hdhr = nil;
+		cancel_thread = NO;
 		
 		updateTimer = [NSTimer scheduledTimerWithTimeInterval:DEFAULT_UPDATE_TIMER_INTERVAL target:self selector:@selector(update:) userInfo:nil repeats:YES];
 	}
@@ -667,7 +668,9 @@
 	}
 }
 
-#pragma mark - Channel Scanning Support
+#pragma mark -
+#pragma mark  Channel Scanning Support
+#pragma mark -
 
 // Build a channel list for the channel count
 - (NSNumber *)numberOfAvailableChannels{
@@ -705,14 +708,16 @@
 	// The channel number to scan
 	int channel = 0;
 	
-	// The program number to scan
-	int program = 0;
-	
 	// The channel data to return
 	NSMutableArray	*data;
 	
 	// Tell the device to execute a channel scan
-	result = channelscan_execute_all(hdhr, [mode intValue], &channelscanCallback, &count, &channel, &program, data);
+	result = channelscan_execute_all(hdhr, [mode intValue], &channelscanCallback, &count, &channel, data);
+
+	//
+
+	// (Re)set the will cancel BOOL
+	cancel_thread = NO;
 
 	// release the pool
 	[pool release];
@@ -724,7 +729,98 @@
 }
 
 int channelscanCallback(va_list ap, const char *type, const char *str){
-	return 0;
+	
+	// The number of channels to scan
+	int *_count;
+	
+	// The channel scanned
+	int *_channel;
+	
+	// The program scanned
+	int _program;
+	
+	// The channels collected to return
+	NSMutableArray *_data;
+	
+	// Get the variables from the variable argument list
+	// These values must be retrieved in the same order they were put on
+	
+	// The first was the count
+	_count = va_arg(ap, int *);
+	
+	// Next was the channel number
+	_channel = va_arg(ap, int *);
+	
+	// Finally the collection of channels from the scan
+	_data = va_arg(ap, NSMutableArray *);
+	
+	//progress = va_arg(ap, NSProgressIndicator *);
+	
+	//data = va_arg(ap, NSMutableDictionary *);
+	//tw = va_arg(ap, ThreadWorker *);
+
+	//NSLog(@"chan = %i mem = %i", (*chan), chan);
+	
+	if(strcmp(type, "SCANNING") == 0){
+		NSLog(@"SCANNING with type %s and string %s", type, str); 
+		
+		// Increase the count
+		(*_count)++;
+		
+		// Print the count
+		NSLog(@"count = %i", (*_count));
+		
+		/*char *first_index = strrchr(str, ':');
+		char *last_index = strrchr(str,')');
+		//NSLog(@"first = %i", first_index-str);
+		//NSLog(@"last = %i", last_index-str);
+				
+		int i = first_index-str;
+		int j = last_index-str;
+		//NSLog(@"i = %i", i);
+		//NSLog(@"j = %i", j);
+		
+		NSString *ns_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(i+1, j-i-1)];
+		//NSLog(@"ns_str = %i", [ns_str intValue]);
+		
+		(*chan) = [ns_str intValue];*/
+	} else if(strcmp(type, "LOCK") == 0){
+	
+		NSLog(@"LOCK with type %s and string %s", type, str);
+		
+	} else if(strcmp(type, "PROGRAM") == 0){
+		//NSLog(@"type: %s", type);
+		//NSLog(@"string: %s", str);
+		
+		/*char *first_index = strrchr(str, '.');
+		
+		int i = first_index-str;
+		int j = strcspn(str,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		//NSLog(@"i = %i", i);
+		//NSLog(@"j = %i", j);
+		
+		if((first_index != NULL) && (j>0)){//(last_index != NULL)){
+			NSString *ns_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(0, i-1)];
+			NSString *desc_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(j, strlen(str) - j)];
+		
+			NSMutableDictionary *properties;
+			properties = [[NSMutableDictionary alloc] initWithCapacity:0];
+		
+			[properties setValue:desc_str forKey:@"description"];
+			[properties setObject:[[NSNumber alloc] initWithInt:(*chan)] forKey:@"channel"];
+			[properties setObject:[[NSNumber alloc] initWithInt:[ns_str intValue]] forKey:@"program"];
+		
+			//NSLog(@"properties = %@", properties);
+			
+			//GBChannel *newChannel = [[GBChannel alloc] initWithDictionary:properties];
+			[data addObject:properties];
+			//[data addObject:newChannel];
+		}*/
+	}
+
+	
+	// Return 0 if the thread should be cancelled so the scan can stop
+	return !cancel_thread;
 }
 
 #pragma mark - Clean up

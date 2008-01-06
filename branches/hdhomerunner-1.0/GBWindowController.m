@@ -812,6 +812,7 @@
 			// that the selected object is unique to all parents,
 			// and that all children do not have children themselves
 			// else we may never find the selected object if it is a nested child.
+			NSLog(@"found it");
 			[self changeCurrentView:[parent viewForChild:selectedObject]];
 		}
 	}
@@ -1002,6 +1003,17 @@
 	// Do this in a seperate thread to prevent the GUI from blocking
 	// Initialize an autorelease pool
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	// Enumerator of the channels to import
+	NSEnumerator *enumerator = [tunerController objectEnumerator];
+			
+	// Object to use during iteration
+	GBTuner *some_tuner;
+			
+	// Loop over all tuners
+	while ((some_tuner = [enumerator nextObject])) {
+	
+	}
 	
 	/*buildingOutlineView = YES;		// indicate to ourselves we are building the default tree at startup
 		

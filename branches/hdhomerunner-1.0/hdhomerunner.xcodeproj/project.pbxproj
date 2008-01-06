@@ -81,8 +81,6 @@
 		B0EFD7680D1B028900EC110E /* SourceListTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EFD75C0D1B028900EC110E /* SourceListTextCell.m */; };
 		B0EFD7690D1B028900EC110E /* SourceListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EFD75E0D1B028900EC110E /* SourceListImageCell.m */; };
 		B0EFD76A0D1B028900EC110E /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EFD7610D1B028900EC110E /* CTGradient.m */; };
-		B0FCD7330C9C388D00F9FD0A /* ThreadWorker.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0FCD7310C9C388D00F9FD0A /* ThreadWorker.h */; };
-		B0FCD7340C9C388D00F9FD0A /* ThreadWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FCD7320C9C388D00F9FD0A /* ThreadWorker.m */; };
 		B0FE34B90D0F69B200E2A829 /* GBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE34B80D0F69B200E2A829 /* GBAppDelegate.m */; };
 		B0FE34BC0D0F69D500E2A829 /* GBWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE34BB0D0F69D500E2A829 /* GBWindowController.m */; };
 /* End PBXBuildFile section */
@@ -96,7 +94,6 @@
 			files = (
 				B076B9900C5AA7B900174C3B /* Sparkle.framework in CopyFiles */,
 				B076B9B10C5AA82100174C3B /* HUDWindow.h in CopyFiles */,
-				B0FCD7330C9C388D00F9FD0A /* ThreadWorker.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,8 +214,6 @@
 		B0EFD75E0D1B028900EC110E /* SourceListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListImageCell.m; sourceTree = "<group>"; };
 		B0EFD7600D1B028900EC110E /* CTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTGradient.h; sourceTree = "<group>"; };
 		B0EFD7610D1B028900EC110E /* CTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTGradient.m; sourceTree = "<group>"; };
-		B0FCD7310C9C388D00F9FD0A /* ThreadWorker.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ThreadWorker.h; sourceTree = "<group>"; };
-		B0FCD7320C9C388D00F9FD0A /* ThreadWorker.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ThreadWorker.m; sourceTree = "<group>"; };
 		B0FE34B70D0F69B200E2A829 /* GBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAppDelegate.h; sourceTree = "<group>"; };
 		B0FE34B80D0F69B200E2A829 /* GBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAppDelegate.m; sourceTree = "<group>"; };
 		B0FE34BA0D0F69D500E2A829 /* GBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBWindowController.h; sourceTree = "<group>"; };
@@ -290,7 +285,6 @@
 				B0887F840D1F89E300FCC050 /* DIController */,
 				B0D735E20D177D3C00B68D10 /* DBInterfaceDemo */,
 				B064153C0D03FBC1006A47BC /* libhdhomerun */,
-				B0FCD7300C9C388D00F9FD0A /* ThreadWorker */,
 				B076B7EF0C5AA67900174C3B /* HUDWindow */,
 				B076B7D30C5AA67900174C3B /* Status Icons */,
 				32CA4F630368D1EE00C91783 /* hdhomerunner_Prefix.pch */,
@@ -439,7 +433,6 @@
 		B0CEEB3F0D0A22B6008F5D30 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B0D735B00D17752C00B68D10 /* SourceListOutlineView */,
 				B0FE34B70D0F69B200E2A829 /* GBAppDelegate.h */,
 				B0FE34B80D0F69B200E2A829 /* GBAppDelegate.m */,
 				B0CEEB420D0A22BD008F5D30 /* Model */,
@@ -463,6 +456,7 @@
 		B0CEEB4A0D0A22E2008F5D30 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B0D735B00D17752C00B68D10 /* SourceListOutlineView */,
 				B0CEEB4B0D0A22F0008F5D30 /* GBOutlineView.h */,
 				B0CEEB4C0D0A22F0008F5D30 /* GBOutlineView.m */,
 			);
@@ -566,15 +560,6 @@
 			name = Gradient;
 			sourceTree = "<group>";
 		};
-		B0FCD7300C9C388D00F9FD0A /* ThreadWorker */ = {
-			isa = PBXGroup;
-			children = (
-				B0FCD7310C9C388D00F9FD0A /* ThreadWorker.h */,
-				B0FCD7320C9C388D00F9FD0A /* ThreadWorker.m */,
-			);
-			path = ThreadWorker;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -666,7 +651,6 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				B076B8030C5AA67900174C3B /* HUDWindow.m in Sources */,
-				B0FCD7340C9C388D00F9FD0A /* ThreadWorker.m in Sources */,
 				B06415550D03FBC1006A47BC /* hdhomerun_channels.c in Sources */,
 				B06415560D03FBC1006A47BC /* hdhomerun_channelscan.c in Sources */,
 				B06415570D03FBC1006A47BC /* hdhomerun_config.c in Sources */,

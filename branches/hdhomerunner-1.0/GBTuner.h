@@ -28,6 +28,7 @@
 		NSMutableDictionary			*properties;		// The key value coded properties of the tuner
 		
 		struct hdhomerun_device_t	*hdhr;
+		BOOL						cancel_thread;
 		
 		NSTimer						*updateTimer;		// The timer used to update the tuner's properties
 }

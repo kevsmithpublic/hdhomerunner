@@ -119,14 +119,15 @@
 
 - (NSView *)viewForChild:(GBChannel *)aChannel{
 
-	selectedChannel = nil;
-	selectedChannel = aChannel;
+	[selectedChannel autorelease];
+	//selectedChannel = nil;
+	selectedChannel = [aChannel retain];
 
 	// Get the URL for the channel
 	NSURL *aURL = [aChannel url];
 	
 	// If the url is null then set the url to the a default 
-	if(!aURL){
+	if(aURL == nil){
 		
 		// Get the path for the default.html resource
 		NSString *path = [NSBundle pathForResource:@"default" ofType:@"html" inDirectory:[[NSBundle mainBundle] bundlePath]];
@@ -225,7 +226,7 @@
 
 
 - (IBAction)editChannel:(id)sender{
-	NSLog(@"selected? %@", [selectedChannel title]);
+
 	// If the item is selected
 	if([sender state]){
 	
@@ -259,12 +260,7 @@
 		// Apply the changes
 		[selectedChannel setTitle:[_title stringValue]];
 		
-		//NSRange range = NSMakeRange(0, [[_url length] objectValue]);
-		NSLog(@"range = %i = %@", [[_url objectValue] length], [[_url objectValue] class]);
-		NSRange range = NSMakeRange(0, [[_url objectValue] length]);
-		
-		NSLog(@"? = %@", [[_url objectValue] attribute:NSLinkAttributeName atIndex:0 effectiveRange:NULL]);
-		
+		// Get a properly formatted URL		
 		NSString *formattedURL = [self autoCompletedHTTPStringFromString:[_url stringValue]];
 		[selectedChannel setURL:[NSURL URLWithString:formattedURL]];
 		
@@ -278,6 +274,12 @@
 {	
 	NSArray* stringParts = [urlString componentsSeparatedByString:@"/"];
 	NSString* host = [stringParts objectAtIndex:0];
+	
+	// Added 01/05/07 by GB
+	// Fix host if the string is already completed HTTP complete
+	if([host isEqualToString:@"http:"]){
+		host = [stringParts objectAtIndex:2];
+	}
     
 	if ([host rangeOfString:@"."].location == NSNotFound)
 	{ 
@@ -293,8 +295,16 @@
 	}
 	
 	// see if the newly reconstructed string is a well formed URL
-	urlString = [@"http://" stringByAppendingString:urlString];
+
+	// Added 01/05/07 by GB
+	// Only append the HTTP if it isn't already there
+	if([urlString rangeOfString:@"http://"].location == NSNotFound){
+	
+		urlString = [@"http://" stringByAppendingString:urlString];
+	}
+
 	urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+
 	return [[NSURL URLWithString:urlString] absoluteString];
 }
 
