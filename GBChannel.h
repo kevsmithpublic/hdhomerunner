@@ -12,38 +12,64 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 //
 //  GBChannel.h
 //  hdhomerunner
 //
-//  Created by Gregory Barchard on 7/22/07.
+//  Created by Gregory Barchard on 12/21/07.
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GBParent.h"
 
-
-@interface GBChannel : NSObject {
-			NSMutableDictionary			*properties;
-			
-			NSMutableArray				*tuners;
-			
-			NSString					*status_key;
-			NSDictionary				*status;
+@interface GBChannel : NSObject <GBParent> {
+	NSMutableDictionary			*properties;		// The key value coded properties of the channel
 }
--(id)initWithDictionary:(NSDictionary *)newProperties;
 
--(NSImage *)status;
--(void)setStatus:(NSString *)newStatus;
--(NSArray *)statusKeys;
--(void)updateStatus;
+- (NSDictionary *)properties;
+- (void)setProperties:(NSDictionary *)newProperties;
 
--(NSDictionary *)properties;
--(void)setProperties:(NSDictionary *)newProperties;
+- (NSString *)description;
+- (void)setDescription:(NSString *)aDescription;
 
--(void)tunerWillStopPlayingChannel:(NSNotification *)notification;
--(void)tunerWillPlayChannel:(NSNotification *)notification;
+- (NSURL *)url;
+- (void)setURL:(NSURL *)newURL;
 
--(BOOL)isEqual:(GBChannel *)obj;
+- (NSNumber *)number;
+- (void)setNumber:(NSNumber *)aNumber;
+
+- (NSNumber *)program;
+- (void)setProgram:(NSNumber *)aProgram;
+
+// GBParent protocol definitions
+- (id)initChild;
+
+- (BOOL)isChild;
+- (void)setIsChild:(BOOL)flag;
+
+- (NSMutableArray *)children;
+- (void)setChildren:(NSArray *)newContents;
+- (int)numberOfChildren;
+
+- (NSImage *)icon;
+- (void)setIcon:(NSImage *)newImage;
+
+- (NSString *)title;
+- (void)setTitle:(NSString *)newTitle;
+
+- (NSComparisonResult)compare:(<GBParent> *)aParent;
+- (BOOL)isEqual:(GBChannel <GBParent> *)aParent;
+
+- (BOOL)isExpandable;
+- (void)setIsExpandable:(BOOL)newState;
+
+- (id)initWithDictionary:(NSDictionary*)dictionary;
+- (NSDictionary*)dictionaryRepresentation;
+
+- (id)initWithCoder:(NSCoder*)coder;
+- (void)encodeWithCoder:(NSCoder*)coder;
+
+- (id)copyWithZone:(NSZone*)zone;
+- (void)setNilValueForKey:(NSString*)key;
 @end

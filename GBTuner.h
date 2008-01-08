@@ -12,64 +12,114 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 //
 //  GBTuner.h
 //  hdhomerunner
 //
-//  Created by Gregory Barchard on 7/14/07.
+//  Created by Gregory Barchard on 12/7/07.
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-#import "hdhomerun.h";
-#import "ThreadWorker.h"
+#import "hdhomerun.h"
+#import "GBParent.h"
 
-@class GBChannel;
-
-@interface GBTuner : NSObject {
-		NSMutableDictionary	*properties;		// A dictionary of the tuner's properties
-		
-		GBChannel			*channel;			// The tuner's setpoint
+@interface GBTuner : NSObject <GBParent, NSCoding, NSCopying> {
+		NSMutableDictionary			*properties;		// The key value coded properties of the tuner
 				
-		NSTimer				*updateTimer;		// The timer to update the GUI
-				
-		NSString			*status_key;		// The current tuner's status
-		NSDictionary		*status;			// The status -> icon mappings
+		struct hdhomerun_device_t	*hdhr;
+		BOOL						cancel_thread;
 		
-		NSString			*lineuplocation;	// The location of the tuner
-			
-		struct		hdhomerun_device_t	*hdhr;	// The tuner
+		NSTimer						*updateTimer;		// The timer used to update the tuner's properties
 }
--(id)initWithIdentification:(unsigned int)dev_id andTuner:(int)tuner;
--(id)initWithDictionary:(NSDictionary *)newProperties;
+- (id)initWithIdentification:(NSNumber *)dev_id andTuner:(NSNumber *)tuner_number;
+- (id)initWithDescription:(NSString *)description identification:(NSString *)anID ip:(NSString *)anIP andNumber:(NSNumber *)aNumber;
 
--(struct hdhomerun_device_t	*)deviceWithID:(NSString *)anID andNumber:(NSString *)aNumber;
+- (NSDictionary *)properties;
+- (void)setProperties:(NSDictionary *)newProperties;
 
--(BOOL)upgrade:(NSURL *)newFirmware;
+- (NSNumber *)identification;
+- (void)setIdentification:(NSNumber *)newID;
 
--(NSImage *)status;
--(void)setStatus:(NSString *)newStatus;
--(NSArray *)statusKeys;
+- (struct hdhomerun_device_t *)hdhr;
+- (void)setHdhr:(struct	hdhomerun_device_t *)aHdhr;
 
--(NSDictionary *)properties;
--(void)setProperties:(NSDictionary *)newProperties;
+- (NSString *)description;
+- (void)setDescription:(NSString *)aDescription;
 
--(GBChannel *)channel;
--(void)setChannel:(GBChannel *)newChannel;
+- (NSString *)ip;
+- (void)setIp:(NSString *)aIp;
 
--(NSString *)lineuplocation;
--(void)setLineuplocation:(NSString *)newLineuplocation;
+- (NSNumber *)firmwareVersion;
+- (void)setFirmwareVersion:(NSNumber *)newVersion;
 
--(void)update:(NSTimer*)timer;
+- (NSString *)lock;
+- (void)setLock:(NSString *)aLock;
 
-//-(void)startAutoscan;
-- (id)startAutoscan:(id)someData worker:(ThreadWorker *)tw;
--(void)scanDidFinish:(id)userInfo;
--(int)numberOfChannelsToScan;
-int autoscancallback(va_list ap, const char *type, const char *str);
+- (NSString *)target;
+- (void)setTarget:(NSString *)aTarget;
 
--(void)playChannel;
+- (NSNumber *)number;
+- (void)setNumber:(NSNumber *)aNumber;
 
--(BOOL)isEqual:(GBTuner *)obj;
+- (NSNumber *)signalStrength;
+- (void)setSignalStrength:(NSNumber *)newStrength;
+
+- (NSNumber *)signalToNoiseRatio;
+- (void)setSignalToNoiseRatio:(NSNumber *)newSnr;
+
+- (NSNumber *)symbolErrorQuality;
+- (void)setSymbolErrorQuality:(NSNumber *)newSeq;
+
+- (NSNumber *)bitrate;
+- (void)setBitrate:(NSNumber *)newBitrate;
+
+-(NSNumber *)channel;
+- (void)setChannel:(NSNumber *)newChannel;
+
+- (NSNumber *)program;
+- (void)setProgram:(NSNumber *)aProgram;
+
+- (void)startUpdateTimer;
+- (void)stopUpdateTimer;
+- (NSTimeInterval)updateInterval;
+
+- (void)setUpdateInterval:(NSTimeInterval)newTime;
+- (void)update:(NSTimer*)theTimer;
+
+// GBParent protocol definitions
+- (id)initChild;
+
+- (BOOL)isChild;
+- (void)setIsChild:(BOOL)flag;
+
+- (NSMutableArray *)children;
+- (void)setChildren:(NSArray *)newContents;
+- (int)numberOfChildren;
+
+- (NSImage *)icon;
+- (void)setIcon:(NSImage *)newImage;
+
+- (NSString *)title;
+- (void)setTitle:(NSString *)newTitle;
+
+- (NSComparisonResult)compare:(<GBParent> *)aParent;
+- (BOOL)isEqual:(GBTuner <GBParent> *)aParent;
+
+- (BOOL)isExpandable;
+- (void)setIsExpandable:(BOOL)newState;
+
+// NSCopying and NSCoding Protocol
+- (id)initWithDictionary:(NSDictionary*)dictionary;
+- (NSDictionary*)dictionaryRepresentation;
+
+- (id)initWithCoder:(NSCoder*)coder;
+- (void)encodeWithCoder:(NSCoder*)coder;
+
+- (id)copyWithZone:(NSZone*)zone;
+- (void)setNilValueForKey:(NSString*)key;
+
+// Channel scanning support
+- (NSNumber *)numberOfAvailableChannels;
+int channelscanCallback(va_list ap, const char *type, const char *str);
 @end

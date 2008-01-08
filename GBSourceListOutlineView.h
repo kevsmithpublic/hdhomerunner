@@ -12,37 +12,28 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 //
-//  GBArrayController.h
+//  GBSourceListOutlineView.h
 //  hdhomerunner
 //
-//  Created by Gregory Barchard on 7/29/07.
+//  Created by Gregory Barchard on 12/17/07.
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-@class GBChannel;
-@class GBTuner;
+#import "SourceListImageCell.h"
+#import "SourceListTextCell.h"
 
-@interface GBArrayController : NSArrayController {
-		IBOutlet NSTableView *tableView;		// The tableview associated with the array controller
+#if __LP64__ || NS_BUILD_32_LIKE_64
+typedef long NSInteger;
+typedef unsigned long NSUInteger;
+#else
+typedef int NSInteger;
+typedef unsigned int NSUInteger;
+#endif
+
+@interface GBSourceListOutlineView : NSOutlineView {
+
 }
-/*
- support for drag and drop
- */
 
-- (BOOL)tableView:(NSTableView *)tv
-		writeRowsWithIndexes:(NSIndexSet *)rowIndexes
-	 toPasteboard:(NSPasteboard*)pboard;
-
-- (NSDragOperation)tableView:(NSTableView*)tv
-				validateDrop:(id <NSDraggingInfo>)info
-				 proposedRow:(int)row
-	   proposedDropOperation:(NSTableViewDropOperation)op;
-
-- (BOOL)tableView:(NSTableView*)tv
-	   acceptDrop:(id <NSDraggingInfo>)info
-			  row:(int)row
-	dropOperation:(NSTableViewDropOperation)op;
 @end
