@@ -7,11 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "hdhomerun.h"
+#import "GBTuner.h"
 
 @class GBWindowController;
 
 @interface GBAppDelegate : NSObject {
-		GBWindowController			*windowController;
+		NSMutableArray		*tuners;
+		
+		NSFont				*font;
 }
+
+- (NSMutableArray *)tuners;
+- (void)setTuners:(NSArray *)newTuners;
 
 @end

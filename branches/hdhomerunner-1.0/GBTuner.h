@@ -26,7 +26,7 @@
 
 @interface GBTuner : NSObject <GBParent, NSCoding, NSCopying> {
 		NSMutableDictionary			*properties;		// The key value coded properties of the tuner
-		
+				
 		struct hdhomerun_device_t	*hdhr;
 		BOOL						cancel_thread;
 		

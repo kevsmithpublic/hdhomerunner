@@ -559,10 +559,24 @@
 
 // Return YES if the tuner is equal to the given aParent
 - (BOOL)isEqual:(GBTuner <GBParent> *)aParent{
-	return ([[self description] isEqualToString:[aParent description]] &&
+	
+	// Assume the tuners are different
+	BOOL result = NO;
+	
+	// Check for nil anywhere. compare: does not handle nil arguments.
+	if([self description] && [aParent description]
+		&& [self title] && [aParent title]
+		&& [self identification] && [aParent identification]
+		&& [self number] && [aParent number]){
+	
+		// Set the result to the comparison between like parts
+		result = [[self description] isEqualToString:[aParent description]] &&
 			[[self title] isEqualToString:[aParent title]] &&
 			[[self identification] isEqualToNumber:[aParent identification]] && 
-			[[self number] isEqualToNumber:[aParent number]]);
+			[[self number] isEqualToNumber:[aParent number]];
+	}
+
+	return result;
 }
 
 // Get isExpandable
@@ -685,14 +699,15 @@
 	//NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:0];
 	
 	// This is an expensive process and should not up other processes
-	[NSThread detachNewThreadSelector:	@selector(executeChannelScan:)	// method to detach in a new thread
-										toTarget:self					// we are the target
-										withObject:[NSNumber numberWithInt:HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST]];
+	//[NSThread detachNewThreadSelector:	@selector(executeChannelScan:)	// method to detach in a new thread
+	//									toTarget:self					// we are the target
+	//									withObject:[NSNumber numberWithInt:HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST]];
 	
 	// Tell the device to execute a channel scan
 	//channelscan_execute_all(hdhr, HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST, &channelscanCallback, &count, &channel, nil, nil, nil); 
 	
-	return [NSNumber numberWithInt:count];
+	//return [NSNumber numberWithInt:count];
+	return [[properties objectForKey:@"channels"] count];
 }
 
 - (void)executeChannelScan:(NSNumber *)mode{
@@ -725,7 +740,7 @@
 
 // Return an array of available channels that the tuner is able to lock
 - (NSArray *)availableChannels{
-	return nil;
+	return [properties objectForKey:@"channels"];
 }
 
 int channelscanCallback(va_list ap, const char *type, const char *str){
@@ -820,7 +835,8 @@ int channelscanCallback(va_list ap, const char *type, const char *str){
 
 	
 	// Return 0 if the thread should be cancelled so the scan can stop
-	return !cancel_thread;
+	//return !(cancel_thread);
+	return NO;
 }
 
 #pragma mark - Clean up

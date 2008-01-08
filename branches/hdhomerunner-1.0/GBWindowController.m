@@ -1002,7 +1002,10 @@
 	
 	// Do this in a seperate thread to prevent the GUI from blocking
 	// Initialize an autorelease pool
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	//NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	// Temporary array to hold the channels
+	NSMutableArray	*new_channels = [NSMutableArray arrayWithCapacity:0];
 	
 	// Enumerator of the channels to import
 	NSEnumerator *enumerator = [tunerController objectEnumerator];
@@ -1013,6 +1016,9 @@
 	// Loop over all tuners
 	while ((some_tuner = [enumerator nextObject])) {
 	
+		[NSThread detachNewThreadSelector:	@selector(autoscan:)	// method to detach in a new thread
+											toTarget:some_tuner		// we are the target
+											withObject:nil];		// the mutable array to store the channels
 	}
 	
 	/*buildingOutlineView = YES;		// indicate to ourselves we are building the default tree at startup
@@ -1033,7 +1039,7 @@
 	
 
 	
-	[pool release];
+	//[pool release];
 }
 
 #pragma mark -
