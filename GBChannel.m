@@ -25,17 +25,22 @@
 
 @implementation GBChannel
 
+#pragma mark -
+#pragma mark   Init Methods
+#pragma mark -
+
 - (id)init{
 	if(self = [super init]){
-		properties = [[NSMutableDictionary alloc] initWithCapacity:0];
 		
-		[self setIsExpandable:NO];
+		properties = [[NSMutableDictionary alloc] initWithCapacity:0];
 	}
 	
 	return self;
 }
 
-#pragma mark - Accessor Methods
+#pragma mark -
+#pragma mark   Accessor Methods
+#pragma mark -
 
 // Get properties
 - (NSDictionary *)properties{
@@ -120,42 +125,6 @@
 	}
 }
 
-#pragma mark - GBParent Protocol Methods
-
-- (id)initChild{
-	if(self = [self init]){
-		[self setIsChild:YES];
-	}
-	
-	return self;
-}
-
-- (BOOL)isChild{
-	return [[properties objectForKey:@"isChild"] boolValue];
-}
-
-- (void)setIsChild:(BOOL)flag{
-	if(flag != [self isChild]){
-		
-		// Update the properties to reflect the change and remain key value coding compliant
-		[self willChangeValueForKey:@"isChild"];
-		[properties setObject:[NSNumber numberWithBool:flag] forKey:@"isChild"];
-		[self didChangeValueForKey:@"isChild"];
-	}
-}
-
-- (NSMutableArray *)children{
-	return nil;
-}
-
-- (void)setChildren:(NSArray *)newContents{
-
-}
-
-- (int)numberOfChildren{
-	return 0;
-}
-
 - (NSImage *)icon{
 	return [properties objectForKey:@"icon"];
 }
@@ -172,49 +141,34 @@
 }
 
 - (NSString *)title{
-	return [self description];
-	//return [properties objectForKey:@"title"];
+
+	return [properties objectForKey:@"title"];
 }
 
 - (void)setTitle:(NSString *)newTitle{
-	[self setDescription:newTitle];
+	
 	// If the new title is not the same as the existing description
-	/*if([[self title] compare:newTitle] != NSOrderedSame){
+	if([[self title] compare:newTitle] != NSOrderedSame){
 	
 		// Update the properties to reflect the change and remain key value coding compliant
 		[self willChangeValueForKey:@"title"];
 		[properties setObject:newTitle forKey:@"title"];
 		[self didChangeValueForKey:@"title"];
-	}*/
+	}
 }
 
-- (NSComparisonResult)compare:(<GBParent> *)aParent{
+- (NSComparisonResult)compare:(GBChannel *)aParent{
 	return NSOrderedSame;
 }
 
 // Return YES if the tuner is equal to the given aParent
-- (BOOL)isEqual:(GBChannel <GBParent> *)aParent{
+- (BOOL)isEqual:(GBChannel *)aParent{
 	return ([[self description] isEqualToString:[aParent description]] &&
 			[[self title] isEqualToString:[aParent title]] &&
 			[[self program] isEqualToNumber:[aParent program]] && 
 			[[self number] isEqualToNumber:[aParent number]]);
 }
 
-// Get isExpandable
-- (BOOL)isExpandable{
-	return [[properties objectForKey:@"isExpandable"] boolValue];
-}
-
-// Set isExpandable
-- (void)setIsExpandable:(BOOL)newState{
-	if([self isExpandable] != newState){
-		
-		// Update the properties to reflect the change and remain key value coding compliant
-		[self willChangeValueForKey:@"isExpandable"];
-		[properties setObject:[NSNumber numberWithBool:newState] forKey:@"isExpandable"];
-		[self didChangeValueForKey:@"isExpandable"];
-	}
-}
 
 #pragma mark -
 #pragma mark  Archiving And Copying Support
@@ -224,7 +178,7 @@
 - (id)initWithDictionary:(NSDictionary*)dictionary{
 	
 	// The dictionary to return
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+	/*NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:dictionary];
 	
 	// Run the initialization
 	if(self = [self init]){
@@ -274,7 +228,7 @@
 				// Set the children to newChildren
 				[self setChildren:newChildren];
 			}
-		}
+		}*/
 		
 		// If the title is null we should set it to be the same as the description (if it isn't null)
 		/*if([[self title] isEqualToString:@""]){
@@ -291,8 +245,8 @@
 				[self setTitle:@"Untitled"];
 				[self setDescription:@"Untitled"];
 			}
-		}*/
-	}
+		}
+	}*/
 	
 	return self;
 }
@@ -348,7 +302,9 @@
 	return dictionary;*/
 }
 
-#pragma mark - NSCoding Protocol
+#pragma mark -
+#pragma mark   NSCoding Protocol
+#pragma mark -
 
 // Init with the given coder (NSCoding Protocol)
 - (id)initWithCoder:(NSCoder*)coder{
@@ -386,7 +342,9 @@
 	}*/
 }
 
-#pragma mark - NSCopying Protocol
+#pragma mark -
+#pragma mark   NSCopying Protocol
+#pragma mark -
 
 // Copy with zone as specified in the NSCopying protocol
 - (id)copyWithZone:(NSZone*)zone{

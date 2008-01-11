@@ -322,12 +322,12 @@ static int hdhomerun_discover_recv(struct hdhomerun_discover_t *ds, struct hdhom
 	return 0;
 }
 
-static struct hdhomerun_discover_device_t *hdhomerun_discover_find_in_list(struct hdhomerun_discover_device_t result_list[], int count, uint32_t device_id)
+static struct hdhomerun_discover_device_t *hdhomerun_discover_find_in_list(struct hdhomerun_discover_device_t result_list[], int count, uint32_t ip_addr)
 {
 	int index;
 	for (index = 0; index < count; index++) {
 		struct hdhomerun_discover_device_t *result = &result_list[index];
-		if (result->device_id == device_id) {
+		if (result->ip_addr == ip_addr) {
 			return result;
 		}
 	}
@@ -337,10 +337,6 @@ static struct hdhomerun_discover_device_t *hdhomerun_discover_find_in_list(struc
 
 static int hdhomerun_discover_find_devices_internal(struct hdhomerun_discover_t *ds, uint32_t target_ip, uint32_t device_type, uint32_t device_id, struct hdhomerun_discover_device_t result_list[], int max_count)
 {
-	if (!hdhomerun_discover_validate_device_id(device_id)) {
-		return 0;
-	}
-
 	int count = 0;
 	int attempt;
 	for (attempt = 0; attempt < 4; attempt++) {
@@ -373,7 +369,7 @@ static int hdhomerun_discover_find_devices_internal(struct hdhomerun_discover_t 
 			}
 
 			/* Ensure not already in list. */
-			if (hdhomerun_discover_find_in_list(result_list, count, result->device_id)) {
+			if (hdhomerun_discover_find_in_list(result_list, count, result->ip_addr)) {
 				continue;
 			}
 

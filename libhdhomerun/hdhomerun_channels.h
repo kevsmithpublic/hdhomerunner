@@ -35,6 +35,8 @@ extern void hdhomerun_channel_name(char *buffer, char *limit, struct hdhomerun_c
 
 extern struct hdhomerun_channel_entry_t *hdhomerun_channel_list_first(uint32_t channel_map);
 extern struct hdhomerun_channel_entry_t *hdhomerun_channel_list_next(uint32_t channel_map, struct hdhomerun_channel_entry_t *entry);
+extern uint32_t hdhomerun_channel_list_total_count(uint32_t channel_map);
+extern uint32_t hdhomerun_channel_list_frequency_count(uint32_t channel_map);
 
 extern uint32_t hdhomerun_channel_number_to_frequency(uint32_t channel_map, uint8_t channel_number);
 extern uint8_t hdhomerun_channel_frequency_to_number(uint32_t channel_map, uint32_t frequency);

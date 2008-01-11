@@ -19,10 +19,7 @@
 
 struct channelscan_entry_t;
 
-#define HDHOMERUN_CHANNELSCAN_MODE_SCAN 0
-#define HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST 1
-
 typedef int (*channelscan_callback_t)(va_list ap, const char *type, const char *str);
 
-extern int channelscan_execute_single(struct hdhomerun_device_t *hd, int mode, struct hdhomerun_channel_entry_t **pentry, channelscan_callback_t callback, ...);
-extern int channelscan_execute_all(struct hdhomerun_device_t *hd, int mode, channelscan_callback_t callback, ...);
+extern int channelscan_execute_single(struct hdhomerun_device_t *hd, uint32_t channel_map, struct hdhomerun_channel_entry_t **pentry, channelscan_callback_t callback, ...);
+extern int channelscan_execute_all(struct hdhomerun_device_t *hd, uint32_t channel_map, channelscan_callback_t callback, ...);

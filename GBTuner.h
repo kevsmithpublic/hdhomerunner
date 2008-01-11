@@ -22,9 +22,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "hdhomerun.h"
-#import "GBParent.h"
+#import "GBChannel.h"
 
-@interface GBTuner : NSObject <GBParent, NSCoding, NSCopying> {
+@interface GBTuner : NSObject <NSCoding, NSCopying> {
 		NSMutableDictionary			*properties;		// The key value coded properties of the tuner
 				
 		struct hdhomerun_device_t	*hdhr;
@@ -32,20 +32,21 @@
 		
 		NSTimer						*updateTimer;		// The timer used to update the tuner's properties
 }
-- (id)initWithIdentification:(NSNumber *)dev_id andTuner:(NSNumber *)tuner_number;
-- (id)initWithDescription:(NSString *)description identification:(NSString *)anID ip:(NSString *)anIP andNumber:(NSNumber *)aNumber;
+- (id)initWithIdentificationNumber:(NSNumber *)dev_id andTunerNumber:(NSNumber *)tuner_number;
+
+- (struct hdhomerun_device_t *)deviceWithIdentificationNumber:(NSNumber *)id_number andTunerNumber:(NSNumber *)tuner_number;
 
 - (NSDictionary *)properties;
 - (void)setProperties:(NSDictionary *)newProperties;
 
-- (NSNumber *)identification;
-- (void)setIdentification:(NSNumber *)newID;
+- (NSNumber *)identificationNumber;
+- (void)setIdentificationNumber:(NSNumber *)newID;
 
 - (struct hdhomerun_device_t *)hdhr;
 - (void)setHdhr:(struct	hdhomerun_device_t *)aHdhr;
 
-- (NSString *)description;
-- (void)setDescription:(NSString *)aDescription;
+- (NSString *)location;
+- (void)setLocation:(NSString *)aLocation;
 
 - (NSString *)ip;
 - (void)setIp:(NSString *)aIp;
@@ -87,27 +88,20 @@
 - (void)setUpdateInterval:(NSTimeInterval)newTime;
 - (void)update:(NSTimer*)theTimer;
 
-// GBParent protocol definitions
-- (id)initChild;
-
-- (BOOL)isChild;
-- (void)setIsChild:(BOOL)flag;
-
-- (NSMutableArray *)children;
-- (void)setChildren:(NSArray *)newContents;
-- (int)numberOfChildren;
-
 - (NSImage *)icon;
 - (void)setIcon:(NSImage *)newImage;
 
 - (NSString *)title;
 - (void)setTitle:(NSString *)newTitle;
 
-- (NSComparisonResult)compare:(<GBParent> *)aParent;
-- (BOOL)isEqual:(GBTuner <GBParent> *)aParent;
+- (NSString *)caption;
+- (void)setCaption:(NSString *)newCaption;
 
-- (BOOL)isExpandable;
-- (void)setIsExpandable:(BOOL)newState;
+- (BOOL)cancelThread;
+- (void)setCancelThread:(BOOL)cancel;
+
+- (NSComparisonResult)compare:(GBTuner *)aParent;
+- (BOOL)isEqual:(GBTuner *)aParent;
 
 // NSCopying and NSCoding Protocol
 - (id)initWithDictionary:(NSDictionary*)dictionary;
@@ -120,6 +114,8 @@
 - (void)setNilValueForKey:(NSString*)key;
 
 // Channel scanning support
-- (NSNumber *)numberOfAvailableChannels;
+- (NSNumber *)numberOfPossibleChannels:(NSNumber *)mode;
+- (void)scanForChannels:(NSNumber *)mode;
+-(void)processChannels:(NSNumber *)mode;
 int channelscanCallback(va_list ap, const char *type, const char *str);
 @end

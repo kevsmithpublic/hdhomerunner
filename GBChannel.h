@@ -21,9 +21,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GBParent.h"
 
-@interface GBChannel : NSObject <GBParent> {
+@interface GBChannel : NSObject {
 	NSMutableDictionary			*properties;		// The key value coded properties of the channel
 }
 
@@ -42,27 +41,14 @@
 - (NSNumber *)program;
 - (void)setProgram:(NSNumber *)aProgram;
 
-// GBParent protocol definitions
-- (id)initChild;
-
-- (BOOL)isChild;
-- (void)setIsChild:(BOOL)flag;
-
-- (NSMutableArray *)children;
-- (void)setChildren:(NSArray *)newContents;
-- (int)numberOfChildren;
-
 - (NSImage *)icon;
 - (void)setIcon:(NSImage *)newImage;
 
 - (NSString *)title;
 - (void)setTitle:(NSString *)newTitle;
 
-- (NSComparisonResult)compare:(<GBParent> *)aParent;
-- (BOOL)isEqual:(GBChannel <GBParent> *)aParent;
-
-- (BOOL)isExpandable;
-- (void)setIsExpandable:(BOOL)newState;
+- (NSComparisonResult)compare:(GBChannel *)aParent;
+- (BOOL)isEqual:(GBChannel *)aParent;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 - (NSDictionary*)dictionaryRepresentation;
