@@ -209,6 +209,16 @@ uint32_t hdhomerun_device_get_device_ip(struct hdhomerun_device_t *hd)
 	return hdhomerun_control_get_device_ip(hd->cs);
 }
 
+uint32_t hdhomerun_device_get_device_id_requested(struct hdhomerun_device_t *hd)
+{
+	return hdhomerun_control_get_device_id_requested(hd->cs);
+}
+
+uint32_t hdhomerun_device_get_device_ip_requested(struct hdhomerun_device_t *hd)
+{
+	return hdhomerun_control_get_device_ip_requested(hd->cs);
+}
+
 unsigned int hdhomerun_device_get_tuner(struct hdhomerun_device_t *hd)
 {
 	return hd->tuner;

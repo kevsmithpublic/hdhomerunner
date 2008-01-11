@@ -124,6 +124,23 @@ bool_t hdhomerun_debug_enabled(struct hdhomerun_debug_t *dbg)
 	return dbg->enabled;
 }
 
+void hdhomerun_debug_flush(struct hdhomerun_debug_t *dbg, uint64_t timeout)
+{
+	timeout = getcurrenttime() + timeout;
+
+	while (getcurrenttime() < timeout) {
+		pthread_mutex_lock(&dbg->queue_lock);
+		struct hdhomerun_debug_message_t *message = dbg->queue_tail;
+		pthread_mutex_unlock(&dbg->queue_lock);
+
+		if (!message) {
+			return;
+		}
+
+		usleep(10*1000);
+	}
+}
+
 void hdhomerun_debug_printf(struct hdhomerun_debug_t *dbg, const char *fmt, ...)
 {
 	va_list args;

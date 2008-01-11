@@ -45,6 +45,8 @@ extern void hdhomerun_control_destroy(struct hdhomerun_control_sock_t *cs);
  */
 extern uint32_t hdhomerun_control_get_device_id(struct hdhomerun_control_sock_t *cs);
 extern uint32_t hdhomerun_control_get_device_ip(struct hdhomerun_control_sock_t *cs);
+extern uint32_t hdhomerun_control_get_device_id_requested(struct hdhomerun_control_sock_t *cs);
+extern uint32_t hdhomerun_control_get_device_ip_requested(struct hdhomerun_control_sock_t *cs);
 extern void hdhomerun_control_set_device(struct hdhomerun_control_sock_t *cs, uint32_t device_id, uint32_t device_ip);
 
 /*

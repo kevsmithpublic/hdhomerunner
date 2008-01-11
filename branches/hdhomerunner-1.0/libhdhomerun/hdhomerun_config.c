@@ -182,7 +182,7 @@ static int cmd_scan(const char *tuner_str, const char *filename)
 		}
 	}
 
-	int ret = channelscan_execute_all(hd, HDHOMERUN_CHANNELSCAN_MODE_SCAN, cmd_scan_callback, fp);
+	int ret = channelscan_execute_all(hd, CHANNEL_MAP_US_ALL, cmd_scan_callback, fp);
 
 	if (fp) {
 		fclose(fp);
@@ -368,6 +368,12 @@ static int main_internal(int argc, char *argv[])
 	if (!hd) {
 		fprintf(stderr, "invalid device id: %s\n", id_str);
 		return -1;
+	}
+
+	/* Device ID check. */
+	uint32_t device_id_requested = hdhomerun_device_get_device_id_requested(hd);
+	if (!hdhomerun_discover_validate_device_id(device_id_requested)) {
+		fprintf(stderr, "invalid device id: %08lX\n", device_id_requested);
 	}
 
 	/* Connect to device and check firmware version. */

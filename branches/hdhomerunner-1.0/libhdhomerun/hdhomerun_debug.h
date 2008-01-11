@@ -38,6 +38,8 @@ extern void hdhomerun_debug_enable(struct hdhomerun_debug_t *dbg);
 extern void hdhomerun_debug_disable(struct hdhomerun_debug_t *dbg);
 extern bool_t hdhomerun_debug_enabled(struct hdhomerun_debug_t *dbg);
 
+extern void hdhomerun_debug_flush(struct hdhomerun_debug_t *dbg, uint64_t timeout);
+
 extern void hdhomerun_debug_printf(struct hdhomerun_debug_t *dbg, const char *fmt, ...);
 extern void hdhomerun_debug_vprintf(struct hdhomerun_debug_t *dbg, const char *fmt, va_list args);
 
