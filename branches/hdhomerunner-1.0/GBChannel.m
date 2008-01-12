@@ -38,6 +38,24 @@
 	return self;
 }
 
+- (id)initWithChannelNumber:(NSNumber *)aChannel program:(NSNumber *)aProgram andDescription:(NSString *)aDescription{
+
+	// Call the default init
+	if(self = [self init]){
+	
+		// Set the channel
+		[self setChannelNumber:aChannel];
+		
+		// Set the program
+		[self setProgram:aProgram];
+		
+		// Set the description
+		[self setDescription:aDescription];
+	}
+	
+	return self;
+}
+
 #pragma mark -
 #pragma mark   Accessor Methods
 #pragma mark -
@@ -78,19 +96,19 @@
 }
 
 // Get the channel number
-- (NSNumber *)number{
-	return [properties objectForKey:@"number"];
+- (NSNumber *)channelNumber{
+	return [properties objectForKey:@"channelNumber"];
 }
 
 // Set the channel number
-- (void)setNumber:(NSNumber *)aNumber{
+- (void)setChannelNumber:(NSNumber *)aNumber{
 	// If the new number is not the same as the existing number
-	if([[self number] compare:aNumber] != NSOrderedSame){
+	if(![[self channelNumber] isEqual:aNumber]){
 	
 		// Update the properties to reflect the change and remain key value coding compliant
-		[self willChangeValueForKey:@"number"];
-		[properties setObject:aNumber forKey:@"number"];
-		[self didChangeValueForKey:@"number"];
+		[self willChangeValueForKey:@"channelNumber"];
+		[properties setObject:aNumber forKey:@"channelNumber"];
+		[self didChangeValueForKey:@"channelNumber"];
 	}
 }
 
@@ -166,7 +184,7 @@
 	return ([[self description] isEqualToString:[aParent description]] &&
 			[[self title] isEqualToString:[aParent title]] &&
 			[[self program] isEqualToNumber:[aParent program]] && 
-			[[self number] isEqualToNumber:[aParent number]]);
+			[[self channelNumber] isEqualToNumber:[aParent channelNumber]]);
 }
 
 

@@ -29,7 +29,11 @@
 - (id)init{
 	if(self = [super init]){
 
+		// The properties of the tuner
 		properties = [[NSMutableDictionary alloc] initWithCapacity:0];
+		
+		// The channels the receiver can use
+		channels = [[NSMutableArray alloc] initWithCapacity:0];
 		
 		//NSImage *icon = [NSImage imageNamed:@"Network Utility"];
 		//[self setIcon:icon];
@@ -594,19 +598,19 @@
 
 // Get the channels
 - (NSArray *)channels{
-	return [properties objectForKey:@"channels"];
+	return channels;
 }
 
 // Set the channels
 - (void)setChannels:(NSArray *)newChannels{
 	
 	// If new array is not null of the same as the existing array
-	if(newChannels && ![[self channels] isEqualToArray:newChannels]){
+	if(newChannels && ![channels isEqualToArray:newChannels]){
 		// Notify we are about to change
 		[self willChangeValueForKey:@"channels"];
 		
 		// Make the changes
-		[properties setObject:newChannels forKey:@"channels"];
+		[channels setArray:newChannels];
 		
 		// Notify everyone of the change
 		[self didChangeValueForKey:@"channels"];
@@ -763,7 +767,7 @@
 		[self willChangeValueForKey:@"channels"];
 		
 		// Make the changes
-		[[properties objectForKey:@"channels"] addObject:aChannel];
+		[channels addObject:aChannel];
 		
 		// Notify everyone of the change
 		[self didChangeValueForKey:@"channels"];
@@ -780,7 +784,7 @@
 	[self willChangeValueForKey:@"channels"];
 		
 	// Make the changes
-	[[properties objectForKey:@"channels"] removeObject:aChannel];
+	[channels removeObject:aChannel];
 		
 	// Notify everyone of the change
 	[self didChangeValueForKey:@"channels"];
@@ -839,7 +843,9 @@
 	[self performSelectorOnMainThread:@selector(setCaption:)
                                 withObject:@"Idle"
                              waitUntilDone:false];
-							 
+	
+				NSLog(@"channels = %i", [channels count]);		 
+	
 	// (Re)set the will cancel BOOL
 	cancel_thread = NO;
 	
@@ -848,8 +854,8 @@
 }
 
 // Return an array of available channels that the tuner is able to lock
-- (NSArray *)availableChannels{
-	return [properties objectForKey:@"channels"];
+- (NSNumber *)numberOfAvailableChannels{
+	return [NSNumber numberWithInt:[channels count]];
 }
 
 int channelscanCallback(va_list ap, const char *type, const char *str){
@@ -862,9 +868,6 @@ int channelscanCallback(va_list ap, const char *type, const char *str){
 	
 	// Total number of channels to scan
 	int *_total;
-	
-	// The program scanned
-	//int _program;
 	
 	// The channels collected to return
 	NSMutableArray *_data;
@@ -889,11 +892,6 @@ int channelscanCallback(va_list ap, const char *type, const char *str){
 	
 	// So I can make calls to myself
 	myself = va_arg(ap, GBTuner *);
-	
-	//progress = va_arg(ap, NSProgressIndicator *);
-	
-	//data = va_arg(ap, NSMutableDictionary *);
-	//tw = va_arg(ap, ThreadWorker *);
 	
 	if(strcmp(type, "SCANNING") == 0){
 		//NSLog(@"SCANNING with type %s and string %s", type, str); 
@@ -953,45 +951,133 @@ int channelscanCallback(va_list ap, const char *type, const char *str){
 		if(strcmp(str, "none") != 0){
 		
 			// Get the substring that begins with
-			char *first_index = strrchr(str, '.');
+			char *first_index = strrchr(str, ':');
 		
 			// Get the index
 			int i = (first_index-str);
 			int j = strcspn(str,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 			
-			NSLog(@"i = %c j = %c", str[i], str[j]);
+			// The string is of the format: 3: 4.1 WTAE-DT
+			// The program is any number of digits up to the colon
+			NSNumber *program = [NSNumber numberWithInt:[[[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(0, i)] intValue]];
 			
-			NSString *program = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(0, i-1)];
+			// The description is the range of characters from the first character until the end of the string
 			NSString *description = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(j, strlen(str) - j)];
-				
-			// Print debug info
-			NSLog(@"Entire string = %s substring = %s first int = %i last int = %i", str, first_index, i, j);
-			NSLog(@"Channel = %i Program = %@ Description = %@", (*_channel), program, description);
-		
-		}
-		
-		/*if((first_index != NULL) && (j>0)){//(last_index != NULL)){
-			NSString *ns_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(0, i-1)];
-			NSString *desc_str = [[NSString stringWithUTF8String:str] substringWithRange:NSMakeRange(j, strlen(str) - j)];
-		
-			NSMutableDictionary *properties;
-			properties = [[NSMutableDictionary alloc] initWithCapacity:0];
-		
-			[properties setValue:desc_str forKey:@"description"];
-			[properties setObject:[[NSNumber alloc] initWithInt:(*chan)] forKey:@"channel"];
-			[properties setObject:[[NSNumber alloc] initWithInt:[ns_str intValue]] forKey:@"program"];
-		
-			//NSLog(@"properties = %@", properties);
 			
-			//GBChannel *newChannel = [[GBChannel alloc] initWithDictionary:properties];
-			[data addObject:properties];
-			//[data addObject:newChannel];
-		}*/
+			// The channel is stored from the scanning call
+			NSNumber *channel = [NSNumber numberWithInt:(*_channel)];
+			
+			// Create a new channel
+			GBChannel *new_channel = [[GBChannel alloc] initWithChannelNumber:channel program:program andDescription:description];
+
+			// Tell the main thread to add the new channel to the collection
+			[myself performSelectorOnMainThread:@selector(addChannel:)
+									withObject:new_channel
+									waitUntilDone:false];
+			
+			// Print debug info
+			//NSLog(@"Entire string = %s substring = %s first int = %i last int = %i", str, first_index, i, j);
+			//NSLog(@"Channel = %i Program = %@ Description = %@", (*_channel), program, description);
+		}
 	}
 	
 	// Return 0 if the thread should be cancelled so the scan can stop
 	return ![myself cancelThread];
 }
+
+#pragma mark -
+#pragma mark  Outlineview Datasource Methods
+#pragma mark -
+
+// Return the child of the item at the index
+- (id)outlineView:(NSOutlineView *)outlineview child:(int)index ofItem:(id)item{
+	
+	// NOTE: ? is the ternary operator. It is equivelant to if(){ } else{ }
+	// DISCUSSION: http://en.wikipedia.org/wiki/Ternary_operation
+	
+	// If the item is not null return the objectAtIndex of item
+	// Else if item is null return the objectAtIndex of tuners
+	
+	// Print debug info
+	NSLog(@"index = %i item = %@", index, item);
+
+	return [(item ? item : channels) objectAtIndex:index];
+}
+
+// Return YES if the item is expandable
+- (BOOL)outlineView:(NSOutlineView *)outlineview isItemExpandable:(id)item{
+
+	// The only expandable items are the Tuners. They will have a drop down of all tuneable channels
+	//return [(item ? item : tuners) isKindOfClass:[GBTuner class]];
+	return NO;
+}
+
+// Return the number of children of the item
+- (int)outlineView:(NSOutlineView *)outlineview numberOfChildrenOfItem:(id)item{
+	
+	// Int to hold the result
+	int result = [channels count];
+	
+	// If item is not null
+	if(item){
+	
+		// Set the result to the number of channels of the item
+		//result = [item numberOfChannels];
+		result = 0;
+	}
+	
+	// Print debugging info
+	NSLog(@"item = %@ result = %i", item, result);
+	
+	return result;
+}
+
+// The value for the table column
+- (id)outlineView:(NSOutlineView *)outlineview objectValueForTableColumn:(NSTableColumn *)tablecolumn byItem:(id)item{
+
+	//NSLog(@"item = %@", item);
+	return @"test";
+	/*if(item){
+	
+		// The font to use for the title
+		NSFont *title_font = [NSFont fontWithName:TITLE_FONT size:TITLE_HEIGHT];
+	
+		// Attributes to use
+		NSDictionary *title_attributes = [NSDictionary dictionaryWithObjectsAndKeys:title_font, NSFontAttributeName, [NSColor textColor], NSForegroundColorAttributeName, nil];
+		
+		// The title string
+		NSMutableAttributedString *string = [[[NSMutableAttributedString alloc] initWithString:[item title] attributes:title_attributes] autorelease];
+		
+		// The font to use for the caption
+		NSFont *caption_font = [NSFont fontWithName:CAPTION_FONT size:CAPTION_HEIGHT];
+		
+		// Attributes to use
+		NSDictionary *caption_attributes = [NSDictionary dictionaryWithObjectsAndKeys:caption_font, NSFontAttributeName, [NSColor grayColor], NSForegroundColorAttributeName, nil];
+		
+		// The caption string below the title
+		NSAttributedString *caption = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%s", [[item caption] UTF8String]] attributes:caption_attributes] autorelease];
+		
+		// Append the two attributed strings
+		[string appendAttributedString:caption];
+		
+		// The image
+		NSImage *image = [[[NSImage alloc] initWithData:[[NSApp applicationIconImage] TIFFRepresentation]] autorelease];
+		
+		[image setScalesWhenResized:YES];
+		[image setSize:NSMakeSize( row_height, row_height )];
+		
+		return [NSDictionary dictionaryWithObjectsAndKeys:image, @"Image", string, @"String", nil];
+
+	}
+	
+	return item;*/
+}
+
+- (void)outlineView:(NSOutlineView *)olv setObjectValue:(id)aValue forTableColumn:(NSTableColumn *)tc byItem:(id)item
+{
+	/* Do Nothing - just wanted to show off my fancy text field cell's editing */
+}
+
 
 #pragma mark -
 #pragma mark   Clean up

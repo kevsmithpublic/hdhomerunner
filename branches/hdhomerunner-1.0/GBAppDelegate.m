@@ -46,6 +46,99 @@
 		
 		// Initialize the mutable array of tuners
 		tuners = [[NSMutableArray alloc] initWithCapacity:0];
+		
+		// Mutable dictionary of the toolbar items
+		toolbarItems = [[NSMutableDictionary alloc] initWithCapacity:0];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_record = [[NSToolbarItem alloc] initWithItemIdentifier:@"Record"];
+		[_record setAction:@selector(record:)];
+		[_record setTarget:self];
+		[_record setPaletteLabel:@"Record"];
+		[_record setLabel:@"Record"];
+		[_record setToolTip:@"Record"];
+		[_record setImage:[NSImage imageNamed:@"Record"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_record forKey:@"Record"];
+		
+		// Release the toolbar item
+		[_record release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_previous = [[NSToolbarItem alloc] initWithItemIdentifier:@"Previous"];
+		[_previous setAction:@selector(previous:)];
+		[_previous setTarget:self];
+		[_previous setPaletteLabel:@"Previous"];
+		[_previous setLabel:@"Previous"];
+		[_previous setToolTip:@"Previous"];
+		//[_previous setImage:[NSImage imageNamed:@"Record"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_previous forKey:@"Previous"];
+		
+		// Release the toolbar item
+		[_previous release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_play = [[NSToolbarItem alloc] initWithItemIdentifier:@"Play"];
+		[_play setAction:@selector(previous:)];
+		[_play setTarget:self];
+		[_play setPaletteLabel:@"Play"];
+		[_play setLabel:@"Play"];
+		[_play setToolTip:@"Play"];
+		[_play setImage:[NSImage imageNamed:@"Play"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_play forKey:@"Play"];
+		
+		// Release the toolbar item
+		[_play release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_next = [[NSToolbarItem alloc] initWithItemIdentifier:@"Next"];
+		[_next setAction:@selector(next:)];
+		[_next setTarget:self];
+		[_next setPaletteLabel:@"Next"];
+		[_next setLabel:@"Next"];
+		[_next setToolTip:@"Next"];
+		//[_next setImage:[NSImage imageNamed:@"Next"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_next forKey:@"Next"];
+		
+		// Release the toolbar item
+		[_next release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_info = [[NSToolbarItem alloc] initWithItemIdentifier:@"Info"];
+		[_info setAction:@selector(getInfo:)];
+		[_info setTarget:self];
+		[_info setPaletteLabel:@"Info"];
+		[_info setLabel:@"Info"];
+		[_info setToolTip:@"Info"];
+		[_info setImage:[NSImage imageNamed:@"Get Info"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_info forKey:@"Info"];
+		
+		// Release the toolbar item
+		[_info release];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_preferences = [[NSToolbarItem alloc] initWithItemIdentifier:@"Preferences"];
+		[_preferences setAction:@selector(openPreferences:)];
+		[_preferences setTarget:self];
+		[_preferences setPaletteLabel:@"Preferences"];
+		[_preferences setLabel:@"Preferences"];
+		[_preferences setToolTip:@"Preferences"];
+		[_preferences setImage:[NSImage imageNamed:@"General Preferences"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_preferences forKey:@"Preferences"];
+		
+		// Release the toolbar item
+		[_preferences release];		
 	}
 	
 	return self;
@@ -92,6 +185,10 @@
 	[sourceListView setFrameSize:[sourceListViewPlaceholder frame].size];
 	[sourceListViewPlaceholder addSubview:sourceListView];
 	
+	// Place the tuner view in the right panel.
+	[tunerView setFrameSize:[currentViewPlaceholder frame].size];
+	[currentViewPlaceholder addSubview:tunerView];
+	
 	// The font to use
 	NSFont *font = [NSFont fontWithName:TITLE_FONT size:TITLE_HEIGHT];
 
@@ -113,23 +210,101 @@
 	// Set the row height
 	[sourceListOutlineView setRowHeight:(row_height + 2.)];
 	
-	
 	// Set up the outline view
-	//[genOV setRowHeight:(largerNum + 2.)];
 	[sourceListOutlineView setAutoresizesOutlineColumn:NO];
-	//[sourceListOutlineView setRoundedSelections:YES];
-	//[genOV setDraggingSourceOperationMaskForLocal:NSDragOperationNone external:NSDragOperationCopy];
-	//[genOV setRoundedSelections:[[NSUserDefaults standardUserDefaults] boolForKey:@"DSUseRoundedSelections"]];
-	//[sourceListOutlineView setUseGradientSelection:[[NSUserDefaults standardUserDefaults] boolForKey:@"DSUseGradientSelections"]];
-	//[genOV setUseHighlightColorInBackground:[[NSUserDefaults standardUserDefaults] boolForKey:@"DSUseHighlightInBackground"]];
+	[sourceListOutlineView selectRow:0 byExtendingSelection:NO];
 	
-	/*if ( [[NSUserDefaults standardUserDefaults] boolForKey:@"DSUseCustomAlternatingRowColors"] ) {
-		NSArray *colorArray = [NSArray arrayWithObjects:[NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"DSLightColor"]], [NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"DSDarkColor"]], nil];
-		[genOV setCustomAlternatingRowColors:colorArray];
-		setCustomColors = YES;
-	}
-	[genOV selectRow:0 byExtendingSelection:NO];*/
+	// Set up the toolbar on the main window
+	theToolbar = [[NSToolbar alloc] initWithIdentifier:@"toolbar"];
+	[theToolbar setDelegate:self];
+    
+	// Make the toolbar configurable
+	[theToolbar setAllowsUserCustomization:YES];
+	[theToolbar setAutosavesConfiguration:YES];
+    
+	// Attach the toolbar to the window
+	[window setToolbar:theToolbar];
+}
 
+#pragma mark -
+#pragma mark   Toolbar Delegate methods
+#pragma mark -
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag{
+	return [toolbarItems objectForKey:itemIdentifier];
+}
+
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar{
+
+	// Return all the keys as valid items plus the standard toolbar items
+	return [[toolbarItems allKeys] arrayByAddingObjectsFromArray:
+							[NSArray arrayWithObjects:NSToolbarSeparatorItemIdentifier,
+													NSToolbarSpaceItemIdentifier,
+													NSToolbarFlexibleSpaceItemIdentifier,
+													NSToolbarCustomizeToolbarItemIdentifier,
+													nil]];
+}
+
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar{
+
+	return [NSArray arrayWithObjects:NSToolbarSpaceItemIdentifier,
+									@"Record",
+									NSToolbarSeparatorItemIdentifier,
+									@"Previous",
+									@"Play",
+									@"Next",
+									NSToolbarSeparatorItemIdentifier,
+									@"Get Info",
+									NSToolbarFlexibleSpaceItemIdentifier,
+									@"Preferences",
+									NSToolbarCustomizeToolbarItemIdentifier,
+									nil];
+}
+
+#pragma mark -
+#pragma mark   Toolbar actions
+#pragma mark -
+
+// Play ToobarItem action
+// Play the currently selected channel when the user clicks this item
+- (IBAction)play:(id)sender{
+	NSLog(@"play toolbar item selected");
+}
+
+// Next Toolbar action
+// Move to the next channel when the user clicks this item
+- (IBAction)next:(id)sender{
+	NSLog(@"next toolbar item selected");
+}
+
+// Previous Toolbar action
+// Move to the previous channel when the user clicks this item
+- (IBAction)previous:(id)sender{
+	NSLog(@"previous toolbar item selected");
+}
+
+// Get Info ToobarItem action
+// Get info on the currently selected object when the user clicks this item
+- (IBAction)getInfo:(id)sender{
+	NSLog(@"info toolbar item selected");
+}
+
+// Refresh Device List ToobarItem action
+// Manually refresh the list of devices when the user clicks this item
+- (IBAction)refreshDevices:(id)sender{
+	NSLog(@"refresh toolbar item selected");
+}
+
+// Open Preferences action
+// Open the application preferences when the user clicks this item.
+- (IBAction)openPreferences:(id)sender{
+	NSLog(@"prefrences toolbar item selected");
+}
+
+// Record action
+// Record the current channel when the user clicks this item
+- (IBAction)record:(id)sender{
+	NSLog(@"record toolbar item selected");
 }
 
 #pragma mark -
@@ -276,6 +451,68 @@
 #pragma mark  Outlineview Delegate Methods
 #pragma mark -
 
+// -------------------------------------------------------------------------------
+//	outlineViewSelectionDidChange:notification
+// -------------------------------------------------------------------------------
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification{
+	
+	// Print debug info
+	NSLog(@"selection did change for view %@", [notification object]);
+	
+	//NSLog(@"selection did change notification %@", [[GBOutlineView itemAtRow:[GBOutlineView selectedRow]] class]);
+
+	//id selectedObject = [GBOutlineView itemAtRow:[GBOutlineView selectedRow]];
+		
+	// We are going to loop over the contents and find out who the selected item belongs to
+	//NSEnumerator *enumerator = [contents objectEnumerator];
+	
+	// The parent in contents
+	//id parent;
+	
+	/*while(parent = [enumerator nextObject]){
+		
+		// If the selected item is in children
+		if([[parent children] containsObject:selectedObject]){
+			
+			// We assume that we found the view somewhere,
+			// that the selected object is unique to all parents,
+			// and that all children do not have children themselves
+			// else we may never find the selected object if it is a nested child.
+			NSLog(@"found it");
+			[self changeCurrentView:[parent viewForChild:selectedObject]];
+		}
+	}*/
+	
+	//[self changeContentView:[[contents objectAtIndex:1] view]];
+	
+	//NSLog(@"trying %@", [[contents objectAtIndex:1] view]);
+	/*if (buildingOutlineView)	// we are currently building the outline view, don't change any view selections
+		return;
+
+	// ask the tree controller for the current selection
+	NSArray *selection = [treeController selectedObjects];
+	if ([selection count] > 1)
+	{
+		// multiple selection - clear the right side view
+		[self removeSubview];
+		currentView = nil;
+	}
+	else
+	{
+		if ([selection count] == 1)
+		{
+			// single selection
+			[self changeItemView];
+		}
+		else
+		{
+			// there is no current selection - no view to display
+			[self removeSubview];
+			currentView = nil;
+		}
+	}*/
+}
+
 // Specify whether the user should be able to select a particular item
 - (BOOL)outlineView:(NSOutlineView *)outlineview shouldSelectItem:(id)item{
 	/*if ( [item isKindOfClass:[NSDictionary class]] ) {
@@ -405,6 +642,50 @@
 	return [theImage autorelease];
 }
 
+#pragma mark -
+#pragma mark  View Change Methods
+#pragma mark -
+
+- (void)changeCurrentView:(NSView *)newView{
+	
+	// If the view is not null
+	if(newView){
+	
+		// Remove any subview that is present
+		//[self removeSubview];
+	
+		// Add the view as a subview to the current view
+		[currentViewPlaceholder addSubview:newView];
+		
+		// Apply the changes immediately
+		[currentViewPlaceholder displayIfNeeded];
+		
+		// Get the bounds of the current view
+		NSRect newBounds;
+		newBounds.origin.x = 0;
+		newBounds.origin.y = 0;
+		newBounds.size.width = [[newView superview] frame].size.width;
+		newBounds.size.height = [[newView superview] frame].size.height;
+		
+		// Apply the bounds to the new view
+		[newView setFrame:[[newView superview] frame]];
+		
+		// Make sure our added subview is placed and resizes correctly
+		[newView setFrameOrigin:NSMakePoint(0,0)];
+		[newView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+	}
+}
+
+- (void)removeSubview{
+	// empty selection
+	NSArray *subViews = [currentViewPlaceholder subviews];
+	if ([subViews count] > 0)
+	{
+		[[subViews objectAtIndex:0] removeFromSuperview];
+	}
+	
+	[currentViewPlaceholder displayIfNeeded];	// we want the removed views to disappear right away
+}
 
 #pragma mark -
 #pragma mark  Outlineview Datasource Methods

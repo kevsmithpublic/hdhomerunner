@@ -38,10 +38,19 @@
 	IBOutlet		DSGeneralOutlineView	*sourceListOutlineView;
 	
 	// The main window elements
+	IBOutlet		NSWindow				*window;
 	IBOutlet		NSView					*sourceListViewPlaceholder;
+	IBOutlet		NSView					*currentViewPlaceholder;
 	
 	// Source List View
 	IBOutlet		NSView					*sourceListView;
+	
+	// The current view
+	IBOutlet		NSView					*tunerView;
+	
+	// The toolbar items
+					NSMutableDictionary		*toolbarItems;
+					NSToolbar				*theToolbar;
 	
 					float					row_height;
 }

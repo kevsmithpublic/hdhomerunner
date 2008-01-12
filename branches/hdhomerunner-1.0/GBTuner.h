@@ -26,6 +26,8 @@
 
 @interface GBTuner : NSObject <NSCoding, NSCopying> {
 		NSMutableDictionary			*properties;		// The key value coded properties of the tuner
+		
+		NSMutableArray				*channels;
 				
 		struct hdhomerun_device_t	*hdhr;
 		BOOL						cancel_thread;
@@ -115,6 +117,7 @@
 
 // Channel scanning support
 - (NSNumber *)numberOfPossibleChannels:(NSNumber *)mode;
+- (NSNumber *)numberOfAvailableChannels;
 - (void)scanForChannels:(NSNumber *)mode;
 -(void)processChannels:(NSNumber *)mode;
 int channelscanCallback(va_list ap, const char *type, const char *str);

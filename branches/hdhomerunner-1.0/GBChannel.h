@@ -25,6 +25,7 @@
 @interface GBChannel : NSObject {
 	NSMutableDictionary			*properties;		// The key value coded properties of the channel
 }
+- (id)initWithChannelNumber:(NSNumber *)aChannel program:(NSNumber *)aProgram andDescription:(NSString *)aDescription;
 
 - (NSDictionary *)properties;
 - (void)setProperties:(NSDictionary *)newProperties;
@@ -35,8 +36,8 @@
 - (NSURL *)url;
 - (void)setURL:(NSURL *)newURL;
 
-- (NSNumber *)number;
-- (void)setNumber:(NSNumber *)aNumber;
+- (NSNumber *)channelNumber;
+- (void)setChannelNumber:(NSNumber *)aNumber;
 
 - (NSNumber *)program;
 - (void)setProgram:(NSNumber *)aProgram;
