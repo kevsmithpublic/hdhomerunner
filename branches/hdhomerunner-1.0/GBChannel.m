@@ -85,8 +85,9 @@
 
 // Set the description
 - (void)setDescription:(NSString *)aDescription{
+
 	// If the new description is not the same as the existing description
-	if([[self description] compare:aDescription] != NSOrderedSame){
+	if(![[self description] isEqual:aDescription]){
 	
 		// Update the properties to reflect the change and remain key value coding compliant
 		[self willChangeValueForKey:@"description"];
@@ -119,8 +120,9 @@
 
 // Set the program number
 - (void)setProgram:(NSNumber *)aProgram{
+
 	// If the new number is not the same as the existing number
-	if([[self program] compare:aProgram] != NSOrderedSame){
+	if(![[self program] isEqual:aProgram]){
 	
 		// Update the properties to reflect the change and remain key value coding compliant
 		[self willChangeValueForKey:@"program"];

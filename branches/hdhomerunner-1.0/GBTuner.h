@@ -21,8 +21,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
+
 #import "hdhomerun.h"
 #import "GBChannel.h"
+
+// Declare classes
+@class DSGeneralOutlineView;
 
 @interface GBTuner : NSObject <NSCoding, NSCopying> {
 		NSMutableDictionary			*properties;		// The key value coded properties of the tuner
@@ -33,6 +38,8 @@
 		BOOL						cancel_thread;
 		
 		NSTimer						*updateTimer;		// The timer used to update the tuner's properties
+		
+
 }
 - (id)initWithIdentificationNumber:(NSNumber *)dev_id andTunerNumber:(NSNumber *)tuner_number;
 
@@ -101,6 +108,9 @@
 
 - (BOOL)cancelThread;
 - (void)setCancelThread:(BOOL)cancel;
+
+- (NSArray *)channels;
+- (void)setChannels:(NSArray *)newChannels;
 
 - (NSComparisonResult)compare:(GBTuner *)aParent;
 - (BOOL)isEqual:(GBTuner *)aParent;

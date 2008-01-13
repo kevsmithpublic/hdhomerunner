@@ -32,7 +32,7 @@
 #define CAPTION_HEIGHT			(TITLE_HEIGHT - 1.0)
 #define CAPTION_FONT			@"Helvetica"
 
-//#define ROW_HEIGHT				18.0
+#define TUNER_NIB_NAME			@"TunerView"			// nib name for the tuner view
 
 @implementation GBAppDelegate
 
@@ -49,6 +49,12 @@
 		
 		// Mutable dictionary of the toolbar items
 		toolbarItems = [[NSMutableDictionary alloc] initWithCapacity:0];
+		
+		// Initialize the window controller
+		windowController = [[GBWindowController alloc] initWithWindowNibName:TUNER_NIB_NAME];
+		
+		// Ensure that the nibs are loaded
+		[windowController window];
 		
 		// Initialize the toolbaritem
 		NSToolbarItem *_record = [[NSToolbarItem alloc] initWithItemIdentifier:@"Record"];
@@ -459,6 +465,14 @@
 	// Print debug info
 	NSLog(@"selection did change for view %@", [notification object]);
 	
+	// Set the window controller to display the selected tuner
+	[windowController setRepresentedTuner:[sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]]];
+	
+	// Change the view to the proper view
+	[self changeCurrentView:[windowController view]];
+	
+	//[self changeCurrentView:[[sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]] view]];
+	
 	//NSLog(@"selection did change notification %@", [[GBOutlineView itemAtRow:[GBOutlineView selectedRow]] class]);
 
 	//id selectedObject = [GBOutlineView itemAtRow:[GBOutlineView selectedRow]];
@@ -739,7 +753,10 @@
 
 	//NSLog(@"item = %@", item);
 	
-	if(item){
+	// Assign the tuner to item
+	GBTuner *theItem = item;
+	
+	if(theItem){
 	
 		// The font to use for the title
 		NSFont *title_font = [NSFont fontWithName:TITLE_FONT size:TITLE_HEIGHT];
@@ -748,7 +765,7 @@
 		NSDictionary *title_attributes = [NSDictionary dictionaryWithObjectsAndKeys:title_font, NSFontAttributeName, [NSColor textColor], NSForegroundColorAttributeName, nil];
 		
 		// The title string
-		NSMutableAttributedString *string = [[[NSMutableAttributedString alloc] initWithString:[item title] attributes:title_attributes] autorelease];
+		NSMutableAttributedString *string = [[[NSMutableAttributedString alloc] initWithString:[theItem title] attributes:title_attributes] autorelease];
 		
 		// The font to use for the caption
 		NSFont *caption_font = [NSFont fontWithName:CAPTION_FONT size:CAPTION_HEIGHT];
@@ -757,7 +774,7 @@
 		NSDictionary *caption_attributes = [NSDictionary dictionaryWithObjectsAndKeys:caption_font, NSFontAttributeName, [NSColor grayColor], NSForegroundColorAttributeName, nil];
 		
 		// The caption string below the title
-		NSAttributedString *caption = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%s", [[item caption] UTF8String]] attributes:caption_attributes] autorelease];
+		NSAttributedString *caption = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%s", [[theItem caption] UTF8String]] attributes:caption_attributes] autorelease];
 		
 		// Append the two attributed strings
 		[string appendAttributedString:caption];

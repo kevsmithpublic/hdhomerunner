@@ -25,6 +25,7 @@
 #define	MAX_TUNER_NUMBER				1
 #define DEFAULT_UPDATE_TIMER_INTERVAL	1
 
+
 @implementation GBTuner
 - (id)init{
 	if(self = [super init]){
@@ -85,7 +86,7 @@
 				//NSLog(@"number of channels = %@", [self numberOfPossibleChannels]);
 				//NSLog(@"mode = %i", CHANNEL_MAP_US_ALL);
 				
-				[self scanForChannels:[NSNumber numberWithInt:CHANNEL_MAP_US_ALL]];
+				//[self scanForChannels:[NSNumber numberWithInt:CHANNEL_MAP_US_ALL]];
 			}
 		}
 
@@ -150,8 +151,9 @@
 
 // Set identification number
 - (void)setIdentificationNumber:(NSNumber *)newID{
+	
 	// If the new id is not the same as the existing ID
-	if([[self identificationNumber] compare:newID] != NSOrderedSame){
+	if(![[self identificationNumber] isEqual:newID]){
 		
 		// Update the properties to reflect the change and remain key value coding compliant
 		[self willChangeValueForKey:@"identificationNumber"];
@@ -321,11 +323,12 @@
 // Set the tuner number
 - (void)setNumber:(NSNumber *)aNumber{
 	// If the new number is not the same as the existing number
-	if([[self number] compare:aNumber] != NSOrderedSame){
+	if(![[self number] isEqual:aNumber]){
 	
 		// If the tuner number is between 0 and the MAX_TUNER_NUMBER + 1
-		if((([aNumber compare:[NSNumber numberWithInt:(MAX_TUNER_NUMBER + 1)]] == NSOrderedAscending) && 
-			([aNumber compare:[NSNumber numberWithInt:0]] == (NSOrderedDescending || NSOrderedSame)))){
+		if(([aNumber compare:[NSNumber numberWithInt:(MAX_TUNER_NUMBER + 1)]] == NSOrderedAscending) && 
+			(([aNumber compare:[NSNumber numberWithInt:0]] == NSOrderedDescending) || 
+			([aNumber compare:[NSNumber numberWithInt:0]] ==NSOrderedSame))){
 			
 			// Update the properties to reflect the change and remain key value coding compliant
 			[self willChangeValueForKey:@"number"];
@@ -642,29 +645,35 @@
 	return result;
 }
 
-// Return YES if the tuner is equal to the given aParent
+// Return YES if the self is equal to the given tuner
 - (BOOL)isEqual:(GBTuner *)aTuner{
 	
 	// Assume the tuners are different
 	BOOL result = NO;
 	
 	// Make sure these attributes are not null
-	if([self identificationNumber] && [aTuner identificationNumber]
-		&& [self number] && [aTuner number]){
+	if(([self identificationNumber] != nil) && 
+		([aTuner identificationNumber] != nil) &&
+		([self number] != nil) &&
+		([aTuner number] != nil)){
 		
 		// Set the result to the comparison between similar attributes
-		result = ([[self identificationNumber] isEqualToNumber:[aTuner identificationNumber]] 
-			&& [[self number] isEqualToNumber:[aTuner number]]);
-		
+		if([[self identificationNumber] isEqualToNumber:[aTuner identificationNumber]] 
+			&& [[self number] isEqualToNumber:[aTuner number]]){
+				
+				result = YES;
+			}
 	}
 	
 	// Print debug information
-	//NSLog(@"is equal? %i", result);
+	//NSLog(@"GBTuner isEqual? %i self's identification = %@ compared to = %@ self's number = %@ compared to = %@", result, [self identificationNumber], [aTuner identificationNumber], [self number], [aTuner number]);
 
 	return result;
 }
 
-#pragma mark - Archiving And Copying Support
+#pragma mark -
+#pragma mark   Archiving And Copying Support
+#pragma mark -
 
 - (id)initWithDictionary:(NSDictionary*)dictionary{
 	
@@ -722,7 +731,9 @@
 	[coder encodeObject:properties forKey:@"Tuner"];
 }
 
-#pragma mark - NSCopying Protocol
+#pragma mark -
+#pragma mark   NSCopying Protocol
+#pragma mark -
 
 // Copy with zone as specified in the NSCopying protocol
 - (id)copyWithZone:(NSZone*)zone{
@@ -732,6 +743,9 @@
 	
 	// Set new node to be a copy of self's properties
 	[newNode setProperties:[self properties]];
+	
+	// Set the channels to be the same
+	[newNode setChannels:[self channels]];
 	
 	return newNode;
 }
