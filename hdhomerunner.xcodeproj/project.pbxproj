@@ -63,6 +63,7 @@
 		B08C48900D1B85EC00187D4A /* Network Utility.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B08C488F0D1B85EC00187D4A /* Network Utility.tiff */; };
 		B08C48920D1B863800187D4A /* Get Info.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B08C48910D1B863800187D4A /* Get Info.tiff */; };
 		B08D34340D278AB6003138A4 /* URLFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B08D34330D278AB6003138A4 /* URLFormatter.m */; };
+		B098206E0D39F5C70067F54C /* GBWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B098206D0D39F5C70067F54C /* GBWindowController.m */; };
 		B0AEDE840D2C146800876AA2 /* DSGeneralOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AEDE830D2C146800876AA2 /* DSGeneralOutlineView.m */; };
 		B0AEDEF70D2C25E500876AA2 /* DSImageAndTruncatingCenteringTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AEDEF60D2C25E500876AA2 /* DSImageAndTruncatingCenteringTextFieldCell.m */; };
 		B0B100770D35E7C30071508A /* GBChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B100760D35E7C30071508A /* GBChannel.m */; };
@@ -172,6 +173,8 @@
 		B08C48910D1B863800187D4A /* Get Info.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Get Info.tiff"; sourceTree = "<group>"; };
 		B08D34320D278AB6003138A4 /* URLFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLFormatter.h; sourceTree = "<group>"; };
 		B08D34330D278AB6003138A4 /* URLFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLFormatter.m; sourceTree = "<group>"; };
+		B098206C0D39F5C70067F54C /* GBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBWindowController.h; sourceTree = "<group>"; };
+		B098206D0D39F5C70067F54C /* GBWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBWindowController.m; sourceTree = "<group>"; };
 		B0AEDE820D2C146800876AA2 /* DSGeneralOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSGeneralOutlineView.h; sourceTree = "<group>"; };
 		B0AEDE830D2C146800876AA2 /* DSGeneralOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSGeneralOutlineView.m; sourceTree = "<group>"; };
 		B0AEDEF50D2C25E500876AA2 /* DSImageAndTruncatingCenteringTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSImageAndTruncatingCenteringTextFieldCell.h; sourceTree = "<group>"; };
@@ -385,6 +388,15 @@
 			name = URLFormatter;
 			sourceTree = "<group>";
 		};
+		B09820680D39F54C0067F54C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B098206C0D39F5C70067F54C /* GBWindowController.h */,
+				B098206D0D39F5C70067F54C /* GBWindowController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		B0AEDE7F0D2C144F00876AA2 /* DSGeneralOutlineView */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +420,7 @@
 			children = (
 				B03A6A010D3341A1007DCF3B /* GBAppDelegate.h */,
 				B03A6A020D3341A1007DCF3B /* GBAppDelegate.m */,
+				B09820680D39F54C0067F54C /* Controller */,
 				B0DC5A1D0D3481B70083EADD /* Model */,
 			);
 			name = Classes;
@@ -616,6 +629,7 @@
 				B03A6A030D3341A1007DCF3B /* GBAppDelegate.m in Sources */,
 				B0DC5A230D3482610083EADD /* GBTuner.m in Sources */,
 				B0B100770D35E7C30071508A /* GBChannel.m in Sources */,
+				B098206E0D39F5C70067F54C /* GBWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,9 +25,14 @@
 // Import the hdhomerun library
 #import "hdhomerun.h"
 
+// Import the tuner class
+#import "GBTuner.h"
+
+// Import window controller
+#import "GBWindowController.h"
+
 // Declare classes
 @class DSGeneralOutlineView;
-#import "GBTuner.h";
 
 @interface GBAppDelegate : NSObject {
 
@@ -51,6 +56,9 @@
 	// The toolbar items
 					NSMutableDictionary		*toolbarItems;
 					NSToolbar				*theToolbar;
+					
+	// The window controller to handle view data
+					GBWindowController		*windowController;
 	
 					float					row_height;
 }
@@ -60,6 +68,9 @@
 - (void)addTuner:(GBTuner *)newTuner;
 - (void)removeTuner:(GBTuner *)aTuner;
 - (NSArray *)discoverTuners;
+
+- (void)changeCurrentView:(NSView *)newView;
+- (void)removeSubview;
 
 - (void)reloadDataForObject:(NSNotification *)notification;
 
