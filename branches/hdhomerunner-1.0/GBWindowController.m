@@ -12,33 +12,9 @@
 #define SCAN_CABLE_CHANNELS				@"Scan Cable Channels Only"
 #define SCAN_BCAST_CHANNELS				@"Scan Broadcast Channels Only"
 
-// Source: http://developer.apple.com/qa/qa2006/qa1487.html
-// License: Public Domain
-@interface NSAttributedString (Hyperlink)
-  +(id)hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL;
-@end
-
-@implementation NSAttributedString (Hyperlink)
-+(id)hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL
-{
-    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString: inString];
-    NSRange range = NSMakeRange(0, [attrString length]);
-
-    [attrString beginEditing];
-    [attrString addAttribute:NSLinkAttributeName value:[aURL absoluteString] range:range];
-
-    // make the text appear in blue
-    [attrString addAttribute:NSForegroundColorAttributeName value:[NSColor blueColor] range:range];
-
-    // next make the text appear with an underline
-    [attrString addAttribute:
-            NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSSingleUnderlineStyle] range:range];
-
-    [attrString endEditing];
-
-    return [attrString autorelease];
-}
-@end
+// GUI Definitions
+#define CHANNEL_FONT_HEIGHT				10.0
+#define CHANNEL_FONT					@"Lucida Grande"
 
 @implementation GBWindowController
 
@@ -54,6 +30,9 @@
 - (void)awakeFromNib{
 	// This is required when subclassing NSWindowController.
 	[self setWindowFrameAutosaveName:@"Window"];
+	
+	// Set the splitview to remember it's position
+	[tunerSplitView setPositionAutosaveName:@"tunerSplitView"];
 	
 	// Set up the channel scan selection
 	[_channelscan_mode removeAllItems];
@@ -82,13 +61,20 @@
 	return _view;
 }
 
-- (void)updateView{
-	
+//- (void)updateView{
+- (void)updateWebView:(GBChannel *)aChannel{
+		
 	// Get the URL for the channel
-	/*NSURL *aURL = [selectedChannel url];
-	NSLog(@"updating view to url = %@", [aURL absoluteString]);
+	NSURL *aURL = [aChannel url];
+	
+	// Print debug info
+	// NOTE:
+	// For webview to properly load the URL it must begin with http://
+	// http://somesite.com is OK, but somesite.com is NOT
+	//NSLog(@"GBWindowController updating web view to url = %@", [aURL absoluteString]);
+	
 	// If the url is null then set the url to the a default 
-	if(!aURL){
+	if(aURL == nil){
 		
 		// Get the path for the default.html resource
 		NSString *path = [NSBundle pathForResource:@"default" ofType:@"html" inDirectory:[[NSBundle mainBundle] bundlePath]];
@@ -97,41 +83,71 @@
 		aURL = nil;
 		aURL = [NSURL URLWithString:path];
 		
-		
-	} else {
-	
-		// If the url exists...
-		// Special care is required for the _url field
-		
-		// Embedding Hyperlinks in NSTextField and NSTextView
-		// Source: http://developer.apple.com/qa/qa2006/qa1487.html
-		// Added: 01/03/2007 
-	
-		 // Both are needed, otherwise hyperlink won't accept mousedown
-		[_url setAllowsEditingTextAttributes: YES];
-		[_url setSelectable: YES];
-
-		// Create the hyperlink string
-		NSMutableAttributedString* string = [[NSMutableAttributedString alloc] init];
-		[string appendAttributedString: [NSAttributedString hyperlinkFromString:[aURL absoluteString] withURL:aURL]];
-
-		// Set the attributed string to the NSTextField
-		[_url setAttributedStringValue: string];
 	}
-	
+
 	// Set the webview to load the appropriate URL
 	[[_web mainFrame] loadRequest:[NSURLRequest requestWithURL:aURL]]; 
 	
-	// Set the image view to the channel's icon
-	[_icon setImage:[selectedChannel icon]];
-		
-	// The textfields to show the relevant info
-	[_title setStringValue:[selectedChannel title]];
-	[_program setIntValue:[[selectedChannel program] intValue]];
-	[_channel setIntValue:[[selectedChannel number] intValue]];*/
-	
+}
+
+
+- (void)reloadAllChannelData{	
+
 	// Then update the table
 	[channelListOutlineView reloadData];
+}
+
+// Reload the table data for the object posting the notification
+- (void)reloadChannelData:(GBChannel *)aChannel{
+	
+	// Print debug info
+	//NSLog(@"GBWindowController reloading data for channel %@",aChannel);
+	
+	// Get the row of the item that posted the notification
+	int row = [channelListOutlineView rowForItem:aChannel];
+	
+	// Make sure the row is greater than -1
+	if(row > -1){
+		
+		// Tell the outline view to update only the row that posted the notification
+		// This is more efficient than calling reloadData since we are only updating the single
+		// cell rather than the entire table.
+		[channelListOutlineView setNeedsDisplayInRect:[channelListOutlineView rectOfRow:row]];
+	} else {
+		
+		// The channel wasn't found in the table so refresh the entire table
+		[self reloadAllChannelData];
+	}
+}
+
+- (void)changeCurrentView:(NSView *)newView{
+	
+	// If the view is not null
+	if(newView){
+	
+		// Remove any subview that is present
+		//[self removeSubview];
+	
+		// Add the view as a subview to the current view
+		[contentViewPlaceHolder addSubview:newView];
+		
+		// Apply the changes immediately
+		[contentViewPlaceHolder displayIfNeeded];
+		
+		// Get the bounds of the current view
+		NSRect newBounds;
+		newBounds.origin.x = 0;
+		newBounds.origin.y = 0;
+		newBounds.size.width = [[newView superview] frame].size.width;
+		newBounds.size.height = [[newView superview] frame].size.height;
+		
+		// Apply the bounds to the new view
+		[newView setFrame:[[newView superview] frame]];
+		
+		// Make sure our added subview is placed and resizes correctly
+		[newView setFrameOrigin:NSMakePoint(0,0)];
+		[newView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+	}
 }
 
 - (void)channelsChanged:(NSNotification *)notification{
@@ -159,7 +175,7 @@
 	NSString* host = [stringParts objectAtIndex:0];
 	
 	// Added 01/05/07 by GB
-	// Fix host if the string is already completed HTTP complete
+	// Fix host if the string is already completely HTTP complete
 	if([host isEqualToString:@"http:"]){
 		host = [stringParts objectAtIndex:2];
 	}
@@ -202,7 +218,7 @@
 		tuner = [aTuner retain];
 		
 		// Update the view
-		[self updateView];
+		[self reloadAllChannelData];
 	}
 	
 	// Print debug info
@@ -224,7 +240,19 @@
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification{
 	
 	// Print debug info
-	NSLog(@"GBWindowController selection did change");
+	//NSLog(@"GBWindowController selection did change");
+	
+	// If the selected item is a channel, the view should show the channel's website
+	if([[channelListOutlineView itemAtRow:[channelListOutlineView selectedRow]] isKindOfClass:[GBChannel class]]){
+	
+		GBChannel *aChannel = [channelListOutlineView itemAtRow:[channelListOutlineView selectedRow]];
+		
+		// Set the webview to load the page before adding it as a subview
+		[self updateWebView:aChannel];
+	
+		// Set the webview to the content view and resize it
+		[self changeCurrentView:_web];
+	}
 }
 
 // Return the child of the item at the index
@@ -278,74 +306,105 @@
 	// Assign the tuner to item
 	GBChannel *theItem = item;
 	
+	// Declare the string to return
+	NSMutableAttributedString *string;
+	
+	// The font to use for the title
+	NSFont *font = [NSFont fontWithName:CHANNEL_FONT size:CHANNEL_FONT_HEIGHT];
+
+	// Attributes to use
+	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, [NSColor textColor], NSForegroundColorAttributeName, nil];
+	
 	if(theItem){
 	
 		// Vary the results based on the tablecolumn requesting data
 		NSString *ident = [tablecolumn identifier];
 		
-		// Declare the string to return
-		NSString *string;
-		
+		// Check which column is requesting data
 		if([ident isEqualToString:@"description"]){
 			
 			// Set the string to the channel's description
-			string = [theItem description];
+			//string = [theItem description];
+			string = [[[NSMutableAttributedString alloc] initWithString:[theItem description] attributes:attributes] autorelease];
 			
 		} else if([ident isEqualToString:@"url"]){
 		
 			// Set the string to the channel's url
-			//string = [theItem url];
-			string = @"website";
+			// Get the URL for the channel
+			NSURL *aURL = [theItem url];
+			
+			// If the url is null then set the url to the a default 
+			if(aURL == nil){
+				
+				// Set the attributed string to the blank
+				string = [[[NSMutableAttributedString alloc] initWithString:@"" attributes:attributes] autorelease];
+				
+			} else {
+			
+				// Set the string to normal
+				string = [[[NSMutableAttributedString alloc] initWithString:[aURL absoluteString] attributes:attributes] autorelease];
+			}
 			
 		} else if([ident isEqualToString:@"channel"]){
 		
 			// Set the string to the channel number
-			string = [[theItem channelNumber] stringValue];
+			string = [[[NSMutableAttributedString alloc] initWithString:[[theItem channelNumber] stringValue] attributes:attributes] autorelease];
 			
 		} else if([ident isEqualToString:@"program"]){
 		
 			// Set the string to the program number
-			string = [[theItem program] stringValue];
+			string = [[[NSMutableAttributedString alloc] initWithString:[[theItem program] stringValue] attributes:attributes] autorelease];
 			
 		}
-		// The font to use for the title
-		/*NSFont *title_font = [NSFont fontWithName:TITLE_FONT size:TITLE_HEIGHT];
+	} else {
 	
-		// Attributes to use
-		NSDictionary *title_attributes = [NSDictionary dictionaryWithObjectsAndKeys:title_font, NSFontAttributeName, [NSColor textColor], NSForegroundColorAttributeName, nil];
-		
-		// The title string
-		NSMutableAttributedString *string = [[[NSMutableAttributedString alloc] initWithString:[theItem title] attributes:title_attributes] autorelease];
-		
-		// The font to use for the caption
-		NSFont *caption_font = [NSFont fontWithName:CAPTION_FONT size:CAPTION_HEIGHT];
-		
-		// Attributes to use
-		NSDictionary *caption_attributes = [NSDictionary dictionaryWithObjectsAndKeys:caption_font, NSFontAttributeName, [NSColor grayColor], NSForegroundColorAttributeName, nil];
-		
-		// The caption string below the title
-		NSAttributedString *caption = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%s", [[theItem caption] UTF8String]] attributes:caption_attributes] autorelease];
-		
-		// Append the two attributed strings
-		[string appendAttributedString:caption];
-		
-		// The image
-		NSImage *image = [[[NSImage alloc] initWithData:[[NSApp applicationIconImage] TIFFRepresentation]] autorelease];
-		
-		[image setScalesWhenResized:YES];
-		[image setSize:NSMakeSize( row_height, row_height )];*/
-		
-		//return [NSDictionary dictionaryWithObjectsAndKeys:nil, @"Image", string, @"String", nil];
-		return string;
+		// Else the string should be empty
+		string = [[[NSMutableAttributedString alloc] initWithString:@"" attributes:attributes] autorelease];
 
 	}
 	
-	return item;
+	return string;
 }
 
-- (void)outlineView:(NSOutlineView *)olv setObjectValue:(id)aValue forTableColumn:(NSTableColumn *)tc byItem:(id)item
-{
-	/* Do Nothing - just wanted to show off my fancy text field cell's editing */
+- (void)outlineView:(NSOutlineView *)olv setObjectValue:(id)aValue forTableColumn:(NSTableColumn *)tablecolumn byItem:(id)item{	
+	// Print debug info
+	//NSLog(@"GBWindowController setObjectValue for item = %@ to = %@ of class = %@ in = %@", item, aValue, [aValue class], [tablecolumn identifier]);
+	
+	// Cast item to GBChannel
+	GBChannel *theItem = item;
+	NSString *value = [NSString stringWithString:aValue];
+	
+	// Don't bother trying to edit values if either item or aValue are null
+	if(theItem && ![value isEqualToString:@""]){
+	
+		// Vary the results based on the tablecolumn requesting data
+		NSString *ident = [tablecolumn identifier];
+		
+		// Check which column is requesting data
+		if([ident isEqualToString:@"description"]){
+			
+			// Set the description to the string
+			[theItem setDescription:value];
+			
+		} else if([ident isEqualToString:@"url"]){
+		
+			// Set the url to the string
+			[theItem setURL:[NSURL URLWithString:[self autoCompletedHTTPStringFromString:value]]];
+			
+			// Make the web view update to reflect the changes
+			[self updateWebView:theItem];
+			
+		} else if([ident isEqualToString:@"channel"]){
+		
+			// Set the channel number to the string 
+			[theItem setChannelNumber:[NSNumber numberWithInt:[value intValue]]];
+			
+		} else if([ident isEqualToString:@"program"]){
+		
+			// Set the program number to the string
+			[theItem setProgram:[NSNumber numberWithInt:[value intValue]]];
+		}
+	}
 }
 
 #pragma mark -
@@ -354,12 +413,57 @@
 
 // Add a channel manually
 - (IBAction)add:(id)sender{
-
+	
+	// Create a new channel
+	GBChannel *newChannel = [[GBChannel alloc] initWithChannelNumber:[NSNumber numberWithInt:0] program:[NSNumber numberWithInt:0] andDescription:@"New Channel"];
+	
+	// Add the channel to the tuner
+	[tuner addChannel:newChannel];
+	
+	// Update the channel list
+	[self reloadChannelData:newChannel];
 }
 
 // Remove the selected channel
 - (IBAction)remove:(id)sender{
+	
+	// Set the currently selected channel to aChannel
+	GBChannel *aChannel = [channelListOutlineView itemAtRow:[channelListOutlineView selectedRow]];
 
+	// Only run the alert if the channel isn't null
+	if(aChannel != nil){
+		
+		// Run the alert sheet notifying the user
+		NSBeginAlertSheet(@"Delete the selected channel?", @"OK", @"Cancel",
+			nil, [NSApp mainWindow], self, NULL,
+			@selector(endAlertSheet:returnCode:contextInfo:),
+			NULL,
+			[NSString stringWithFormat:@"Are you sure you want to delete \"%@\"? This action CAN NOT be undone.", [aChannel description]]);
+	}
+}
+
+- (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo{
+	
+	// If the user agreed to reset the preferences
+	if (returnCode == NSAlertDefaultReturn) {
+		//NSLog(@"Clicked OK");
+		
+		// Set the currently selected channel to aChannel
+		GBChannel *aChannel = [channelListOutlineView itemAtRow:[channelListOutlineView selectedRow]];
+	
+		// Have the tuner remove the channel
+		[tuner removeChannel:aChannel];
+	
+		// Update the channel list. All channel data has to be freshed when removing a channel.
+		// I am calling this directly rather than thru reloadChannelData to be slightly faster with the
+		// refresh.
+		[self reloadAllChannelData];
+		
+	} else if (returnCode == NSAlertAlternateReturn) {
+	
+		// Don't do anything. The user cancelled the action
+		//NSLog(@"Clicked Cancel");
+	}
 }
 
 // Automatically refresh the channel list
@@ -399,7 +503,7 @@
 	}
 	
 	// Print debug info
-	NSLog(@"GBWindowController refresh button clicked with state = %i and scan mode %@", [sender state], [_channelscan_mode titleOfSelectedItem]);
+	//NSLog(@"GBWindowController refresh button clicked with state = %i and scan mode %@", [sender state], [_channelscan_mode titleOfSelectedItem]);
 }
 
 #pragma mark -
