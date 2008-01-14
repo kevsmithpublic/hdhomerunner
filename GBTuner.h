@@ -126,6 +126,8 @@
 - (void)setNilValueForKey:(NSString*)key;
 
 // Channel scanning support
+- (void)addChannel:(GBChannel *)aChannel;
+- (void)removeChannel:(GBChannel *)aChannel;
 - (NSNumber *)numberOfPossibleChannels:(NSNumber *)mode;
 - (NSNumber *)numberOfAvailableChannels;
 - (void)scanForChannels:(NSNumber *)mode;

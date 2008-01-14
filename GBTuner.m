@@ -858,7 +858,8 @@
                                 withObject:@"Idle"
                              waitUntilDone:false];
 	
-				NSLog(@"channels = %i", [channels count]);		 
+	// Post a notification that the channel scan finished
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"GBTunerScanFinished" object:self];
 	
 	// (Re)set the will cancel BOOL
 	cancel_thread = NO;

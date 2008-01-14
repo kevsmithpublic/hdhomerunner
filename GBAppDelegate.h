@@ -31,6 +31,8 @@
 // Import window controller
 #import "GBWindowController.h"
 
+#import "DBSourceSplitView.h"
+
 // Declare classes
 @class DSGeneralOutlineView;
 
@@ -46,12 +48,10 @@
 	IBOutlet		NSWindow				*window;
 	IBOutlet		NSView					*sourceListViewPlaceholder;
 	IBOutlet		NSView					*currentViewPlaceholder;
+	IBOutlet		DBSourceSplitView		*splitView;
 	
 	// Source List View
 	IBOutlet		NSView					*sourceListView;
-	
-	// The current view
-	IBOutlet		NSView					*tunerView;
 	
 	// The toolbar items
 					NSMutableDictionary		*toolbarItems;

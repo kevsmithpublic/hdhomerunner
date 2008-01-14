@@ -26,11 +26,11 @@
 #define TUNERS_PER_DEVICE	2
 
 // GUI Definitions
-#define TITLE_HEIGHT				11.0
+#define TITLE_HEIGHT			12.0
 #define TITLE_FONT				@"Lucida Grande Bold"
 
-#define CAPTION_HEIGHT			(TITLE_HEIGHT - 1.0)
-#define CAPTION_FONT			@"Helvetica"
+#define CAPTION_HEIGHT			(TITLE_HEIGHT - 2.0)
+#define CAPTION_FONT			@"Lucida Grande Bold"
 
 #define TUNER_NIB_NAME			@"TunerView"			// nib name for the tuner view
 
@@ -162,6 +162,17 @@
 
 // Actions to complete before awaking from the NIB
 - (void)awakeFromNib{
+	
+	// This will center the main window if there's no stored position for it.
+	// The frame name (set up in IB) to MainWindow
+	if ([[NSUserDefaults standardUserDefaults] stringForKey:@"NSWindow Frame MainWindow"] == nil){
+		
+		// Center the window
+		[window center];
+	}
+	
+	// Set the splitView's autosave name.
+	[splitView setPositionAutosaveName:@"MainWindowSplitView"];
 
 	// Load tuners from preferences
 
@@ -190,10 +201,6 @@
 	// Set the source list view into the main window
 	[sourceListView setFrameSize:[sourceListViewPlaceholder frame].size];
 	[sourceListViewPlaceholder addSubview:sourceListView];
-	
-	// Place the tuner view in the right panel.
-	[tunerView setFrameSize:[currentViewPlaceholder frame].size];
-	[currentViewPlaceholder addSubview:tunerView];
 	
 	// The font to use
 	NSFont *font = [NSFont fontWithName:TITLE_FONT size:TITLE_HEIGHT];
