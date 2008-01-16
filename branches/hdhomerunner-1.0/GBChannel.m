@@ -181,6 +181,16 @@
 	return NSOrderedSame;
 }
 
+- (NSArray *)recordings{
+	
+	return nil;
+}
+
+- (int)numberOfRecordings{
+	
+	return 0;
+}
+
 // Return YES if the tuner is equal to the given aParent
 - (BOOL)isEqual:(GBChannel *)aParent{
 	return ([[self description] isEqualToString:[aParent description]] &&
@@ -198,7 +208,7 @@
 - (id)initWithDictionary:(NSDictionary*)dictionary{
 	
 	// The dictionary to return
-	/*NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:dictionary];
 	
 	// Run the initialization
 	if(self = [self init]){
@@ -215,58 +225,9 @@
 		
 			// Set the properties dictionary to dictionary
 			[properties setDictionary:dict];
-			
-			
-			// If there are children associated with the properities then convert the children
-			// from dictionary objects into normal children
-			if([[properties allKeys] containsObject:@"children"]){
-			
-				// Set the dictionary collection of children to dictChildren
-				NSArray *dictChildren = [dictionary objectForKey:@"children"];
-				
-				// Initialize newChildren to be the array for the new children
-				NSMutableArray	*newChildren = [NSMutableArray array];
-				
-				// The enumerator to loop over
-				NSEnumerator	*enumerator = [dictChildren objectEnumerator];
-				
-				// Assign each object in the enumeration to object.
-				id object;
- 
-				while ((object = [enumerator nextObject])){
-				
-					// Take each dictionary object and create and init a new child
-					id newChild = [[[self class] alloc] initWithDictionary:object];
-					
-					// Add the new child to the newChildren array
-					[newChildren addObject:newChild];
-					
-					// Release the newChild because newChildren will retain it
-					[newChild release];
-				}
-				
-				// Set the children to newChildren
-				[self setChildren:newChildren];
-			}
-		}*/
-		
-		// If the title is null we should set it to be the same as the description (if it isn't null)
-		/*if([[self title] isEqualToString:@""]){
-		
-			// Make sure the description isn't null
-			if(![[self description] isEqualToString:@""]){
-			
-				// Set the title
-				[self setTitle:[self description]];
-				
-			} else {
-				
-				// Else the title and description are null and should be something.. more friendly
-				[self setTitle:@"Untitled"];
-				[self setDescription:@"Untitled"];
-			}
 		}
-	}*/
+	}
+
 	
 	return self;
 }

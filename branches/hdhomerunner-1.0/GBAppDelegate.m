@@ -46,105 +46,10 @@
 		
 		// Initialize the mutable array of tuners
 		tuners = [[NSMutableArray alloc] initWithCapacity:0];
-		
-		// Mutable dictionary of the toolbar items
-		toolbarItems = [[NSMutableDictionary alloc] initWithCapacity:0];
-		
+				
 		// Initialize the window controller
-		windowController = [[GBWindowController alloc] initWithWindowNibName:TUNER_NIB_NAME];
+		//windowController = [[GBWindowController alloc] initWithWindowNibName:TUNER_NIB_NAME];
 		
-		// Ensure that the nibs are loaded
-		[windowController window];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_record = [[NSToolbarItem alloc] initWithItemIdentifier:@"Record"];
-		[_record setAction:@selector(record:)];
-		[_record setTarget:self];
-		[_record setPaletteLabel:@"Record"];
-		[_record setLabel:@"Record"];
-		[_record setToolTip:@"Record"];
-		[_record setImage:[NSImage imageNamed:@"Record"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_record forKey:@"Record"];
-		
-		// Release the toolbar item
-		[_record release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_previous = [[NSToolbarItem alloc] initWithItemIdentifier:@"Previous"];
-		[_previous setAction:@selector(previous:)];
-		[_previous setTarget:self];
-		[_previous setPaletteLabel:@"Previous"];
-		[_previous setLabel:@"Previous"];
-		[_previous setToolTip:@"Previous"];
-		//[_previous setImage:[NSImage imageNamed:@"Record"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_previous forKey:@"Previous"];
-		
-		// Release the toolbar item
-		[_previous release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_play = [[NSToolbarItem alloc] initWithItemIdentifier:@"Play"];
-		[_play setAction:@selector(previous:)];
-		[_play setTarget:self];
-		[_play setPaletteLabel:@"Play"];
-		[_play setLabel:@"Play"];
-		[_play setToolTip:@"Play"];
-		[_play setImage:[NSImage imageNamed:@"Play"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_play forKey:@"Play"];
-		
-		// Release the toolbar item
-		[_play release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_next = [[NSToolbarItem alloc] initWithItemIdentifier:@"Next"];
-		[_next setAction:@selector(next:)];
-		[_next setTarget:self];
-		[_next setPaletteLabel:@"Next"];
-		[_next setLabel:@"Next"];
-		[_next setToolTip:@"Next"];
-		//[_next setImage:[NSImage imageNamed:@"Next"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_next forKey:@"Next"];
-		
-		// Release the toolbar item
-		[_next release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_info = [[NSToolbarItem alloc] initWithItemIdentifier:@"Info"];
-		[_info setAction:@selector(getInfo:)];
-		[_info setTarget:self];
-		[_info setPaletteLabel:@"Info"];
-		[_info setLabel:@"Info"];
-		[_info setToolTip:@"Info"];
-		[_info setImage:[NSImage imageNamed:@"Get Info"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_info forKey:@"Info"];
-		
-		// Release the toolbar item
-		[_info release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_preferences = [[NSToolbarItem alloc] initWithItemIdentifier:@"Preferences"];
-		[_preferences setAction:@selector(openPreferences:)];
-		[_preferences setTarget:self];
-		[_preferences setPaletteLabel:@"Preferences"];
-		[_preferences setLabel:@"Preferences"];
-		[_preferences setToolTip:@"Preferences"];
-		[_preferences setImage:[NSImage imageNamed:@"General Preferences"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_preferences forKey:@"Preferences"];
-		
-		// Release the toolbar item
-		[_preferences release];		
 	}
 	
 	return self;
@@ -157,6 +62,8 @@
 // The application will finish launching. Load contents from disk
 - (void)applicationWillFinishLaunching:(NSNotification *)notification{
 	
+	// Finally, Ensure that the nibs are loaded and the object's awakeFromNib is called
+	//[windowController window];
 
 }
 
@@ -165,14 +72,14 @@
 	
 	// This will center the main window if there's no stored position for it.
 	// The frame name (set up in IB) to MainWindow
-	if ([[NSUserDefaults standardUserDefaults] stringForKey:@"NSWindow Frame MainWindow"] == nil){
+	/*if ([[NSUserDefaults standardUserDefaults] stringForKey:@"NSWindow Frame MainWindow"] == nil){
 		
 		// Center the window
 		[window center];
 	}
 	
 	// Set the splitView's autosave name.
-	[splitView setPositionAutosaveName:@"MainWindowSplitView"];
+	[splitView setPositionAutosaveName:@"MainWindowSplitView"];*/
 
 	// Load tuners from preferences
 
@@ -183,7 +90,7 @@
 	NSEnumerator	*tuner_enumerator = [available_tuners objectEnumerator];
 	
 	// The tuner
-	GBTuner		*tuner;
+	GBTuner			*tuner;
 	
 	// Loop over the available tuners and try to add it to tuners
 	while(tuner = [tuner_enumerator nextObject]){
@@ -199,8 +106,8 @@
 	//[splitView setPositionAutosaveName:@"ListSplitView"];
 
 	// Set the source list view into the main window
-	[sourceListView setFrameSize:[sourceListViewPlaceholder frame].size];
-	[sourceListViewPlaceholder addSubview:sourceListView];
+	/*[sourceListView setFrameSize:[sourceListViewPlaceholder frame].size];
+	[sourceListViewPlaceholder addSubview:sourceListView];*/
 	
 	// The font to use
 	NSFont *font = [NSFont fontWithName:TITLE_FONT size:TITLE_HEIGHT];
@@ -226,103 +133,27 @@
 	// Set up the outline view
 	[sourceListOutlineView setAutoresizesOutlineColumn:NO];
 	[sourceListOutlineView selectRow:0 byExtendingSelection:NO];
-	
-	// Set up the toolbar on the main window
-	theToolbar = [[NSToolbar alloc] initWithIdentifier:@"toolbar"];
-	[theToolbar setDelegate:self];
-    
-	// Make the toolbar configurable
-	[theToolbar setAllowsUserCustomization:YES];
-	[theToolbar setAutosavesConfiguration:YES];
-    
-	// Attach the toolbar to the window
-	[window setToolbar:theToolbar];
-}
-
-#pragma mark -
-#pragma mark   Toolbar Delegate methods
-#pragma mark -
-
-- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag{
-	return [toolbarItems objectForKey:itemIdentifier];
-}
-
-- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar{
-
-	// Return all the keys as valid items plus the standard toolbar items
-	return [[toolbarItems allKeys] arrayByAddingObjectsFromArray:
-							[NSArray arrayWithObjects:NSToolbarSeparatorItemIdentifier,
-													NSToolbarSpaceItemIdentifier,
-													NSToolbarFlexibleSpaceItemIdentifier,
-													NSToolbarCustomizeToolbarItemIdentifier,
-													nil]];
-}
-
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar{
-
-	return [NSArray arrayWithObjects:NSToolbarSpaceItemIdentifier,
-									@"Record",
-									NSToolbarSeparatorItemIdentifier,
-									@"Previous",
-									@"Play",
-									@"Next",
-									NSToolbarSeparatorItemIdentifier,
-									@"Get Info",
-									NSToolbarFlexibleSpaceItemIdentifier,
-									@"Preferences",
-									NSToolbarCustomizeToolbarItemIdentifier,
-									nil];
-}
-
-#pragma mark -
-#pragma mark   Toolbar actions
-#pragma mark -
-
-// Play ToobarItem action
-// Play the currently selected channel when the user clicks this item
-- (IBAction)play:(id)sender{
-	NSLog(@"play toolbar item selected");
-}
-
-// Next Toolbar action
-// Move to the next channel when the user clicks this item
-- (IBAction)next:(id)sender{
-	NSLog(@"next toolbar item selected");
-}
-
-// Previous Toolbar action
-// Move to the previous channel when the user clicks this item
-- (IBAction)previous:(id)sender{
-	NSLog(@"previous toolbar item selected");
-}
-
-// Get Info ToobarItem action
-// Get info on the currently selected object when the user clicks this item
-- (IBAction)getInfo:(id)sender{
-	NSLog(@"info toolbar item selected");
-}
-
-// Refresh Device List ToobarItem action
-// Manually refresh the list of devices when the user clicks this item
-- (IBAction)refreshDevices:(id)sender{
-	NSLog(@"refresh toolbar item selected");
-}
-
-// Open Preferences action
-// Open the application preferences when the user clicks this item.
-- (IBAction)openPreferences:(id)sender{
-	NSLog(@"prefrences toolbar item selected");
-}
-
-// Record action
-// Record the current channel when the user clicks this item
-- (IBAction)record:(id)sender{
-	NSLog(@"record toolbar item selected");
 }
 
 #pragma mark -
 #pragma mark  Set, Add, remove, and discover tuners
 #pragma mark -
+
+// Get the selected tuner
+/*- (GBTuner *)selectedTuner{
+	
+	return selectedTuner;
+}
+
+// Set the selected tuner
+- (void)setSelectedTuner:(GBTuner *)newTuner{
+	
+	[selectedTuner autorelease];
+	selectedTuner = nil;
+	selectedTuner = [newTuner retain];
+	
+}*/
+
 
 // Get the tuners
 - (NSArray *)tuners{
@@ -358,6 +189,9 @@
 		// Then add the tuner
 		[tuners addObject:newTuner];
 		
+		// Reload data
+		[self reloadDataForObject:nil];
+		
 		// Let everyone know the contents of tuners did change
 		[self didChangeValueForKey:@"tuners"]; 
 	}
@@ -374,6 +208,9 @@
 
 		// Then add the tuner
 		[tuners removeObject:aTuner];
+		
+		// Reload data
+		[self reloadDataForObject:nil];
 		
 		// Let everyone know the contents of tuners did change
 		[self didChangeValueForKey:@"tuners"]; 
@@ -392,7 +229,6 @@
 	// Query the network for devices. Return the number of devices into count and populate the devices into the result list.
 	uint32_t IP_WILD_CARD = 0;
 	int count = hdhomerun_discover_find_devices_custom(IP_WILD_CARD, HDHOMERUN_DEVICE_TYPE_TUNER, HDHOMERUN_DEVICE_ID_WILDCARD, result_list, 128);
-	//int count = hdhomerun_discover_find_devices(HDHOMERUN_DEVICE_TYPE_TUNER, result_list, 128);
 	
 	// Print the number of devices found.
 	//NSLog(@"found %d devices", count);
@@ -457,6 +293,11 @@
 		// This is more efficient than calling reloadData since we are only updating the single
 		// cell rather than the entire table.
 		[sourceListOutlineView setNeedsDisplayInRect:[sourceListOutlineView rectOfRow:row]];
+		
+	} else {
+		
+		// Else reload the entire table
+		[sourceListOutlineView reloadData];
 	}
 }
 
@@ -472,11 +313,13 @@
 	// Print debug info
 	NSLog(@"selection did change for view %@", [notification object]);
 	
+	//[self setSelectedTuner:[sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]]];
+	
 	// Set the window controller to display the selected tuner
-	[windowController setRepresentedTuner:[sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]]];
+	[windowController setTuner:[sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]]];
 	
 	// Change the view to the proper view
-	[self changeCurrentView:[windowController view]];
+	//[self changeCurrentView:[windowController view]];
 	
 	//[self changeCurrentView:[[sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]] view]];
 	
@@ -667,7 +510,7 @@
 #pragma mark  View Change Methods
 #pragma mark -
 
-- (void)changeCurrentView:(NSView *)newView{
+/*- (void)changeCurrentView:(NSView *)newView{
 	
 	// If the view is not null
 	if(newView){
@@ -706,7 +549,7 @@
 	}
 	
 	[currentViewPlaceholder displayIfNeeded];	// we want the removed views to disappear right away
-}
+}*/
 
 #pragma mark -
 #pragma mark  Outlineview Datasource Methods
