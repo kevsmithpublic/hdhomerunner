@@ -666,6 +666,31 @@
 		} else if(contextInfo = exporthdhrcontrol){
 			// If the sender was exporthdhrcontrol
 			
+			// The channels to export
+			NSArray *channels = [tuner channels];
+			
+			// The enumerator to loop over
+			NSEnumerator *enumerator = [channels objectEnumerator];
+			
+			// Temporary array to hold translated channels in
+			NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+			
+			// A single object in the array
+			GBChannel *object;
+ 
+			while ((object = [enumerator nextObject])) {
+			
+				// The dictionary to translate GBChannel terms to HHDHRControl keys
+				NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:	[object channelNumber], @"Channel",
+																						[object description], @"Description",
+																						[object program], @"Program", nil];
+				
+				// Add the dictionary to the array
+				[array addObject:dictionary];
+			}
+			
+			// Write the array to disc
+			[array writeToFile:[panel filename] atomically:YES];
 		}
 	}
 }
