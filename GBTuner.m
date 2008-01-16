@@ -24,6 +24,8 @@
 
 #define	MAX_TUNER_NUMBER				1
 #define DEFAULT_UPDATE_TIMER_INTERVAL	1
+#define MAX_NUMBER_OF_RETRIES			12
+#define SLEEP_TIME						10000
 
 
 @implementation GBTuner
@@ -274,6 +276,7 @@
 
 // Get the target address
 - (NSString *)target{
+
 	// Temporary variable to hold the return values from the function
 	char *tmp_str;
 	NSString *tmp;
@@ -284,8 +287,7 @@
 		// Set the return value stored in tmp_str to tmp
 		// previously used: [NSString stringWithCString:tmp_str encoding:NSASCIIStringEncoding]
 		tmp = [NSString stringWithCString:tmp_str encoding:NSASCIIStringEncoding];
-		//tmp = [NSString stringWithFormat:@"%u.%u.%u.%u", (tmp_str >> 24) & 0xFF, (tmp_str >> 16) & 0xFF,
-		//		(tmp_str >> 8) & 0xFF, (tmp_str >> 0) & 0xFF];
+		//tmp = [NSString stringWithFormat:@"%u.%u.%u.%u", (tmp_str >> 24) & 0xFF, (tmp_str >> 16) & 0xFF, (tmp_str >> 8) & 0xFF, (tmp_str >> 0) & 0xFF];
 	} else {
 		
 		// Else return what is in the properties (cached) value
@@ -297,20 +299,42 @@
 
 // Set the target address
 - (void)setTarget:(NSString *)aTarget{
+
 	// If the new target is not the same as the existing target
-	if([[self target] compare:aTarget] != NSOrderedSame){
+	if(![[self target] isEqual:aTarget]){
 	
-		// Copy the target into a C-String. This works better and gets rid of a compiler warning
-		char ip_cstr[64];
-		strcpy(ip_cstr, [aTarget UTF8String]);
+		// Retry the device a few times to make sure the changes are applied
+		int retries = 0;
 	
-		// If the device accepts the set target request (response > 0)
-		if(hdhomerun_device_set_tuner_target([self hdhr], ip_cstr) > 0){
+		while(retries < MAX_NUMBER_OF_RETRIES){
+	
+			// Copy the target into a C-String. This works better and gets rid of a compiler warning
+			char ip_cstr[64];
+			strcpy(ip_cstr, [aTarget UTF8String]);
+			
+			// Print debug info
+			NSLog(@"Trying to set tuner target to: %s", ip_cstr);
 		
-			// Update the properties to reflect the change and remain key value coding compliant
-			[self willChangeValueForKey:@"target"];
-			[properties setObject:aTarget forKey:@"target"];
-			[self didChangeValueForKey:@"target"];
+			// If the device accepts the set target request (response > 0)
+			if(hdhomerun_device_set_tuner_target([self hdhr], ip_cstr) == 1){
+			
+				// Update the properties to reflect the change and remain key value coding compliant
+				[self willChangeValueForKey:@"target"];
+				[properties setObject:aTarget forKey:@"target"];
+				[self didChangeValueForKey:@"target"];
+				
+				// Changes were made successfully so quit
+				retries = MAX_NUMBER_OF_RETRIES;
+				
+				// Print debug info
+				NSLog(@"Target set to: %@", aTarget);
+			}
+			
+			// Sleep momentarily
+			usleep(SLEEP_TIME);
+			
+			// Increment the retry count
+			retries++;
 		}
 	}
 }
@@ -410,38 +434,68 @@
 -(NSNumber *)channel{
 	// Temporary variable to hold the return values from the function
 	char *tmp_str;
-	NSString *tmp;
+	NSNumber *tmp;
 	
 	// Return the channel from the device (hdhomerun_device.h)
 	if(hdhomerun_device_get_tuner_channel([self hdhr], &tmp_str) > 0){
 		
 		// Set the return value stored in tmp_str to tmp
 		// previously used: [NSString stringWithCString:tmp_str encoding:NSASCIIStringEncoding]
-		tmp = [NSString stringWithUTF8String:tmp_str];
+		tmp = [NSNumber numberWithInt:[[NSString stringWithUTF8String:tmp_str] intValue]];
 	} else {
 		
 		// Else return what is in the properties (cached) value
-		tmp = [NSString stringWithString:[properties objectForKey:@"channel"]];
+		tmp = [properties objectForKey:@"channel"];
 	}
 	
-	return [NSNumber numberWithInt:[tmp intValue]];
+	return tmp;
 }
 
 // Set the channel
 - (void)setChannel:(NSNumber *)newChannel{
+
 	// If the new channel is not the same as the existing channel
-	if([[self channel] compare:newChannel] != NSOrderedSame){
+	if(![[self channel] isEqual:newChannel]){
 	
-		// Apply the changes to the device (hdhomerun_device.h) 
-		// If the changes were received by the hdhr (response greater than 0),
-		if(hdhomerun_device_set_tuner_channel([self hdhr], [[newChannel stringValue] UTF8String]) > 0){
-		
-			// Update the properties to reflect the change and remain key value coding compliant
-			[self willChangeValueForKey:@"channel"];
-			[properties setObject:newChannel forKey:@"channel"];
-			[self didChangeValueForKey:@"channel"];
+		// Retry the device a few times to make sure the changes are applied
+		int retries = 0;
+	
+		while(retries < MAX_NUMBER_OF_RETRIES){
+	
+			// Apply the changes to the device (hdhomerun_device.h) 
+			// If the changes were received by the hdhr (response greater than 0),
+			if(hdhomerun_device_set_tuner_channel([self hdhr], [[newChannel stringValue] UTF8String]) > 0){
+			
+				// Update the properties to reflect the change and remain key value coding compliant
+				[self willChangeValueForKey:@"channel"];
+				[properties setObject:newChannel forKey:@"channel"];
+				[self didChangeValueForKey:@"channel"];
+				
+				// Changes were made successfully so quit
+				retries = MAX_NUMBER_OF_RETRIES;
+				
+				// Print debug info
+				NSLog(@"Channel set to: %@", newChannel);
+			}
+			
+			// Increment the retry count
+			retries++;
 		}
 	}
+}
+
+// Set the channel based on the info inside a GBChannel object
+- (void)setGBChannel:(GBChannel *)newChannel{
+	
+	// Set the channel and program numbers
+	[self setChannel:[newChannel channelNumber]];
+	
+	// Sleep a little so the hdhomerun receives both commands
+	//usleep(SLEEP_TIME);
+	
+	// Then set the program
+	[self setProgram:[newChannel program]];
+	
 }
 
 // Get the program
@@ -467,17 +521,33 @@
 
 // Set the program
 - (void)setProgram:(NSNumber *)aProgram{
-	// If the new program is not the same as the existing channel
-	if([[self program] compare:aProgram] != NSOrderedSame){
+
+	// Retry the device a few times to make sure the changes are applied
+	int retries = 0;
 	
-		// Apply the changes to the device (hdhomerun_device.h) 
-		// If the changes were received by the hdhr (response greater than 0),
-		if(hdhomerun_device_set_tuner_channel([self hdhr], [[aProgram stringValue] UTF8String]) > 0){
+	while(retries < MAX_NUMBER_OF_RETRIES){
+	
+		// If the new program is not the same as the existing channel
+		if(![[self program] isEqual:aProgram]){
 		
-			// Update the properties to reflect the change and remain key value coding compliant
-			[self willChangeValueForKey:@"program"];
-			[properties setObject:aProgram forKey:@"program"];
-			[self didChangeValueForKey:@"program"];
+			// Apply the changes to the device (hdhomerun_device.h) 
+			// If the changes were received by the hdhr (response greater than 0),
+			if(hdhomerun_device_set_tuner_program([self hdhr], [[aProgram stringValue] UTF8String]) > 0){
+			
+				// Update the properties to reflect the change and remain key value coding compliant
+				[self willChangeValueForKey:@"program"];
+				[properties setObject:aProgram forKey:@"program"];
+				[self didChangeValueForKey:@"program"];
+				
+				// Changes were made successfully so quit
+				retries = MAX_NUMBER_OF_RETRIES;
+				
+				// Print debug info
+				NSLog(@"Program set to: %@", aProgram);
+			}
+			
+			// Increment the retry count
+			retries++;
 		}
 	}
 }
@@ -628,6 +698,55 @@
 	
 	cancel_thread = cancel;
 }
+
+#pragma mark -
+#pragma mark  Playing and Recording Support
+#pragma mark -
+
+- (void)play{
+	
+	// The number of retries to apply the play command to the tuner
+	int retries;
+	retries = 0;
+	
+	// The ip to stream the video to (target ip)
+	unsigned int ip;
+	ip = hdhomerun_device_get_local_machine_addr(hdhr);
+	
+	// The ip formatted properly
+	NSString *ip_str;
+	ip_str = [NSString stringWithFormat:@"%u.%u.%u.%u:%u", (ip >> 24) & 0xFF, (ip >> 16) & 0xFF,
+			(ip >> 8) & 0xFF, (ip >> 0) & 0xFF, 1234];
+	
+	// cstring version of the IP, copied over to send to the device	 
+	//char ip_cstr[64];
+	//strcpy(ip_cstr, [ip_str UTF8String]);
+	
+	// We will try to set the target IP to the local machine IP 6 times
+	//while(retries < MAX_NUMBER_OF_RETRIES){
+		
+		// If the target IP is not the IP we want to set the video playback to
+		if(![ip_str isEqualToString:[self target]]){
+			
+			// Set the target
+			[self setTarget:ip_str];
+		
+		}
+		
+		// Sleep for a few
+	//	usleep(SLEEP_TIME);
+		
+		// Increment the retry count
+	//	retries++;
+	//}
+	
+	// Update the status to playing
+	[self setCaption:@"Playing..."];
+	
+	// Print debug info
+	//NSLog(@"Local machine IP = %@ cstring IP = %s", ip_str, ip_cstr);
+}
+
 
 #pragma mark -
 #pragma mark  Comparison Results

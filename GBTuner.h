@@ -87,6 +87,8 @@
 -(NSNumber *)channel;
 - (void)setChannel:(NSNumber *)newChannel;
 
+- (void)setGBChannel:(GBChannel *)newChannel;
+
 - (NSNumber *)program;
 - (void)setProgram:(NSNumber *)aProgram;
 
@@ -133,4 +135,7 @@
 - (void)scanForChannels:(NSNumber *)mode;
 -(void)processChannels:(NSNumber *)mode;
 int channelscanCallback(va_list ap, const char *type, const char *str);
+
+// Channel playing and recording
+- (void)play;
 @end

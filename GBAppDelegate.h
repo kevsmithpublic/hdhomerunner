@@ -45,20 +45,19 @@
 	IBOutlet		DSGeneralOutlineView	*sourceListOutlineView;
 	
 	// The main window elements
-	IBOutlet		NSWindow				*window;
+	/*IBOutlet		NSWindow				*window;
 	IBOutlet		NSView					*sourceListViewPlaceholder;
 	IBOutlet		NSView					*currentViewPlaceholder;
 	IBOutlet		DBSourceSplitView		*splitView;
 	
 	// Source List View
-	IBOutlet		NSView					*sourceListView;
-	
-	// The toolbar items
-					NSMutableDictionary		*toolbarItems;
-					NSToolbar				*theToolbar;
+	IBOutlet		NSView					*sourceListView;*/
 					
 	// The window controller to handle view data
-					GBWindowController		*windowController;
+	IBOutlet		GBWindowController		*windowController;
+					
+	// The selected item
+					//GBTuner					*selectedTuner;
 	
 					float					row_height;
 }
@@ -68,9 +67,11 @@
 - (void)addTuner:(GBTuner *)newTuner;
 - (void)removeTuner:(GBTuner *)aTuner;
 - (NSArray *)discoverTuners;
+//- (GBTuner *)selectedTuner;
+//- (void)setSelectedTuner:(GBTuner *)newTuner;
 
-- (void)changeCurrentView:(NSView *)newView;
-- (void)removeSubview;
+//- (void)changeCurrentView:(NSView *)newView;
+//- (void)removeSubview;
 
 - (void)reloadDataForObject:(NSNotification *)notification;
 

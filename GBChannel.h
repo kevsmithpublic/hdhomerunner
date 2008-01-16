@@ -48,6 +48,10 @@
 - (NSString *)title;
 - (void)setTitle:(NSString *)newTitle;
 
+- (NSArray *)recordings;
+- (int)numberOfRecordings;
+
+
 - (NSComparisonResult)compare:(GBChannel *)aParent;
 - (BOOL)isEqual:(GBChannel *)aParent;
 

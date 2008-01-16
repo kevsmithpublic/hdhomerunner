@@ -50,7 +50,6 @@
 		B076B9B10C5AA82100174C3B /* HUDWindow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7F00C5AA67900174C3B /* HUDWindow.h */; };
 		B076B9BE0C5AA88100174C3B /* launchVLC.scpt in Resources */ = {isa = PBXBuildFile; fileRef = B076B8060C5AA68B00174C3B /* launchVLC.scpt */; };
 		B08508F50D243E770040E78F /* ChannelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08508F40D243E770040E78F /* ChannelView.xib */; };
-		B08509000D2443A10040E78F /* TunerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08508FF0D2443A10040E78F /* TunerView.xib */; };
 		B08509060D2444720040E78F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B08509050D2444720040E78F /* WebKit.framework */; };
 		B0887F890D1F89E300FCC050 /* DIController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0887F860D1F89E300FCC050 /* DIController.m */; };
 		B0887F8A0D1F89E300FCC050 /* NSBezierPath+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0887F880D1F89E300FCC050 /* NSBezierPath+Additions.m */; };
@@ -157,7 +156,6 @@
 		B076B8BB0C5AA72800174C3B /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Carbon.framework; sourceTree = "<group>"; };
 		B076B9660C5AA73500174C3B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		B08508F40D243E770040E78F /* ChannelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelView.xib; sourceTree = "<group>"; };
-		B08508FF0D2443A10040E78F /* TunerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TunerView.xib; sourceTree = "<group>"; };
 		B08509050D2444720040E78F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		B0887F850D1F89E300FCC050 /* DIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIController.h; sourceTree = "<group>"; };
 		B0887F860D1F89E300FCC050 /* DIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIController.m; sourceTree = "<group>"; };
@@ -282,7 +280,6 @@
 			children = (
 				B03A69F00D333C3E007DCF3B /* MainMenu.xib */,
 				B08508F40D243E770040E78F /* ChannelView.xib */,
-				B08508FF0D2443A10040E78F /* TunerView.xib */,
 				B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */,
 				B071DB5E0D2D47CD00C74EDE /* default.html */,
 				B0545BCE0C820B6F00978980 /* tv.icns */,
@@ -585,7 +582,6 @@
 				B08C48900D1B85EC00187D4A /* Network Utility.tiff in Resources */,
 				B08C48920D1B863800187D4A /* Get Info.tiff in Resources */,
 				B08508F50D243E770040E78F /* ChannelView.xib in Resources */,
-				B08509000D2443A10040E78F /* TunerView.xib in Resources */,
 				B071DB5F0D2D47CD00C74EDE /* default.html in Resources */,
 				B03A69E20D333C0A007DCF3B /* lgpl.txt in Resources */,
 				B03A69E70D333C0A007DCF3B /* README in Resources */,
