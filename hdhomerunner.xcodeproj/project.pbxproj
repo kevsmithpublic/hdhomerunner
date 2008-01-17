@@ -44,7 +44,6 @@
 		B076B8040C5AA67900174C3B /* hud_titlebar-close.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7F20C5AA67900174C3B /* hud_titlebar-close.tiff */; };
 		B076B8070C5AA68B00174C3B /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = B076B8050C5AA68B00174C3B /* COPYING.txt */; };
 		B076B80D0C5AA69400174C3B /* PrefWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = B076B80C0C5AA69400174C3B /* PrefWindow.nib */; };
-		B076B8BC0C5AA72800174C3B /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B076B8BB0C5AA72800174C3B /* Carbon.framework */; };
 		B076B9670C5AA73500174C3B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B076B9660C5AA73500174C3B /* Sparkle.framework */; };
 		B076B9900C5AA7B900174C3B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B9660C5AA73500174C3B /* Sparkle.framework */; };
 		B076B9B10C5AA82100174C3B /* HUDWindow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7F00C5AA67900174C3B /* HUDWindow.h */; };
@@ -153,7 +152,6 @@
 		B076B8050C5AA68B00174C3B /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
 		B076B8060C5AA68B00174C3B /* launchVLC.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = launchVLC.scpt; sourceTree = "<group>"; };
 		B076B80C0C5AA69400174C3B /* PrefWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = PrefWindow.nib; sourceTree = "<group>"; };
-		B076B8BB0C5AA72800174C3B /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Carbon.framework; sourceTree = "<group>"; };
 		B076B9660C5AA73500174C3B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		B08508F40D243E770040E78F /* ChannelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelView.xib; sourceTree = "<group>"; };
 		B08509050D2444720040E78F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
@@ -209,7 +207,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				B076B8BC0C5AA72800174C3B /* Carbon.framework in Frameworks */,
 				B076B9670C5AA73500174C3B /* Sparkle.framework in Frameworks */,
 				B08509060D2444720040E78F /* WebKit.framework in Frameworks */,
 			);
@@ -230,7 +227,6 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B076B8BB0C5AA72800174C3B /* Carbon.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
@@ -665,7 +661,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = hdhomerunner;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
 			};
@@ -694,7 +692,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = hdhomerunner;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

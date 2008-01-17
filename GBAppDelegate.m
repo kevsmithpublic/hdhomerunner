@@ -32,7 +32,7 @@
 #define CAPTION_HEIGHT			(TITLE_HEIGHT - 2.0)
 #define CAPTION_FONT			@"Lucida Grande Bold"
 
-#define TUNER_NIB_NAME			@"TunerView"			// nib name for the tuner view
+//#define TUNER_NIB_NAME			@"TunerView"			// nib name for the tuner view
 
 @implementation GBAppDelegate
 
@@ -128,7 +128,7 @@
 	row_height = ( fontSize > 32. ? fontSize : 32. );
 
 	// Set the row height
-	[sourceListOutlineView setRowHeight:(row_height + 2.)];
+	//[sourceListOutlineView setRowHeight:(row_height + 2.)];
 	
 	// Set up the outline view
 	[sourceListOutlineView setAutoresizesOutlineColumn:NO];
@@ -305,6 +305,26 @@
 #pragma mark  Outlineview Delegate Methods
 #pragma mark -
 
+- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item{
+	
+	// Set the height to 0
+	CGFloat result = 0.0;
+	
+	// If the item is a tuner give it a lot of space
+	if([item isKindOfClass:[GBTuner class]]){
+	
+		// Set the row height
+		result = (row_height + 2.);
+		
+	} else {
+		
+		// Else give it half the space
+		result = (row_height + 2.)/2.;
+	}
+	
+	return result; 
+}
+
 // -------------------------------------------------------------------------------
 //	outlineViewSelectionDidChange:notification
 // -------------------------------------------------------------------------------
@@ -315,8 +335,15 @@
 	
 	//[self setSelectedTuner:[sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]]];
 	
-	// Set the window controller to display the selected tuner
-	[windowController setTuner:[sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]]];
+	id object = [sourceListOutlineView itemAtRow:[sourceListOutlineView selectedRow]];
+	
+	// Only set the tuner if the object is a of type GBTuner
+	if([object isKindOfClass:[GBTuner class]]){
+	
+		// Set the window controller to display the selected tuner
+		[windowController setTuner:object];
+		
+	}
 	
 	// Change the view to the proper view
 	//[self changeCurrentView:[windowController view]];
@@ -387,7 +414,7 @@
 		}
 	}*/
 	
-	return YES;
+	return [item isKindOfClass:[GBTuner class]];
 }
 
 /* Delegate method with DSGeneralOutlineView */
@@ -506,50 +533,6 @@
 	return [theImage autorelease];
 }
 
-#pragma mark -
-#pragma mark  View Change Methods
-#pragma mark -
-
-/*- (void)changeCurrentView:(NSView *)newView{
-	
-	// If the view is not null
-	if(newView){
-	
-		// Remove any subview that is present
-		//[self removeSubview];
-	
-		// Add the view as a subview to the current view
-		[currentViewPlaceholder addSubview:newView];
-		
-		// Apply the changes immediately
-		[currentViewPlaceholder displayIfNeeded];
-		
-		// Get the bounds of the current view
-		NSRect newBounds;
-		newBounds.origin.x = 0;
-		newBounds.origin.y = 0;
-		newBounds.size.width = [[newView superview] frame].size.width;
-		newBounds.size.height = [[newView superview] frame].size.height;
-		
-		// Apply the bounds to the new view
-		[newView setFrame:[[newView superview] frame]];
-		
-		// Make sure our added subview is placed and resizes correctly
-		[newView setFrameOrigin:NSMakePoint(0,0)];
-		[newView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-	}
-}
-
-- (void)removeSubview{
-	// empty selection
-	NSArray *subViews = [currentViewPlaceholder subviews];
-	if ([subViews count] > 0)
-	{
-		[[subViews objectAtIndex:0] removeFromSuperview];
-	}
-	
-	[currentViewPlaceholder displayIfNeeded];	// we want the removed views to disappear right away
-}*/
 
 #pragma mark -
 #pragma mark  Outlineview Datasource Methods
@@ -567,7 +550,20 @@
 	// Print debug info
 	NSLog(@"index = %i item = %@", index, item);
 
-	return [(item ? item : tuners) objectAtIndex:index];
+	//return [(item ? item : tuners) objectAtIndex:index];
+	
+	id result;
+	
+	if(item == nil){
+		
+		result = [tuners objectAtIndex:index];
+	
+	} else if([item isKindOfClass:[GBTuner class]]){
+		
+		result = [[NSLevelIndicator alloc] init];//WithLevelIndicatorStyle:NSContinuousCapacityLevelIndicatorStyle] retain];
+	} 
+	
+	return result;
 }
 
 // Return YES if the item is expandable
@@ -575,17 +571,22 @@
 
 	// The only expandable items are the Tuners. They will have a drop down of all tuneable channels
 	//return [(item ? item : tuners) isKindOfClass:[GBTuner class]];
-	return NO;
+	//return NO;
+	return [item isKindOfClass:[GBTuner class]];
 }
 
 // Return the number of children of the item
 - (int)outlineView:(NSOutlineView *)outlineview numberOfChildrenOfItem:(id)item{
 	
 	// Int to hold the result
-	int result = [tuners count];
+	int result = 0;
 	
-	// If item is not null
-	if(item){
+	// If item is null
+	if(item == nil){
+		
+		result = [tuners count];
+		
+	} else if([item isKindOfClass:[GBTuner class]]){
 	
 		// Set the result to the number of channels of the item
 		//result = [item numberOfChannels];
@@ -603,10 +604,12 @@
 
 	//NSLog(@"item = %@", item);
 	
-	// Assign the tuner to item
-	GBTuner *theItem = item;
 	
-	if(theItem){
+	
+	if([item isKindOfClass:[GBTuner class]]){
+		
+		// Assign the tuner to item
+		GBTuner *theItem = item;
 	
 		// The font to use for the title
 		NSFont *title_font = [NSFont fontWithName:TITLE_FONT size:TITLE_HEIGHT];
@@ -637,6 +640,21 @@
 		
 		return [NSDictionary dictionaryWithObjectsAndKeys:image, @"Image", string, @"String", nil];
 
+	} else if([item isKindOfClass:[NSLevelIndicator class]]){
+		
+		// Assign the tuner to item
+		NSLevelIndicator *theItem = item;
+		
+		//[theItem drawCellInside:
+		//[tablecolumn setDataCell:theItem];
+		
+		//[theItem setControlView:[outlineview superview]];
+		// Set the level indicators values
+		//[theItem setFloatValue:'2.0'];//parentForItem
+		NSLog(@"trying");
+		//return theItem;
+		return nil;
+		
 	}
 	
 	return item;
