@@ -475,7 +475,7 @@
 				retries = MAX_NUMBER_OF_RETRIES;
 				
 				// Print debug info
-				NSLog(@"Channel set to: %@", newChannel);
+				NSLog(@"Channel set to: %s", [[newChannel stringValue] UTF8String]);
 			}
 			
 			// Increment the retry count
@@ -543,7 +543,7 @@
 				retries = MAX_NUMBER_OF_RETRIES;
 				
 				// Print debug info
-				NSLog(@"Program set to: %@", aProgram);
+				NSLog(@"Program set to: %s", [[aProgram stringValue] UTF8String]);
 			}
 			
 			// Increment the retry count
@@ -1219,7 +1219,7 @@ int channelscanCallback(va_list ap, const char *type, const char *str){
 
 // Clean up
 - (void)dealloc{
-	hdhomerun_device_destroy([self hdhr]);
+	hdhomerun_device_destroy(hdhr);
 
 	[properties release];
 	

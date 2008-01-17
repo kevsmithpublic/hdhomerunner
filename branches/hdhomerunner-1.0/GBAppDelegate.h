@@ -21,9 +21,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
 // Import the hdhomerun library
-#import "hdhomerun.h"
+//#import "hdhomerun.h"
 
 // Import the tuner class
 #import "GBTuner.h"
@@ -31,10 +30,11 @@
 // Import window controller
 #import "GBWindowController.h"
 
-#import "DBSourceSplitView.h"
+//#import "DBSourceSplitView.h"
 
 // Declare classes
 @class DSGeneralOutlineView;
+//@class GBWindowController;
 
 @interface GBAppDelegate : NSObject {
 
@@ -43,23 +43,11 @@
 	
 	// The outline view
 	IBOutlet		DSGeneralOutlineView	*sourceListOutlineView;
-	
-	// The main window elements
-	/*IBOutlet		NSWindow				*window;
-	IBOutlet		NSView					*sourceListViewPlaceholder;
-	IBOutlet		NSView					*currentViewPlaceholder;
-	IBOutlet		DBSourceSplitView		*splitView;
-	
-	// Source List View
-	IBOutlet		NSView					*sourceListView;*/
 					
 	// The window controller to handle view data
 	IBOutlet		GBWindowController		*windowController;
-					
-	// The selected item
-					//GBTuner					*selectedTuner;
 	
-					float					row_height;
+					CGFloat					row_height;
 }
 
 - (NSArray *)tuners;
@@ -67,11 +55,6 @@
 - (void)addTuner:(GBTuner *)newTuner;
 - (void)removeTuner:(GBTuner *)aTuner;
 - (NSArray *)discoverTuners;
-//- (GBTuner *)selectedTuner;
-//- (void)setSelectedTuner:(GBTuner *)newTuner;
-
-//- (void)changeCurrentView:(NSView *)newView;
-//- (void)removeSubview;
 
 - (void)reloadDataForObject:(NSNotification *)notification;
 
@@ -79,5 +62,5 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineview shouldHandleKeyDown:(NSEvent *)keyEvent;
 - (BOOL)outlineView:(NSOutlineView *)outlineview shouldAllowTextMovement:(unsigned int)textMovement tableColumn:(NSTableColumn *)tc item:(id)item;
 - (NSImage *)outlineView:(NSOutlineView *)outlineview dragImageForSelectedRows:(NSIndexSet *)selectedRows selectedColumns:(NSIndexSet *)selectedColumns dragImagePosition:(NSPointPointer)imageLocation dragImageSize:(NSSize)imageSize event:(NSEvent *)event;
-
+- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item;
 @end
