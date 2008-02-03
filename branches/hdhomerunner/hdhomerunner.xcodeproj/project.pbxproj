@@ -1,0 +1,639 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		B03491D00D48479600D4A7BF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B03491CF0D48479600D4A7BF /* Credits.rtf */; };
+		B05492500D41AF9500A294BA /* GBTunerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B054924F0D41AF9500A294BA /* GBTunerViewController.m */; };
+		B05492670D41B42200A294BA /* TunerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05492660D41B42200A294BA /* TunerView.xib */; };
+		B05492710D41B91400A294BA /* GBTunerSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B05492700D41B91400A294BA /* GBTunerSubViewController.m */; };
+		B054927B0D41BEA800A294BA /* SubviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B054927A0D41BEA800A294BA /* SubviewTableViewCell.m */; };
+		B05492800D41BED800A294BA /* GBOutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B054927F0D41BED800A294BA /* GBOutlineViewController.m */; };
+		B05492880D41C14700A294BA /* GBTuner.m in Sources */ = {isa = PBXBuildFile; fileRef = B05492870D41C14700A294BA /* GBTuner.m */; };
+		B05492AD0D41C1D300A294BA /* hdhomerun_channels.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492960D41C1D300A294BA /* hdhomerun_channels.c */; };
+		B05492AE0D41C1D300A294BA /* hdhomerun_channelscan.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492980D41C1D300A294BA /* hdhomerun_channelscan.c */; };
+		B05492AF0D41C1D300A294BA /* hdhomerun_config.c in Sources */ = {isa = PBXBuildFile; fileRef = B054929A0D41C1D300A294BA /* hdhomerun_config.c */; };
+		B05492B00D41C1D300A294BA /* hdhomerun_control.c in Sources */ = {isa = PBXBuildFile; fileRef = B054929B0D41C1D300A294BA /* hdhomerun_control.c */; };
+		B05492B10D41C1D300A294BA /* hdhomerun_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = B054929D0D41C1D300A294BA /* hdhomerun_debug.c */; };
+		B05492B20D41C1D300A294BA /* hdhomerun_device.c in Sources */ = {isa = PBXBuildFile; fileRef = B054929F0D41C1D300A294BA /* hdhomerun_device.c */; };
+		B05492B30D41C1D300A294BA /* hdhomerun_dhcp.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492A10D41C1D300A294BA /* hdhomerun_dhcp.c */; };
+		B05492B40D41C1D300A294BA /* hdhomerun_discover.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492A30D41C1D300A294BA /* hdhomerun_discover.c */; };
+		B05492B50D41C1D300A294BA /* hdhomerun_pkt.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492A60D41C1D300A294BA /* hdhomerun_pkt.c */; };
+		B05492B60D41C1D300A294BA /* hdhomerun_video.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492A80D41C1D300A294BA /* hdhomerun_video.c */; };
+		B05492B70D41C1D300A294BA /* lgpl.txt in Resources */ = {isa = PBXBuildFile; fileRef = B05492AA0D41C1D300A294BA /* lgpl.txt */; };
+		B05492B90D41C1D300A294BA /* README in Resources */ = {isa = PBXBuildFile; fileRef = B05492AC0D41C1D300A294BA /* README */; };
+		B05492CC0D41C29D00A294BA /* GBChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = B05492CB0D41C29D00A294BA /* GBChannel.m */; };
+		B063E78E0D4827E3000C2DED /* AboutBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = B063E78D0D4827E3000C2DED /* AboutBox.xib */; };
+		B063E7A00D483117000C2DED /* GBAboutBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B063E79F0D483117000C2DED /* GBAboutBox.m */; };
+		B074DC890D42B2E1002A3529 /* ChannelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B074DC880D42B2E1002A3529 /* ChannelView.xib */; };
+		B074DC8C0D42B2FE002A3529 /* GBChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */; };
+		B08C84520D43D8A900DDEF1C /* default.html in Resources */ = {isa = PBXBuildFile; fileRef = B08C84510D43D8A900DDEF1C /* default.html */; };
+		B093C87D0D43D792001B746E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B093C87C0D43D792001B746E /* WebKit.framework */; };
+		B0A94B5A0D4197770098614D /* GBController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A94B590D4197770098614D /* GBController.m */; };
+		B0A94B690D41AE330098614D /* GBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A94B680D41AE330098614D /* GBViewController.m */; };
+		B0BFDE5B0D426C0A00A891D4 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE3F0D426C0A00A891D4 /* CTGradient.m */; };
+		B0BFDE5C0D426C0A00A891D4 /* SourceListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE410D426C0A00A891D4 /* SourceListTableView.m */; };
+		B0BFDE5D0D426C0A00A891D4 /* SourceListTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE430D426C0A00A891D4 /* SourceListTextCell.m */; };
+		B0BFDE5E0D426C0A00A891D4 /* SourceListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE450D426C0A00A891D4 /* SourceListImageCell.m */; };
+		B0BFDE5F0D426C0A00A891D4 /* DBBottomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE480D426C0A00A891D4 /* DBBottomButton.m */; };
+		B0BFDE600D426C0A00A891D4 /* DBSourceSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE4B0D426C0A00A891D4 /* DBSourceSplitView.m */; };
+		B0BFDE610D426C0A00A891D4 /* DBSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE4D0D426C0A00A891D4 /* DBSourceView.m */; };
+		B0BFDE620D426C0A00A891D4 /* DBListSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE4F0D426C0A00A891D4 /* DBListSplitView.m */; };
+		B0BFDE630D426C0A00A891D4 /* KFSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE510D426C0A00A891D4 /* KFSplitView.m */; };
+		B0BFDE640D426C0A00A891D4 /* DBListSplitViewBar.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE530D426C0A00A891D4 /* DBListSplitViewBar.tiff */; };
+		B0BFDE650D426C0A00A891D4 /* Add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE540D426C0A00A891D4 /* Add.tiff */; };
+		B0BFDE660D426C0A00A891D4 /* Add_Disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE550D426C0A00A891D4 /* Add_Disabled.tiff */; };
+		B0BFDE670D426C0A00A891D4 /* Add_Pressed.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE560D426C0A00A891D4 /* Add_Pressed.tiff */; };
+		B0BFDE680D426C0A00A891D4 /* Delete.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE570D426C0A00A891D4 /* Delete.tiff */; };
+		B0BFDE690D426C0A00A891D4 /* Delete_Disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE580D426C0A00A891D4 /* Delete_Disabled.tiff */; };
+		B0BFDE6A0D426C0A00A891D4 /* Delete_Pressed.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE590D426C0A00A891D4 /* Delete_Pressed.tiff */; };
+		B0BFDE6B0D426C0A00A891D4 /* DBListSplitViewDimple.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE5A0D426C0A00A891D4 /* DBListSplitViewDimple.tiff */; };
+		B0BFDE7C0D426D6E00A891D4 /* tv.icns in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE7B0D426D6E00A891D4 /* tv.icns */; };
+		B0BFDE9B0D426FB800A891D4 /* launchVLC.scpt in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE950D426F5000A891D4 /* launchVLC.scpt */; };
+		B0BFDEDD0D42773600A891D4 /* TunerSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */; };
+		B0E8334C0D55805F00A879AD /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0E8334B0D55805F00A879AD /* COPYING.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* hdhomerunner_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerunner_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* hdhomerunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hdhomerunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B03491CF0D48479600D4A7BF /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		B054924E0D41AF9500A294BA /* GBTunerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTunerViewController.h; sourceTree = "<group>"; };
+		B054924F0D41AF9500A294BA /* GBTunerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTunerViewController.m; sourceTree = "<group>"; };
+		B05492660D41B42200A294BA /* TunerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TunerView.xib; sourceTree = "<group>"; };
+		B054926F0D41B91400A294BA /* GBTunerSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTunerSubViewController.h; sourceTree = "<group>"; };
+		B05492700D41B91400A294BA /* GBTunerSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTunerSubViewController.m; sourceTree = "<group>"; };
+		B05492790D41BEA800A294BA /* SubviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubviewTableViewCell.h; sourceTree = "<group>"; };
+		B054927A0D41BEA800A294BA /* SubviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubviewTableViewCell.m; sourceTree = "<group>"; };
+		B054927E0D41BED800A294BA /* GBOutlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBOutlineViewController.h; sourceTree = "<group>"; };
+		B054927F0D41BED800A294BA /* GBOutlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBOutlineViewController.m; sourceTree = "<group>"; };
+		B05492860D41C14700A294BA /* GBTuner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTuner.h; sourceTree = "<group>"; };
+		B05492870D41C14700A294BA /* GBTuner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTuner.m; sourceTree = "<group>"; };
+		B05492950D41C1D300A294BA /* hdhomerun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun.h; sourceTree = "<group>"; };
+		B05492960D41C1D300A294BA /* hdhomerun_channels.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_channels.c; sourceTree = "<group>"; };
+		B05492970D41C1D300A294BA /* hdhomerun_channels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_channels.h; sourceTree = "<group>"; };
+		B05492980D41C1D300A294BA /* hdhomerun_channelscan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_channelscan.c; sourceTree = "<group>"; };
+		B05492990D41C1D300A294BA /* hdhomerun_channelscan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_channelscan.h; sourceTree = "<group>"; };
+		B054929A0D41C1D300A294BA /* hdhomerun_config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_config.c; sourceTree = "<group>"; };
+		B054929B0D41C1D300A294BA /* hdhomerun_control.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_control.c; sourceTree = "<group>"; };
+		B054929C0D41C1D300A294BA /* hdhomerun_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_control.h; sourceTree = "<group>"; };
+		B054929D0D41C1D300A294BA /* hdhomerun_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_debug.c; sourceTree = "<group>"; };
+		B054929E0D41C1D300A294BA /* hdhomerun_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_debug.h; sourceTree = "<group>"; };
+		B054929F0D41C1D300A294BA /* hdhomerun_device.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_device.c; sourceTree = "<group>"; };
+		B05492A00D41C1D300A294BA /* hdhomerun_device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_device.h; sourceTree = "<group>"; };
+		B05492A10D41C1D300A294BA /* hdhomerun_dhcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_dhcp.c; sourceTree = "<group>"; };
+		B05492A20D41C1D300A294BA /* hdhomerun_dhcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_dhcp.h; sourceTree = "<group>"; };
+		B05492A30D41C1D300A294BA /* hdhomerun_discover.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_discover.c; sourceTree = "<group>"; };
+		B05492A40D41C1D300A294BA /* hdhomerun_discover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_discover.h; sourceTree = "<group>"; };
+		B05492A50D41C1D300A294BA /* hdhomerun_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_os.h; sourceTree = "<group>"; };
+		B05492A60D41C1D300A294BA /* hdhomerun_pkt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_pkt.c; sourceTree = "<group>"; };
+		B05492A70D41C1D300A294BA /* hdhomerun_pkt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_pkt.h; sourceTree = "<group>"; };
+		B05492A80D41C1D300A294BA /* hdhomerun_video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_video.c; sourceTree = "<group>"; };
+		B05492A90D41C1D300A294BA /* hdhomerun_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_video.h; sourceTree = "<group>"; };
+		B05492AA0D41C1D300A294BA /* lgpl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lgpl.txt; sourceTree = "<group>"; };
+		B05492AB0D41C1D300A294BA /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		B05492AC0D41C1D300A294BA /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		B05492CB0D41C29D00A294BA /* GBChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBChannel.m; sourceTree = "<group>"; };
+		B05492CD0D41C2A400A294BA /* GBChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBChannel.h; sourceTree = "<group>"; };
+		B063E78D0D4827E3000C2DED /* AboutBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutBox.xib; sourceTree = "<group>"; };
+		B063E79E0D483117000C2DED /* GBAboutBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAboutBox.h; sourceTree = "<group>"; };
+		B063E79F0D483117000C2DED /* GBAboutBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAboutBox.m; sourceTree = "<group>"; };
+		B074DC880D42B2E1002A3529 /* ChannelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelView.xib; sourceTree = "<group>"; };
+		B074DC8A0D42B2FE002A3529 /* GBChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBChannelViewController.h; sourceTree = "<group>"; };
+		B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBChannelViewController.m; sourceTree = "<group>"; };
+		B08C84510D43D8A900DDEF1C /* default.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = default.html; sourceTree = "<group>"; };
+		B093C87C0D43D792001B746E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		B0A94B580D4197770098614D /* GBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBController.h; sourceTree = "<group>"; };
+		B0A94B590D4197770098614D /* GBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBController.m; sourceTree = "<group>"; };
+		B0A94B670D41AE330098614D /* GBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBViewController.h; sourceTree = "<group>"; };
+		B0A94B680D41AE330098614D /* GBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBViewController.m; sourceTree = "<group>"; };
+		B0BFDE3E0D426C0A00A891D4 /* CTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTGradient.h; sourceTree = "<group>"; };
+		B0BFDE3F0D426C0A00A891D4 /* CTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTGradient.m; sourceTree = "<group>"; };
+		B0BFDE400D426C0A00A891D4 /* SourceListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListTableView.h; sourceTree = "<group>"; };
+		B0BFDE410D426C0A00A891D4 /* SourceListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListTableView.m; sourceTree = "<group>"; };
+		B0BFDE420D426C0A00A891D4 /* SourceListTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListTextCell.h; sourceTree = "<group>"; };
+		B0BFDE430D426C0A00A891D4 /* SourceListTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListTextCell.m; sourceTree = "<group>"; };
+		B0BFDE440D426C0A00A891D4 /* SourceListImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListImageCell.h; sourceTree = "<group>"; };
+		B0BFDE450D426C0A00A891D4 /* SourceListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListImageCell.m; sourceTree = "<group>"; };
+		B0BFDE470D426C0A00A891D4 /* DBBottomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBottomButton.h; sourceTree = "<group>"; };
+		B0BFDE480D426C0A00A891D4 /* DBBottomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBBottomButton.m; sourceTree = "<group>"; };
+		B0BFDE4A0D426C0A00A891D4 /* DBSourceSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSourceSplitView.h; sourceTree = "<group>"; };
+		B0BFDE4B0D426C0A00A891D4 /* DBSourceSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSourceSplitView.m; sourceTree = "<group>"; };
+		B0BFDE4C0D426C0A00A891D4 /* DBSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSourceView.h; sourceTree = "<group>"; };
+		B0BFDE4D0D426C0A00A891D4 /* DBSourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSourceView.m; sourceTree = "<group>"; };
+		B0BFDE4E0D426C0A00A891D4 /* DBListSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBListSplitView.h; sourceTree = "<group>"; };
+		B0BFDE4F0D426C0A00A891D4 /* DBListSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBListSplitView.m; sourceTree = "<group>"; };
+		B0BFDE500D426C0A00A891D4 /* KFSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KFSplitView.h; sourceTree = "<group>"; };
+		B0BFDE510D426C0A00A891D4 /* KFSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KFSplitView.m; sourceTree = "<group>"; };
+		B0BFDE530D426C0A00A891D4 /* DBListSplitViewBar.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBListSplitViewBar.tiff; sourceTree = "<group>"; };
+		B0BFDE540D426C0A00A891D4 /* Add.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add.tiff; sourceTree = "<group>"; };
+		B0BFDE550D426C0A00A891D4 /* Add_Disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add_Disabled.tiff; sourceTree = "<group>"; };
+		B0BFDE560D426C0A00A891D4 /* Add_Pressed.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add_Pressed.tiff; sourceTree = "<group>"; };
+		B0BFDE570D426C0A00A891D4 /* Delete.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete.tiff; sourceTree = "<group>"; };
+		B0BFDE580D426C0A00A891D4 /* Delete_Disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete_Disabled.tiff; sourceTree = "<group>"; };
+		B0BFDE590D426C0A00A891D4 /* Delete_Pressed.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete_Pressed.tiff; sourceTree = "<group>"; };
+		B0BFDE5A0D426C0A00A891D4 /* DBListSplitViewDimple.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBListSplitViewDimple.tiff; sourceTree = "<group>"; };
+		B0BFDE7B0D426D6E00A891D4 /* tv.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tv.icns; sourceTree = "<group>"; };
+		B0BFDE950D426F5000A891D4 /* launchVLC.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = launchVLC.scpt; sourceTree = "<group>"; };
+		B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TunerSubView.xib; sourceTree = "<group>"; };
+		B0E8334B0D55805F00A879AD /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				B093C87D0D43D792001B746E /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B063E79D0D4830F5000C2DED /* Interface */,
+				B0BFDE390D42695F00A891D4 /* Controllers */,
+				B05492E10D41C35700A294BA /* Model */,
+				B05492790D41BEA800A294BA /* SubviewTableViewCell.h */,
+				B054927A0D41BEA800A294BA /* SubviewTableViewCell.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B093C87C0D43D792001B746E /* WebKit.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* hdhomerunner.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* hdhomerunner */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = hdhomerunner;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE3B0D426C0A00A891D4 /* DBInterfaceDemo */,
+				B05492940D41C1D300A294BA /* libhdhomerun */,
+				32CA4F630368D1EE00C91783 /* hdhomerunner_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+				B05492660D41B42200A294BA /* TunerView.xib */,
+				B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */,
+				B074DC880D42B2E1002A3529 /* ChannelView.xib */,
+				B063E78D0D4827E3000C2DED /* AboutBox.xib */,
+				B0BFDE950D426F5000A891D4 /* launchVLC.scpt */,
+				B08C84510D43D8A900DDEF1C /* default.html */,
+				B0BFDE7B0D426D6E00A891D4 /* tv.icns */,
+				B0E8334B0D55805F00A879AD /* COPYING.txt */,
+				B03491CF0D48479600D4A7BF /* Credits.rtf */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B05492940D41C1D300A294BA /* libhdhomerun */ = {
+			isa = PBXGroup;
+			children = (
+				B05492950D41C1D300A294BA /* hdhomerun.h */,
+				B05492960D41C1D300A294BA /* hdhomerun_channels.c */,
+				B05492970D41C1D300A294BA /* hdhomerun_channels.h */,
+				B05492980D41C1D300A294BA /* hdhomerun_channelscan.c */,
+				B05492990D41C1D300A294BA /* hdhomerun_channelscan.h */,
+				B054929A0D41C1D300A294BA /* hdhomerun_config.c */,
+				B054929B0D41C1D300A294BA /* hdhomerun_control.c */,
+				B054929C0D41C1D300A294BA /* hdhomerun_control.h */,
+				B054929D0D41C1D300A294BA /* hdhomerun_debug.c */,
+				B054929E0D41C1D300A294BA /* hdhomerun_debug.h */,
+				B054929F0D41C1D300A294BA /* hdhomerun_device.c */,
+				B05492A00D41C1D300A294BA /* hdhomerun_device.h */,
+				B05492A10D41C1D300A294BA /* hdhomerun_dhcp.c */,
+				B05492A20D41C1D300A294BA /* hdhomerun_dhcp.h */,
+				B05492A30D41C1D300A294BA /* hdhomerun_discover.c */,
+				B05492A40D41C1D300A294BA /* hdhomerun_discover.h */,
+				B05492A50D41C1D300A294BA /* hdhomerun_os.h */,
+				B05492A60D41C1D300A294BA /* hdhomerun_pkt.c */,
+				B05492A70D41C1D300A294BA /* hdhomerun_pkt.h */,
+				B05492A80D41C1D300A294BA /* hdhomerun_video.c */,
+				B05492A90D41C1D300A294BA /* hdhomerun_video.h */,
+				B05492AA0D41C1D300A294BA /* lgpl.txt */,
+				B05492AB0D41C1D300A294BA /* Makefile */,
+				B05492AC0D41C1D300A294BA /* README */,
+			);
+			path = libhdhomerun;
+			sourceTree = "<group>";
+		};
+		B05492E10D41C35700A294BA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B05492860D41C14700A294BA /* GBTuner.h */,
+				B05492870D41C14700A294BA /* GBTuner.m */,
+				B05492CD0D41C2A400A294BA /* GBChannel.h */,
+				B05492CB0D41C29D00A294BA /* GBChannel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B063E79D0D4830F5000C2DED /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				B063E79E0D483117000C2DED /* GBAboutBox.h */,
+				B063E79F0D483117000C2DED /* GBAboutBox.m */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		B074DC820D42B1B8002A3529 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B0A94B670D41AE330098614D /* GBViewController.h */,
+				B0A94B680D41AE330098614D /* GBViewController.m */,
+				B054927E0D41BED800A294BA /* GBOutlineViewController.h */,
+				B054927F0D41BED800A294BA /* GBOutlineViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B088E0470D42C25E003115E7 /* ChannelControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B074DC8A0D42B2FE002A3529 /* GBChannelViewController.h */,
+				B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */,
+			);
+			name = ChannelControllers;
+			sourceTree = "<group>";
+		};
+		B0BFDE390D42695F00A891D4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B0A94B580D4197770098614D /* GBController.h */,
+				B0A94B590D4197770098614D /* GBController.m */,
+				B074DC820D42B1B8002A3529 /* ViewControllers */,
+				B088E0470D42C25E003115E7 /* ChannelControllers */,
+				B0BFDF5A0D4293AE00A891D4 /* TunerControllers */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B0BFDE3B0D426C0A00A891D4 /* DBInterfaceDemo */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE520D426C0A00A891D4 /* Icons */,
+				B0BFDE490D426C0A00A891D4 /* Splitters */,
+				B0BFDE460D426C0A00A891D4 /* BottomButtons */,
+				B0BFDE3C0D426C0A00A891D4 /* SourceListTableView */,
+			);
+			name = DBInterfaceDemo;
+			sourceTree = "<group>";
+		};
+		B0BFDE3C0D426C0A00A891D4 /* SourceListTableView */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE400D426C0A00A891D4 /* SourceListTableView.h */,
+				B0BFDE410D426C0A00A891D4 /* SourceListTableView.m */,
+				B0BFDE420D426C0A00A891D4 /* SourceListTextCell.h */,
+				B0BFDE430D426C0A00A891D4 /* SourceListTextCell.m */,
+				B0BFDE440D426C0A00A891D4 /* SourceListImageCell.h */,
+				B0BFDE450D426C0A00A891D4 /* SourceListImageCell.m */,
+				B0BFDE3D0D426C0A00A891D4 /* Gradient */,
+			);
+			name = SourceListTableView;
+			sourceTree = "<group>";
+		};
+		B0BFDE3D0D426C0A00A891D4 /* Gradient */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE3E0D426C0A00A891D4 /* CTGradient.h */,
+				B0BFDE3F0D426C0A00A891D4 /* CTGradient.m */,
+			);
+			name = Gradient;
+			sourceTree = "<group>";
+		};
+		B0BFDE460D426C0A00A891D4 /* BottomButtons */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE470D426C0A00A891D4 /* DBBottomButton.h */,
+				B0BFDE480D426C0A00A891D4 /* DBBottomButton.m */,
+			);
+			name = BottomButtons;
+			sourceTree = "<group>";
+		};
+		B0BFDE490D426C0A00A891D4 /* Splitters */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE4A0D426C0A00A891D4 /* DBSourceSplitView.h */,
+				B0BFDE4B0D426C0A00A891D4 /* DBSourceSplitView.m */,
+				B0BFDE4C0D426C0A00A891D4 /* DBSourceView.h */,
+				B0BFDE4D0D426C0A00A891D4 /* DBSourceView.m */,
+				B0BFDE4E0D426C0A00A891D4 /* DBListSplitView.h */,
+				B0BFDE4F0D426C0A00A891D4 /* DBListSplitView.m */,
+				B0BFDE500D426C0A00A891D4 /* KFSplitView.h */,
+				B0BFDE510D426C0A00A891D4 /* KFSplitView.m */,
+			);
+			name = Splitters;
+			sourceTree = "<group>";
+		};
+		B0BFDE520D426C0A00A891D4 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE530D426C0A00A891D4 /* DBListSplitViewBar.tiff */,
+				B0BFDE540D426C0A00A891D4 /* Add.tiff */,
+				B0BFDE550D426C0A00A891D4 /* Add_Disabled.tiff */,
+				B0BFDE560D426C0A00A891D4 /* Add_Pressed.tiff */,
+				B0BFDE570D426C0A00A891D4 /* Delete.tiff */,
+				B0BFDE580D426C0A00A891D4 /* Delete_Disabled.tiff */,
+				B0BFDE590D426C0A00A891D4 /* Delete_Pressed.tiff */,
+				B0BFDE5A0D426C0A00A891D4 /* DBListSplitViewDimple.tiff */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		B0BFDF5A0D4293AE00A891D4 /* TunerControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B054924E0D41AF9500A294BA /* GBTunerViewController.h */,
+				B054924F0D41AF9500A294BA /* GBTunerViewController.m */,
+				B054926F0D41B91400A294BA /* GBTunerSubViewController.h */,
+				B05492700D41B91400A294BA /* GBTunerSubViewController.m */,
+			);
+			name = TunerControllers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* hdhomerunner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "hdhomerunner" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hdhomerunner;
+			productInstallPath = "$(HOME)/Applications";
+			productName = hdhomerunner;
+			productReference = 8D1107320486CEB800E47090 /* hdhomerunner.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "hdhomerunner" */;
+			compatibilityVersion = "Xcode 3.0";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* hdhomerunner */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* hdhomerunner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0BFDE9B0D426FB800A891D4 /* launchVLC.scpt in Resources */,
+				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				B05492670D41B42200A294BA /* TunerView.xib in Resources */,
+				B05492B70D41C1D300A294BA /* lgpl.txt in Resources */,
+				B05492B90D41C1D300A294BA /* README in Resources */,
+				B0BFDE640D426C0A00A891D4 /* DBListSplitViewBar.tiff in Resources */,
+				B0BFDE650D426C0A00A891D4 /* Add.tiff in Resources */,
+				B0BFDE660D426C0A00A891D4 /* Add_Disabled.tiff in Resources */,
+				B0BFDE670D426C0A00A891D4 /* Add_Pressed.tiff in Resources */,
+				B0BFDE680D426C0A00A891D4 /* Delete.tiff in Resources */,
+				B0BFDE690D426C0A00A891D4 /* Delete_Disabled.tiff in Resources */,
+				B0BFDE6A0D426C0A00A891D4 /* Delete_Pressed.tiff in Resources */,
+				B0BFDE6B0D426C0A00A891D4 /* DBListSplitViewDimple.tiff in Resources */,
+				B0BFDE7C0D426D6E00A891D4 /* tv.icns in Resources */,
+				B0BFDEDD0D42773600A891D4 /* TunerSubView.xib in Resources */,
+				B074DC890D42B2E1002A3529 /* ChannelView.xib in Resources */,
+				B08C84520D43D8A900DDEF1C /* default.html in Resources */,
+				B063E78E0D4827E3000C2DED /* AboutBox.xib in Resources */,
+				B03491D00D48479600D4A7BF /* Credits.rtf in Resources */,
+				B0E8334C0D55805F00A879AD /* COPYING.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				B0A94B5A0D4197770098614D /* GBController.m in Sources */,
+				B0A94B690D41AE330098614D /* GBViewController.m in Sources */,
+				B05492500D41AF9500A294BA /* GBTunerViewController.m in Sources */,
+				B05492710D41B91400A294BA /* GBTunerSubViewController.m in Sources */,
+				B054927B0D41BEA800A294BA /* SubviewTableViewCell.m in Sources */,
+				B05492800D41BED800A294BA /* GBOutlineViewController.m in Sources */,
+				B05492880D41C14700A294BA /* GBTuner.m in Sources */,
+				B05492AD0D41C1D300A294BA /* hdhomerun_channels.c in Sources */,
+				B05492AE0D41C1D300A294BA /* hdhomerun_channelscan.c in Sources */,
+				B05492AF0D41C1D300A294BA /* hdhomerun_config.c in Sources */,
+				B05492B00D41C1D300A294BA /* hdhomerun_control.c in Sources */,
+				B05492B10D41C1D300A294BA /* hdhomerun_debug.c in Sources */,
+				B05492B20D41C1D300A294BA /* hdhomerun_device.c in Sources */,
+				B05492B30D41C1D300A294BA /* hdhomerun_dhcp.c in Sources */,
+				B05492B40D41C1D300A294BA /* hdhomerun_discover.c in Sources */,
+				B05492B50D41C1D300A294BA /* hdhomerun_pkt.c in Sources */,
+				B05492B60D41C1D300A294BA /* hdhomerun_video.c in Sources */,
+				B05492CC0D41C29D00A294BA /* GBChannel.m in Sources */,
+				B0BFDE5B0D426C0A00A891D4 /* CTGradient.m in Sources */,
+				B0BFDE5C0D426C0A00A891D4 /* SourceListTableView.m in Sources */,
+				B0BFDE5D0D426C0A00A891D4 /* SourceListTextCell.m in Sources */,
+				B0BFDE5E0D426C0A00A891D4 /* SourceListImageCell.m in Sources */,
+				B0BFDE5F0D426C0A00A891D4 /* DBBottomButton.m in Sources */,
+				B0BFDE600D426C0A00A891D4 /* DBSourceSplitView.m in Sources */,
+				B0BFDE610D426C0A00A891D4 /* DBSourceView.m in Sources */,
+				B0BFDE620D426C0A00A891D4 /* DBListSplitView.m in Sources */,
+				B0BFDE630D426C0A00A891D4 /* KFSplitView.m in Sources */,
+				B074DC8C0D42B2FE002A3529 /* GBChannelViewController.m in Sources */,
+				B063E7A00D483117000C2DED /* GBAboutBox.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B97319FDCFA39411CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = hdhomerunner_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = hdhomerunner;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = hdhomerunner_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = hdhomerunner;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "hdhomerunner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "hdhomerunner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
