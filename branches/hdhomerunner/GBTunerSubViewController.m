@@ -59,32 +59,69 @@
 	[self placeView:seq_strengthValue inView:seq_valuePlaceholder];
 	
 	[self placeView:firmware_Value inView:firmware_valuePlaceholder];
+	
+	// The font to use
+	NSFont *font = [NSFont labelFontOfSize:16.0f];
+	
+	// Set the text size of the large type display
+	[_strengthValue_largetype setFont:font];
+	
+	[snr_strengthValue_largetype setFont:font];
+	
+	[seq_strengthValue_largetype setFont:font];
+	
+	[firmware_Value_largetype setFont:font];
+}
+
+// Display large type
+- (void)displayLargeType{
+
+	// Whichever view hdhomerunner is active on (main display or external)
+	// display the largetype window on that display
+	NSScreen *screen = [[NSApp mainWindow] screen];
+	NSRect frame = [screen visibleFrame];
+	
+	// Fill the screen
+	[largeWindow setFrame:frame display:YES];
+	
+	
+	// Make the display the key window
+	[largeWindow makeKeyAndOrderFront:nil];
+	
+	// Center the window
+	[largeWindow center];
 }
 
 // Register for Key Value Coding of the tuner
 // When the signal strength changes we should update the view
 - (void)registerAsObserverForTuner:(GBTuner *)tuner{
-	
-	[tuner addObserver:self
-			forKeyPath:@"signalStrength"
-			options:(NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld)
-			context:NULL];
-					
-	[tuner addObserver:self
-			forKeyPath:@"signalToNoiseRatio"
-			options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-			context:NULL];
 
-	[tuner addObserver:self
-			forKeyPath:@"symbolErrorQuality"
-			options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-			context:NULL];		
-			
-	[tuner addObserver:self
-			forKeyPath:@"firmwareVersion"
-			options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-			context:NULL];	
+	// Bind the level indicators to the appropriate tuner properites
 	
+	// The main window
+	[_strength bind:@"value" toObject:tuner withKeyPath:@"signalStrength" options:nil];
+	[snr_strength bind:@"value" toObject:tuner withKeyPath:@"signalToNoiseRatio" options:nil];
+	[seq_strength bind:@"value" toObject:tuner withKeyPath:@"symbolErrorQuality" options:nil];	
+	
+	// The largetype window
+	[_strength_largetype bind:@"value" toObject:tuner withKeyPath:@"signalStrength" options:nil];
+	[snr_strength_largetype bind:@"value" toObject:tuner withKeyPath:@"signalToNoiseRatio" options:nil];
+	[seq_strength_largetype bind:@"value" toObject:tuner withKeyPath:@"symbolErrorQuality" options:nil];
+	
+	
+	// Bind the text indicators to the appropriate tuner properites
+	
+	// The main window
+	[_strengthValue bind:@"value" toObject:tuner withKeyPath:@"signalStrength" options:nil];
+	[snr_strengthValue bind:@"value" toObject:tuner withKeyPath:@"signalToNoiseRatio" options:nil];
+	[seq_strengthValue bind:@"value" toObject:tuner withKeyPath:@"symbolErrorQuality" options:nil];
+	[firmware_Value bind:@"value" toObject:tuner withKeyPath:@"firmwareVersion" options:nil];	
+	
+	// The largetype window
+	[_strengthValue_largetype bind:@"value" toObject:tuner withKeyPath:@"signalStrength" options:nil];
+	[snr_strengthValue_largetype bind:@"value" toObject:tuner withKeyPath:@"signalToNoiseRatio" options:nil];
+	[seq_strengthValue_largetype bind:@"value" toObject:tuner withKeyPath:@"symbolErrorQuality" options:nil];
+	[firmware_Value_largetype bind:@"value" toObject:tuner withKeyPath:@"firmwareVersion" options:nil];		
 }
 
 - (void)unRegisterAsObserverForTuner:(GBTuner *)tuner{
@@ -95,55 +132,11 @@
 	[tuner removeObserver:self forKeyPath:@"firmwareVersion"];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-						ofObject:(id)object
-                        change:(NSDictionary *)change
-						context:(void *)context {
-	// Lock the view
-	//[[[self view] superview] lockFocus];
-	
-	// If the signal strength changed
-	if ([keyPath isEqual:@"signalStrength"]) {
-		
-		// Update the level indicator
-		[_strength setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];
-		
-		// Update the level indicator text value
-		[_strengthValue setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];
-    } else if([keyPath isEqual:@"signalToNoiseRatio"]) {
-
-		// Update the level indicator
-		[snr_strength setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];
-		
-		// Update the level indicator text value
-		[snr_strengthValue setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];	
-	} else if([keyPath isEqual:@"symbolErrorQuality"]) {
-
-		// Update the level indicator
-		[seq_strength setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];
-		
-		// Update the level indicator text value
-		[seq_strengthValue setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];	
-	} else if([keyPath isEqual:@"firmwareVersion"]) {
-		
-		// Update the firmware version text value
-		[firmware_Value setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];	
-	}
-	
-	// Unlock the view
-	//[[[self view] superview] unlockFocus];
-}
-
 #pragma mark -
 #pragma mark  Comparison Methods
 #pragma mark -
 
-// Compare self and controller to see if they're equal
-- (BOOL)isEqual:(GBTunerSubViewController *)controller{
-	
-	// Return they are equal if the tuners are equal
-	return [super isEqual:controller];
-}
+
 
 
 #pragma mark -
@@ -151,8 +144,6 @@
 #pragma mark -
 
 - (void)dealloc{
-	//[_subview release];
-	[_strength release];
 
 	[super dealloc];
 }

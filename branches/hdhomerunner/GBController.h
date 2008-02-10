@@ -87,8 +87,13 @@
 	
 	// The menu to choose the channel scan mode
 					NSMenu					*channelScanMenu;
-					
+	
+	// The currently selected tuner
 					GBTuner					*selectedTuner;
+					
+	// The tuner's menu items
+					NSMenuItem				*tunerPlay;
+					NSMenuItem				*tunerScan;
 }
 
 // Accessor Methods
@@ -146,6 +151,8 @@
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
 
 // Toolbar actions
+- (void)launchVLC;
+- (void)playChannel:(GBChannel *)channel;
 - (IBAction)play:(id)sender;
 - (IBAction)fullscreen:(id)sender;
 - (IBAction)next:(id)sender;
@@ -176,9 +183,30 @@
 - (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 - (IBAction)showAboutBox:(id)sender;
 
+// A menuitem for a channel
+- (NSMenuItem *)menuItemForChannel:(GBChannel *)channel;
+
+// Add the item to the play menu of the tuner
+- (void)addPlayMenuItem:(NSMenuItem *)item toTunerViewController:(GBTunerViewController *)controller;
+
+// Remove the item to the play menu of the tuner
+- (void)removePlayMenuItem:(NSMenuItem *)item toTunerViewController:(GBTunerViewController *)controller;
+
+// Add a menu item to the selected tuner controller
+- (void)addChannelToPlayMenu:(GBChannel *)channel;
+
+// Remove a menu item to the selected tuner controller
+- (void)removeChannelToPlayMenu:(GBChannel *)channel;
+
 // Register as an observer of aTuner
 - (void)registerAsObserverForTuner:(GBTuner *)aTuner;
 
 // Unregister as an observer of aTuner
 - (void)unRegisterAsObserverForTuner:(GBTuner *)aTuner;
+
+// Register as an observer of a channel
+- (void)registerAsObserverForChannel:(GBChannel *)aChannel;
+
+// Unregister as an observer of a channel
+- (void)unRegisterAsObserverForChannel:(GBChannel *)aChannel;
 @end

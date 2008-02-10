@@ -447,6 +447,7 @@
 		
 		// Add the channel to the tuner
 		//[[self selectedTuner] addGBChannel:channel];
+		[self addChannelToPlayMenu:channel];
 		
 		// Add the controller
 		[self addChannelController:controller];
@@ -470,6 +471,7 @@
 	
 		// Remove the channel from the tuner
 		//[[self selectedTuner] removeGBChannel:channel];
+		[self removeChannelToPlayMenu:channel];
 		
 		// Remove the controller
 		[self removeChannelController:controller];
@@ -1062,13 +1064,97 @@
 }
 
 #pragma mark -
+#pragma mark   Manage menu items
+#pragma mark -
+
+// A menu item version for the channel
+- (NSMenuItem *)menuItemForChannel:(GBChannel *)channel{
+	
+	// The menu item to return
+	NSMenuItem *menuItem = nil;
+	
+	// If channel is not nil
+	if(channel){
+	
+		// Create a new menu item
+		menuItem = [[NSMenuItem alloc] initWithTitle:[channel description]  action:@selector(playItem:)  keyEquivalent:@""];
+		
+		// Create the menu item's image
+		NSImage *image = [channel icon];
+		
+		// Resize the image
+		[image setSize: NSMakeSize(16, 16)];
+		
+		// Set the menu item's image
+		[menuItem setImage:image];
+		
+		// Set the menu item's target
+		[menuItem setTarget:self];
+		
+		// Set the menu item's represented object
+		[menuItem setRepresentedObject:channel];
+		
+		// Bind the image to the channels icon
+		[menuItem bind:@"image" toObject:channel withKeyPath:@"smallIcon" options:nil];
+		
+		// Bind the title to the channel's description
+		[menuItem bind:@"title" toObject:channel withKeyPath:@"description" options:nil];
+	}
+	
+	return menuItem;
+}
+
+// Add the item to the play menu of the tuner
+- (void)addPlayMenuItem:(NSMenuItem *)item toTunerViewController:(GBTunerViewController *)controller{
+
+	[controller addPlayMenuItem:item];
+}
+
+// Remove the item to the play menu of the tuner
+- (void)removePlayMenuItem:(NSMenuItem *)item toTunerViewController:(GBTunerViewController *)controller{
+
+	[controller removePlayMenuItem:item];
+}
+
+// Add a menu item to the selected tuner controller
+- (void)addChannelToPlayMenu:(GBChannel *)channel{
+	
+	// If channel exists
+	if(channel){
+	
+		// The menu item to add
+		NSMenuItem *menuItem = [self menuItemForChannel:channel];
+		
+		// The tunerview controller to add to
+		GBTunerViewController *controller = ([tunerOutlineView selectedRow] > -1 ? [tunerOutlineView itemAtRow:[tunerOutlineView selectedRow]] : nil);
+		
+		// Add the channel to the controller
+		[self addPlayMenuItem:menuItem toTunerViewController:controller];
+	}
+}
+
+// Remove a menu item to the selected tuner controller
+- (void)removeChannelToPlayMenu:(GBChannel *)channel{
+	
+	// If channel exists
+	if(channel){
+	
+		// The menu item to add
+		NSMenuItem *menuItem = [self menuItemForChannel:channel];
+		
+		// The tunerview controller to add to
+		GBTunerViewController *controller = ([tunerOutlineView selectedRow] > -1 ? [tunerOutlineView itemAtRow:[tunerOutlineView selectedRow]] : nil);
+		
+		// Add the channel to the controller
+		[self removePlayMenuItem:menuItem toTunerViewController:controller];
+	}
+}
+
+#pragma mark -
 #pragma mark   Toolbar actions
 #pragma mark -
 
-// Play ToobarItem action
-// Play the currently selected channel when the user clicks this item
-- (IBAction)play:(id)sender{
-	NSLog(@"play toolbar item selected");
+- (void)launchVLC{
 
 	// create the first (and in this case only) parameter
 	// note we can't pass an NSString (or any other object
@@ -1105,12 +1191,38 @@
 	if(![vlc executeAppleEvent:event error:&errors]){
 		NSLog(@"errored %@", [errors description]);
 	}
+}
+
+- (void)playChannel:(GBChannel *)channel{
+
+	// If the channel is not nil
+	if(channel){
+		
+		// Launch VLC
+		[self launchVLC];
+		
+		// Set the channel on the tuner
+		[[self selectedTuner] setGBChannel:channel];
+	
+		// Tell the selected tuner to play
+		[[self selectedTuner] play];
+	}
+}
+
+// Play menu action
+- (IBAction)playItem:(id)sender{
+	
+	// Play the channel represented by the sender
+	[self playChannel:[sender representedObject]];
+}
+
+// Play ToobarItem action
+// Play the currently selected channel when the user clicks this item
+- (IBAction)play:(id)sender{
+	NSLog(@"play toolbar item selected");
 	
 	// Set the channel of the tuner
-	[[self selectedTuner] setGBChannel:[self selectedChannel]];
-	
-	// Tell the selected tuner to play
-	[[self selectedTuner] play];
+	[self playChannel:[self selectedChannel]];
 }
 
 // Set VLC to launch in full screen mode
@@ -1406,6 +1518,19 @@
 
     [aTuner removeObserver:self forKeyPath:@"channels"];
 	[aTuner removeObserver:self forKeyPath:@"isScanningChannels"];
+}
+
+- (void)registerAsObserverForChannel:(GBChannel *)aChannel{
+	
+	[aChannel addObserver:self
+			forKeyPath:@"url"
+			options:(NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld)
+			context:NULL];
+}
+
+- (void)unRegisterAsObserverForChannel:(GBChannel *)aChannel{
+
+    [aChannel removeObserver:self forKeyPath:@"url"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

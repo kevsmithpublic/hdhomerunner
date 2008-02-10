@@ -145,6 +145,18 @@
 	}
 }
 
+- (NSImage *)smallIcon{
+	
+	// The image to return
+	NSImage *image = [[self icon] copy];
+	
+	// Set the image's size
+	[image setSize:NSMakeSize(16.0f, 16.0f)];
+	
+	// return the image
+	return image;
+}
+
 - (NSImage *)icon{
 	return [properties objectForKey:@"icon"];
 }
@@ -154,8 +166,10 @@
 	if(![[self icon] isEqual:newImage]){
 		
 		// Update the properties to reflect the change and remain key value coding compliant
+		[self willChangeValueForKey:@"smallIcon"];
 		[self willChangeValueForKey:@"icon"];
 		[properties setObject:newImage forKey:@"icon"];
+		[self didChangeValueForKey:@"smallIcon"];
 		[self didChangeValueForKey:@"icon"];
 	}
 }
@@ -177,9 +191,6 @@
 	}
 }
 
-- (NSComparisonResult)compare:(GBChannel *)aParent{
-	return NSOrderedSame;
-}
 
 - (NSArray *)recordings{
 	
@@ -193,8 +204,8 @@
 
 // Return YES if the tuner is equal to the given aParent
 - (BOOL)isEqual:(GBChannel *)aParent{
-	return ([[self program] isEqualToNumber:[aParent program]] && 
-			[[self channelNumber] isEqualToNumber:[aParent channelNumber]]);
+	return ((aParent ? [[self program] isEqualToNumber:[aParent program]] && 
+			[[self channelNumber] isEqualToNumber:[aParent channelNumber]] : NO));
 }
 
 

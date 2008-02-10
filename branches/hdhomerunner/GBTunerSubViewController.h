@@ -28,6 +28,9 @@
 
 @interface GBTunerSubViewController : GBViewController {
 
+		// Large type elements
+		IBOutlet		NSWindow					*largeWindow;
+
 		// Placeholder elements
 		IBOutlet		NSView						*levelIndicatorPlaceholder;
 		IBOutlet		NSView						*valuePlaceholder;
@@ -51,10 +54,24 @@
 		IBOutlet		NSTextField					*seq_strengthValue;
 		
 		IBOutlet		NSTextField					*firmware_Value;
+		
+		// Elements of the largetype subview to control
+		IBOutlet		NSLevelIndicator			*_strength_largetype;
+		IBOutlet		NSTextField					*_strengthValue_largetype;
+
+		IBOutlet		NSLevelIndicator			*snr_strength_largetype;
+		IBOutlet		NSTextField					*snr_strengthValue_largetype;
+		
+		IBOutlet		NSLevelIndicator			*seq_strength_largetype;
+		IBOutlet		NSTextField					*seq_strengthValue_largetype;
+		
+		IBOutlet		NSTextField					*firmware_Value_largetype;
 }
+
+// Display large type
+- (void)displayLargeType;
 
 // Key value observing methods
 - (void)registerAsObserverForTuner:(GBTuner *)tuner;
 - (void)unRegisterAsObserverForTuner:(GBTuner *)tuner;
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 @end

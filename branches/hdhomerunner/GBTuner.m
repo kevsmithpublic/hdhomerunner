@@ -1117,6 +1117,9 @@ int channelscanCallback(va_list ap, const char *type, const char *str){
 	// So I can make calls to myself
 	myself = va_arg(ap, GBTuner *);
 	
+	// Print debug info
+	NSLog(@"AUTOSCANNING DEBUG INFO: type = %s string = %s, channel = %i", type, str, (*_channel));
+	
 	if(strcmp(type, "SCANNING") == 0){
 		//NSLog(@"SCANNING with type %s and string %s", type, str); 
 		
@@ -1204,9 +1207,6 @@ int channelscanCallback(va_list ap, const char *type, const char *str){
 			//NSLog(@"Channel = %i Program = %@ Description = %@", (*_channel), program, description);
 		}
 	}
-	
-	// Print debug info
-	NSLog(@"AUTOSCANNING DEBUG INFO: type = %s string = %s, channel = %i", type, str, (*_channel));
 	
 	// Return 0 if the thread should be cancelled so the scan can stop
 	return ![myself cancelThread];

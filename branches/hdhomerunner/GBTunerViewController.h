@@ -44,11 +44,20 @@
 		
 		// The subviews of the tuner
 						NSMutableArray				*subviews;
+						
+		// The menu to display when a user right clicks a tuner
+		IBOutlet		NSMenuItem					*_play_menu;
 }
 
 // Accessor Methods
 - (void)setTuner:(GBTuner *)aTuner;
 - (GBTuner *)tuner;
+
+// Manage menu items
+- (NSMenuItem *)playMenu;
+- (void)setPlayMenu:(NSMenuItem *)menu;
+- (void)addPlayMenuItem:(NSMenuItem *)menuItem;
+- (void)removePlayMenuItem:(NSMenuItem *)menuItem;
 
 - (NSArray *)subviews;
 - (void)setSubviews:(NSArray *)array;
@@ -76,5 +85,7 @@
 - (void)unhideSubviews;
 - (void)redrawSubviews;
 
-- (BOOL)isEqual:(GBTunerViewController *)controller;
+- (IBAction)largeType:(id)sender;
+
+//- (BOOL)isEqual:(GBTunerViewController *)controller;
 @end

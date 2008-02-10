@@ -42,6 +42,7 @@
 - (NSNumber *)program;
 - (void)setProgram:(NSNumber *)aProgram;
 
+- (NSImage *)smallIcon;
 - (NSImage *)icon;
 - (void)setIcon:(NSImage *)newImage;
 
@@ -51,8 +52,6 @@
 - (NSArray *)recordings;
 - (int)numberOfRecordings;
 
-
-- (NSComparisonResult)compare:(GBChannel *)aParent;
 - (BOOL)isEqual:(GBChannel *)aParent;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;

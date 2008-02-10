@@ -213,10 +213,17 @@
 
 - (IBAction)setIcon:(id)sender{
 	
-	if ([_imageView image]){
+	// The image to save
+	NSImage *image = [_imageView image];
+	
+	// Make sure the image isn't nil
+	if (image){
+	
+		// Set the image's size
+		//[image setSize:NSMakeSize(16.0f, 16.0f)];
 	
 		// Update the icon of the channel
-		[[self channel] setIcon:[_imageView image]];
+		[[self channel] setIcon:image];
 	}
 
 }

@@ -35,6 +35,8 @@
 		B063E7A00D483117000C2DED /* GBAboutBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B063E79F0D483117000C2DED /* GBAboutBox.m */; };
 		B074DC890D42B2E1002A3529 /* ChannelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B074DC880D42B2E1002A3529 /* ChannelView.xib */; };
 		B074DC8C0D42B2FE002A3529 /* GBChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */; };
+		B08A6DC00D5DFF8000468901 /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08A6DBE0D5DFF8000468901 /* RoundedView.m */; };
+		B08A6DC30D5E001C00468901 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = B08A6DC20D5E001C00468901 /* TransparentWindow.m */; };
 		B08C84520D43D8A900DDEF1C /* default.html in Resources */ = {isa = PBXBuildFile; fileRef = B08C84510D43D8A900DDEF1C /* default.html */; };
 		B093C87D0D43D792001B746E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B093C87C0D43D792001B746E /* WebKit.framework */; };
 		B0A94B5A0D4197770098614D /* GBController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A94B590D4197770098614D /* GBController.m */; };
@@ -117,6 +119,10 @@
 		B074DC880D42B2E1002A3529 /* ChannelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelView.xib; sourceTree = "<group>"; };
 		B074DC8A0D42B2FE002A3529 /* GBChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBChannelViewController.h; sourceTree = "<group>"; };
 		B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBChannelViewController.m; sourceTree = "<group>"; };
+		B08A6DBE0D5DFF8000468901 /* RoundedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedView.m; sourceTree = "<group>"; };
+		B08A6DBF0D5DFF8000468901 /* RoundedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedView.h; sourceTree = "<group>"; };
+		B08A6DC10D5E001C00468901 /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
+		B08A6DC20D5E001C00468901 /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
 		B08C84510D43D8A900DDEF1C /* default.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = default.html; sourceTree = "<group>"; };
 		B093C87C0D43D792001B746E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		B0A94B580D4197770098614D /* GBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBController.h; sourceTree = "<group>"; };
@@ -222,6 +228,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B08A6DBD0D5DFF6100468901 /* RoundedFloatingPanel */,
 				B0BFDE3B0D426C0A00A891D4 /* DBInterfaceDemo */,
 				B05492940D41C1D300A294BA /* libhdhomerun */,
 				32CA4F630368D1EE00C91783 /* hdhomerunner_Prefix.pch */,
@@ -327,6 +334,17 @@
 				B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */,
 			);
 			name = ChannelControllers;
+			sourceTree = "<group>";
+		};
+		B08A6DBD0D5DFF6100468901 /* RoundedFloatingPanel */ = {
+			isa = PBXGroup;
+			children = (
+				B08A6DC10D5E001C00468901 /* TransparentWindow.h */,
+				B08A6DC20D5E001C00468901 /* TransparentWindow.m */,
+				B08A6DBE0D5DFF8000468901 /* RoundedView.m */,
+				B08A6DBF0D5DFF8000468901 /* RoundedView.h */,
+			);
+			name = RoundedFloatingPanel;
 			sourceTree = "<group>";
 		};
 		B0BFDE390D42695F00A891D4 /* Controllers */ = {
@@ -529,6 +547,8 @@
 				B0BFDE630D426C0A00A891D4 /* KFSplitView.m in Sources */,
 				B074DC8C0D42B2FE002A3529 /* GBChannelViewController.m in Sources */,
 				B063E7A00D483117000C2DED /* GBAboutBox.m in Sources */,
+				B08A6DC00D5DFF8000468901 /* RoundedView.m in Sources */,
+				B08A6DC30D5E001C00468901 /* TransparentWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

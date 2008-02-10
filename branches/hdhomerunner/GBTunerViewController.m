@@ -117,6 +117,100 @@
 	
 }
 
+// Returm the play menu
+- (NSMenuItem *)playMenu{
+
+	return _play_menu;
+}
+
+// Set the play menu
+- (void)setPlayMenu:(NSMenuItem *)menu{
+
+	// If the menu isn't nil
+	if(menu){
+	
+			// Notify we are about to change
+		[self willChangeValueForKey:@"playmenu"];
+
+		// Update the play menu
+		[_play_menu autorelease];
+		_play_menu = nil;
+		_play_menu = menu;
+		
+		// Notify everyone of the change
+		[self didChangeValueForKey:@"playmenu"];
+	}
+}
+
+#pragma mark -
+#pragma mark  Manage Menu Items
+#pragma mark -
+
+- (void)addPlayMenuItem:(NSMenuItem *)menuItem{
+	
+	// The menu to update
+	NSMenu *menu = [[self playMenu] submenu]; 
+
+	// An array of all the menu items in the menu
+	NSArray *tmp = [menu itemArray];
+
+	// An array of the channels from the menu items
+	NSMutableArray	*array = [NSMutableArray array];
+
+	// An enumerator to loop thru for the channels
+	NSEnumerator *enumerator = [tmp objectEnumerator];
+
+	// An item in the array
+	NSMenuItem *item;
+	
+	// Loop over all the menu items
+	while(item = [enumerator nextObject]){
+		
+		// Add the channels to the array
+		[array addObject:[item representedObject]];
+	}
+
+	// If the channel isn't in the array already
+	if(![array containsObject:[menuItem representedObject]]){
+
+		// Add the menu item to the menu
+		[[[self playMenu] submenu] addItem:menuItem];
+	}
+
+	// Release the menu item
+	[menuItem release];
+}
+
+- (void)removePlayMenuItem:(NSMenuItem *)menuItem{
+	
+	// The menu to update
+	NSMenu *menu = [[self playMenu] submenu]; 
+
+	// An array of all the menu items in the menu
+	NSArray *tmp = [menu itemArray];
+
+	// An enumerator to loop thru for the channels
+	NSEnumerator *enumerator = [tmp objectEnumerator];
+
+	// An item in the array
+	NSMenuItem *item;
+
+	// Loop over all the menu items
+	while(item = [enumerator nextObject]){
+		
+		// If the represented object of the item is the same as the one
+		// that we are trying to remove
+		if([[item representedObject] isEqual:[menuItem representedObject]]){
+			
+			// Remove the item from the array
+			[[[self playMenu] submenu] removeItem:item];
+		}
+	}
+
+	// Release the menu item
+	[menuItem release];
+}
+
 #pragma mark -
 #pragma mark  Register for KVO
 #pragma mark -
@@ -186,24 +280,18 @@
 #pragma mark -
 
 - (void)reloadView{
-
-	// Lock the view
-	//[[[self view] superview] lockFocus];
 	
 	// Update the fields appropriately
 	[_title setStringValue:[[self tuner] title]];
 	[_caption setStringValue:[[self tuner] caption]];
 	[_icon setImage:[NSApp applicationIconImage]];
-	
-	// Unlock the view
-	//[[[self view] superview] unlockFocus];
 }
 
 // Hide the subviews from being displayed
 - (void)hideSubviews{
 	
 	// The enumerator to loop over
-	NSEnumerator *enumerator = [subviews objectEnumerator];
+	NSEnumerator *enumerator = [[self subviews] objectEnumerator];
 	
 	// Each object in the enumerator
 	GBTunerSubViewController *object;
@@ -220,7 +308,7 @@
 - (void)unhideSubviews{
 	
 	// The enumerator to loop over
-	NSEnumerator *enumerator = [subviews objectEnumerator];
+	NSEnumerator *enumerator = [[self subviews] objectEnumerator];
 	
 	// Each object in the enumerator
 	GBTunerSubViewController *object;
@@ -287,11 +375,11 @@
 #pragma mark -
 
 // Compare self and controller to see if they're equal
-- (BOOL)isEqual:(GBTunerViewController *)controller{
-	
+/*- (BOOL)isEqual:(GBTunerViewController *)controller{
+	NSLog(@"class = %@", [controller class]);
 	// Return they are equal if the tuners are equal
 	return [[self tuner] isEqual:[controller tuner]];
-}
+}*/
 
 #pragma mark -
 #pragma mark  Key Value Observing
@@ -316,6 +404,7 @@
 
     [aTuner removeObserver:self forKeyPath:@"title"];
 	[aTuner removeObserver:self forKeyPath:@"caption"];
+	//[aTuner removeObserver:self forKeyPath:@"channels"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -335,6 +424,25 @@
 	}
 }
 
+#pragma mark -
+#pragma mark  IBActions
+#pragma mark -
+
+- (IBAction)largeType:(id)sender{
+	
+	// The enumerator to loop over
+	NSEnumerator *enumerator = [[self subviews] objectEnumerator];
+	
+	// An object in the enumerator
+	GBTunerSubViewController *controller;
+	
+	// Loop over the subviews
+	while(controller = [enumerator nextObject]){
+		
+		// Tell the subviews to show their large type
+		[controller displayLargeType];
+	}
+}
 
 #pragma mark -
 #pragma mark  Clean up
