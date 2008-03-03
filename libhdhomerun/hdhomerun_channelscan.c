@@ -136,7 +136,7 @@ static int channelscan_execute_callback(channelscan_callback_t callback, va_list
 	return ret;
 }
 
-static int channelscan_execute_internal(struct hdhomerun_device_t *hd, int mode, struct hdhomerun_channel_entry_t **pentry, channelscan_callback_t callback, va_list callback_ap)
+static int channelscan_execute_internal(struct hdhomerun_device_t *hd, uint32_t channel_map, struct hdhomerun_channel_entry_t **pentry, channelscan_callback_t callback, va_list callback_ap)
 {
 	struct hdhomerun_channel_entry_t *entry = *pentry;
 	uint32_t frequency = entry->frequency;
@@ -152,7 +152,7 @@ static int channelscan_execute_internal(struct hdhomerun_device_t *hd, int mode,
 		hdhomerun_channel_name(ptr, limit, entry);
 		ptr = strchr(ptr, 0);
 
-		entry = hdhomerun_channel_list_next(CHANNEL_MAP_US_ALL, entry);
+		entry = hdhomerun_channel_list_next(channel_map, entry);
 		if (!entry) {
 			break;
 		}
@@ -169,10 +169,6 @@ static int channelscan_execute_internal(struct hdhomerun_device_t *hd, int mode,
 	ret = channelscan_execute_callback(callback, callback_ap, "SCANNING", buffer);
 	if (ret <= 0) {
 		return ret;
-	}
-
-	if (mode == HDHOMERUN_CHANNELSCAN_MODE_CHANNELLIST) {
-		return 1;
 	}
 
 	/* Find lock. */
@@ -225,30 +221,30 @@ static int channelscan_execute_internal(struct hdhomerun_device_t *hd, int mode,
 	return 1;
 }
 
-int channelscan_execute_single(struct hdhomerun_device_t *hd, int mode, struct hdhomerun_channel_entry_t **pentry, channelscan_callback_t callback, ...)
+int channelscan_execute_single(struct hdhomerun_device_t *hd, uint32_t channel_map, struct hdhomerun_channel_entry_t **pentry, channelscan_callback_t callback, ...)
 {
 	if (!*pentry) {
-		*pentry = hdhomerun_channel_list_first(CHANNEL_MAP_US_ALL);
+		*pentry = hdhomerun_channel_list_first(channel_map);
 	}
 
 	va_list callback_ap;
 	va_start(callback_ap, callback);
 
-	int result = channelscan_execute_internal(hd, mode, pentry, callback, callback_ap);
+	int result = channelscan_execute_internal(hd, channel_map, pentry, callback, callback_ap);
 
 	va_end(callback_ap);
 	return result;
 }
 
-int channelscan_execute_all(struct hdhomerun_device_t *hd, int mode, channelscan_callback_t callback, ...)
+int channelscan_execute_all(struct hdhomerun_device_t *hd, uint32_t channel_map, channelscan_callback_t callback, ...)
 {
 	va_list callback_ap;
 	va_start(callback_ap, callback);
 
 	int result = 0;
-	struct hdhomerun_channel_entry_t *entry = hdhomerun_channel_list_first(CHANNEL_MAP_US_ALL);
+	struct hdhomerun_channel_entry_t *entry = hdhomerun_channel_list_first(channel_map);
 	while (entry) {
-		result = channelscan_execute_internal(hd, mode, &entry, callback, callback_ap);
+		result = channelscan_execute_internal(hd, channel_map, &entry, callback, callback_ap);
 		if (result <= 0) {
 			break;
 		}

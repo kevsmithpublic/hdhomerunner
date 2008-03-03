@@ -3,82 +3,81 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		B02C33F10C8A556100809D08 /* General Preferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B02C33F00C8A556100809D08 /* General Preferences.tiff */; };
-		B02C33FB0C8A568900809D08 /* Users.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B02C33FA0C8A568900809D08 /* Users.tiff */; };
-		B02C33FD0C8A56A600809D08 /* reload.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B02C33FC0C8A56A600809D08 /* reload.tiff */; };
-		B03ED3B80D04069200906DBD /* GBDockIconCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = B03ED3B70D04069200906DBD /* GBDockIconCenter.m */; };
-		B0545BCF0C820B6F00978980 /* tv.icns in Resources */ = {isa = PBXBuildFile; fileRef = B0545BCE0C820B6F00978980 /* tv.icns */; };
-		B06415550D03FBC1006A47BC /* hdhomerun_channels.c in Sources */ = {isa = PBXBuildFile; fileRef = B064153E0D03FBC1006A47BC /* hdhomerun_channels.c */; };
-		B06415560D03FBC1006A47BC /* hdhomerun_channelscan.c in Sources */ = {isa = PBXBuildFile; fileRef = B06415400D03FBC1006A47BC /* hdhomerun_channelscan.c */; };
-		B06415570D03FBC1006A47BC /* hdhomerun_config.c in Sources */ = {isa = PBXBuildFile; fileRef = B06415420D03FBC1006A47BC /* hdhomerun_config.c */; };
-		B06415580D03FBC1006A47BC /* hdhomerun_control.c in Sources */ = {isa = PBXBuildFile; fileRef = B06415430D03FBC1006A47BC /* hdhomerun_control.c */; };
-		B06415590D03FBC1006A47BC /* hdhomerun_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = B06415450D03FBC1006A47BC /* hdhomerun_debug.c */; };
-		B064155A0D03FBC1006A47BC /* hdhomerun_device.c in Sources */ = {isa = PBXBuildFile; fileRef = B06415470D03FBC1006A47BC /* hdhomerun_device.c */; };
-		B064155B0D03FBC1006A47BC /* hdhomerun_dhcp.c in Sources */ = {isa = PBXBuildFile; fileRef = B06415490D03FBC1006A47BC /* hdhomerun_dhcp.c */; };
-		B064155C0D03FBC1006A47BC /* hdhomerun_discover.c in Sources */ = {isa = PBXBuildFile; fileRef = B064154B0D03FBC1006A47BC /* hdhomerun_discover.c */; };
-		B064155D0D03FBC1006A47BC /* hdhomerun_pkt.c in Sources */ = {isa = PBXBuildFile; fileRef = B064154E0D03FBC1006A47BC /* hdhomerun_pkt.c */; };
-		B064155E0D03FBC1006A47BC /* hdhomerun_video.c in Sources */ = {isa = PBXBuildFile; fileRef = B06415500D03FBC1006A47BC /* hdhomerun_video.c */; };
-		B064155F0D03FBC1006A47BC /* lgpl.txt in Resources */ = {isa = PBXBuildFile; fileRef = B06415520D03FBC1006A47BC /* lgpl.txt */; };
-		B076B7C80C5AA65800174C3B /* GBChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = B076B7C40C5AA65800174C3B /* GBChannel.m */; };
-		B076B7C90C5AA65800174C3B /* GBTuner.m in Sources */ = {isa = PBXBuildFile; fileRef = B076B7C70C5AA65800174C3B /* GBTuner.m */; };
-		B076B7D10C5AA66500174C3B /* GBPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = B076B7CE0C5AA66500174C3B /* GBPreferenceController.m */; };
-		B076B7D20C5AA66500174C3B /* GBController.m in Sources */ = {isa = PBXBuildFile; fileRef = B076B7D00C5AA66500174C3B /* GBController.m */; };
-		B076B7F30C5AA67900174C3B /* idle.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7D40C5AA67900174C3B /* idle.tiff */; };
-		B076B7F40C5AA67900174C3B /* recording.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7D50C5AA67900174C3B /* recording.tiff */; };
-		B076B7F50C5AA67900174C3B /* offline.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7D60C5AA67900174C3B /* offline.tiff */; };
-		B076B7F60C5AA67900174C3B /* playing.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7D70C5AA67900174C3B /* playing.tiff */; };
-		B076B8030C5AA67900174C3B /* HUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = B076B7F10C5AA67900174C3B /* HUDWindow.m */; };
-		B076B8040C5AA67900174C3B /* hud_titlebar-close.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B076B7F20C5AA67900174C3B /* hud_titlebar-close.tiff */; };
-		B076B8070C5AA68B00174C3B /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = B076B8050C5AA68B00174C3B /* COPYING.txt */; };
-		B076B80D0C5AA69400174C3B /* PrefWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = B076B80C0C5AA69400174C3B /* PrefWindow.nib */; };
-		B076B8240C5AA70000174C3B /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = B076B8220C5AA70000174C3B /* MainMenu.nib */; };
-		B076B8BC0C5AA72800174C3B /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B076B8BB0C5AA72800174C3B /* Carbon.framework */; };
-		B076B9670C5AA73500174C3B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B076B9660C5AA73500174C3B /* Sparkle.framework */; };
-		B076B9900C5AA7B900174C3B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B9660C5AA73500174C3B /* Sparkle.framework */; };
-		B076B9B10C5AA82100174C3B /* HUDWindow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7F00C5AA67900174C3B /* HUDWindow.h */; };
-		B076B9BE0C5AA88100174C3B /* launchVLC.scpt in Resources */ = {isa = PBXBuildFile; fileRef = B076B8060C5AA68B00174C3B /* launchVLC.scpt */; };
-		B0AF93630D0400C100E15C0B /* DIController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AF93600D0400C100E15C0B /* DIController.m */; };
-		B0AF93640D0400C100E15C0B /* NSBezierPath+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AF93620D0400C100E15C0B /* NSBezierPath+Additions.m */; };
-		B0B91BFB0CA570CF00A2022F /* GBTuner.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7C60C5AA65800174C3B /* GBTuner.h */; };
-		B0B91BFC0CA570D100A2022F /* GBPreferenceController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7CD0C5AA66500174C3B /* GBPreferenceController.h */; };
-		B0B91BFD0CA570D200A2022F /* GBController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7CF0C5AA66500174C3B /* GBController.h */; };
-		B0B91BFE0CA570D300A2022F /* GBChannel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B076B7C30C5AA65800174C3B /* GBChannel.h */; };
-		B0C3C77B0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin in Resources */ = {isa = PBXBuildFile; fileRef = B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */; };
-		B0CD71240C5D43B800B29826 /* GBTableView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0CD71220C5D43B800B29826 /* GBTableView.h */; };
-		B0CD71250C5D43B800B29826 /* GBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CD71230C5D43B800B29826 /* GBTableView.m */; };
-		B0E820820CA35F7800AAEEF6 /* GBApplication.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0E820800CA35F7800AAEEF6 /* GBApplication.h */; };
-		B0E820830CA35F7800AAEEF6 /* GBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E820810CA35F7800AAEEF6 /* GBApplication.m */; };
-		B0F2E1F20C5D32EB00F387BA /* GBArrayController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0F2E1F00C5D32EB00F387BA /* GBArrayController.h */; };
-		B0F2E1F30C5D32EB00F387BA /* GBArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F2E1F10C5D32EB00F387BA /* GBArrayController.m */; };
-		B0FCD7330C9C388D00F9FD0A /* ThreadWorker.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B0FCD7310C9C388D00F9FD0A /* ThreadWorker.h */; };
-		B0FCD7340C9C388D00F9FD0A /* ThreadWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FCD7320C9C388D00F9FD0A /* ThreadWorker.m */; };
+		B03491D00D48479600D4A7BF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B03491CF0D48479600D4A7BF /* Credits.rtf */; };
+		B05492500D41AF9500A294BA /* GBTunerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B054924F0D41AF9500A294BA /* GBTunerViewController.m */; };
+		B05492670D41B42200A294BA /* TunerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05492660D41B42200A294BA /* TunerView.xib */; };
+		B05492710D41B91400A294BA /* GBTunerSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B05492700D41B91400A294BA /* GBTunerSubViewController.m */; };
+		B054927B0D41BEA800A294BA /* SubviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B054927A0D41BEA800A294BA /* SubviewTableViewCell.m */; };
+		B05492800D41BED800A294BA /* GBOutlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B054927F0D41BED800A294BA /* GBOutlineViewController.m */; };
+		B05492880D41C14700A294BA /* GBTuner.m in Sources */ = {isa = PBXBuildFile; fileRef = B05492870D41C14700A294BA /* GBTuner.m */; };
+		B05492AD0D41C1D300A294BA /* hdhomerun_channels.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492960D41C1D300A294BA /* hdhomerun_channels.c */; };
+		B05492AE0D41C1D300A294BA /* hdhomerun_channelscan.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492980D41C1D300A294BA /* hdhomerun_channelscan.c */; };
+		B05492AF0D41C1D300A294BA /* hdhomerun_config.c in Sources */ = {isa = PBXBuildFile; fileRef = B054929A0D41C1D300A294BA /* hdhomerun_config.c */; };
+		B05492B00D41C1D300A294BA /* hdhomerun_control.c in Sources */ = {isa = PBXBuildFile; fileRef = B054929B0D41C1D300A294BA /* hdhomerun_control.c */; };
+		B05492B10D41C1D300A294BA /* hdhomerun_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = B054929D0D41C1D300A294BA /* hdhomerun_debug.c */; };
+		B05492B20D41C1D300A294BA /* hdhomerun_device.c in Sources */ = {isa = PBXBuildFile; fileRef = B054929F0D41C1D300A294BA /* hdhomerun_device.c */; };
+		B05492B30D41C1D300A294BA /* hdhomerun_dhcp.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492A10D41C1D300A294BA /* hdhomerun_dhcp.c */; };
+		B05492B40D41C1D300A294BA /* hdhomerun_discover.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492A30D41C1D300A294BA /* hdhomerun_discover.c */; };
+		B05492B50D41C1D300A294BA /* hdhomerun_pkt.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492A60D41C1D300A294BA /* hdhomerun_pkt.c */; };
+		B05492B60D41C1D300A294BA /* hdhomerun_video.c in Sources */ = {isa = PBXBuildFile; fileRef = B05492A80D41C1D300A294BA /* hdhomerun_video.c */; };
+		B05492B70D41C1D300A294BA /* lgpl.txt in Resources */ = {isa = PBXBuildFile; fileRef = B05492AA0D41C1D300A294BA /* lgpl.txt */; };
+		B05492B90D41C1D300A294BA /* README in Resources */ = {isa = PBXBuildFile; fileRef = B05492AC0D41C1D300A294BA /* README */; };
+		B05492CC0D41C29D00A294BA /* GBChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = B05492CB0D41C29D00A294BA /* GBChannel.m */; };
+		B063E78E0D4827E3000C2DED /* AboutBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = B063E78D0D4827E3000C2DED /* AboutBox.xib */; };
+		B063E7A00D483117000C2DED /* GBAboutBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B063E79F0D483117000C2DED /* GBAboutBox.m */; };
+		B074DC890D42B2E1002A3529 /* ChannelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B074DC880D42B2E1002A3529 /* ChannelView.xib */; };
+		B074DC8C0D42B2FE002A3529 /* GBChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */; };
+		B087F34B0D7666D800A08F24 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087F34A0D7666D800A08F24 /* Preferences.xib */; };
+		B08A6DC00D5DFF8000468901 /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08A6DBE0D5DFF8000468901 /* RoundedView.m */; };
+		B08A6DC30D5E001C00468901 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = B08A6DC20D5E001C00468901 /* TransparentWindow.m */; };
+		B08C84520D43D8A900DDEF1C /* default.html in Resources */ = {isa = PBXBuildFile; fileRef = B08C84510D43D8A900DDEF1C /* default.html */; };
+		B093C87D0D43D792001B746E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B093C87C0D43D792001B746E /* WebKit.framework */; };
+		B0A94B5A0D4197770098614D /* GBController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A94B590D4197770098614D /* GBController.m */; };
+		B0A94B690D41AE330098614D /* GBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A94B680D41AE330098614D /* GBViewController.m */; };
+		B0B1A4000D77302500A53E4D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B1A3FF0D77302500A53E4D /* Sparkle.framework */; };
+		B0B1A41D0D77308300A53E4D /* Sparkle.framework in Copy Framework Files */ = {isa = PBXBuildFile; fileRef = B0B1A3FF0D77302500A53E4D /* Sparkle.framework */; };
+		B0BFDE5B0D426C0A00A891D4 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE3F0D426C0A00A891D4 /* CTGradient.m */; };
+		B0BFDE5C0D426C0A00A891D4 /* SourceListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE410D426C0A00A891D4 /* SourceListTableView.m */; };
+		B0BFDE5D0D426C0A00A891D4 /* SourceListTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE430D426C0A00A891D4 /* SourceListTextCell.m */; };
+		B0BFDE5E0D426C0A00A891D4 /* SourceListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE450D426C0A00A891D4 /* SourceListImageCell.m */; };
+		B0BFDE5F0D426C0A00A891D4 /* DBBottomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE480D426C0A00A891D4 /* DBBottomButton.m */; };
+		B0BFDE600D426C0A00A891D4 /* DBSourceSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE4B0D426C0A00A891D4 /* DBSourceSplitView.m */; };
+		B0BFDE610D426C0A00A891D4 /* DBSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE4D0D426C0A00A891D4 /* DBSourceView.m */; };
+		B0BFDE620D426C0A00A891D4 /* DBListSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE4F0D426C0A00A891D4 /* DBListSplitView.m */; };
+		B0BFDE630D426C0A00A891D4 /* KFSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFDE510D426C0A00A891D4 /* KFSplitView.m */; };
+		B0BFDE640D426C0A00A891D4 /* DBListSplitViewBar.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE530D426C0A00A891D4 /* DBListSplitViewBar.tiff */; };
+		B0BFDE650D426C0A00A891D4 /* Add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE540D426C0A00A891D4 /* Add.tiff */; };
+		B0BFDE660D426C0A00A891D4 /* Add_Disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE550D426C0A00A891D4 /* Add_Disabled.tiff */; };
+		B0BFDE670D426C0A00A891D4 /* Add_Pressed.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE560D426C0A00A891D4 /* Add_Pressed.tiff */; };
+		B0BFDE680D426C0A00A891D4 /* Delete.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE570D426C0A00A891D4 /* Delete.tiff */; };
+		B0BFDE690D426C0A00A891D4 /* Delete_Disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE580D426C0A00A891D4 /* Delete_Disabled.tiff */; };
+		B0BFDE6A0D426C0A00A891D4 /* Delete_Pressed.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE590D426C0A00A891D4 /* Delete_Pressed.tiff */; };
+		B0BFDE6B0D426C0A00A891D4 /* DBListSplitViewDimple.tiff in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE5A0D426C0A00A891D4 /* DBListSplitViewDimple.tiff */; };
+		B0BFDE7C0D426D6E00A891D4 /* tv.icns in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE7B0D426D6E00A891D4 /* tv.icns */; };
+		B0BFDE9B0D426FB800A891D4 /* launchVLC.scpt in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE950D426F5000A891D4 /* launchVLC.scpt */; };
+		B0BFDEDD0D42773600A891D4 /* TunerSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */; };
+		B0E8334C0D55805F00A879AD /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0E8334B0D55805F00A879AD /* COPYING.txt */; };
+		B0EB5EDA0D76572600592896 /* GBPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EB5ED90D76572600592896 /* GBPreferences.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		B076B98E0C5AA79E00174C3B /* CopyFiles */ = {
+		B0B1A41C0D77308000A53E4D /* Copy Framework Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B076B9900C5AA7B900174C3B /* Sparkle.framework in CopyFiles */,
-				B076B9B10C5AA82100174C3B /* HUDWindow.h in CopyFiles */,
-				B0F2E1F20C5D32EB00F387BA /* GBArrayController.h in CopyFiles */,
-				B0CD71240C5D43B800B29826 /* GBTableView.h in CopyFiles */,
-				B0FCD7330C9C388D00F9FD0A /* ThreadWorker.h in CopyFiles */,
-				B0E820820CA35F7800AAEEF6 /* GBApplication.h in CopyFiles */,
-				B0B91BFB0CA570CF00A2022F /* GBTuner.h in CopyFiles */,
-				B0B91BFC0CA570D100A2022F /* GBPreferenceController.h in CopyFiles */,
-				B0B91BFD0CA570D200A2022F /* GBController.h in CopyFiles */,
-				B0B91BFE0CA570D300A2022F /* GBChannel.h in CopyFiles */,
+				B0B1A41D0D77308300A53E4D /* Sparkle.framework in Copy Framework Files */,
 			);
+			name = "Copy Framework Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -88,75 +87,100 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* hdhomerunner_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerunner_Prefix.pch; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* hdhomerunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hdhomerunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B02C33F00C8A556100809D08 /* General Preferences.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "General Preferences.tiff"; sourceTree = "<group>"; };
-		B02C33FA0C8A568900809D08 /* Users.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Users.tiff; sourceTree = "<group>"; };
-		B02C33FC0C8A56A600809D08 /* reload.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = reload.tiff; sourceTree = "<group>"; };
-		B03ED3B60D04069200906DBD /* GBDockIconCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBDockIconCenter.h; sourceTree = "<group>"; };
-		B03ED3B70D04069200906DBD /* GBDockIconCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBDockIconCenter.m; sourceTree = "<group>"; };
-		B0545BCE0C820B6F00978980 /* tv.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tv.icns; sourceTree = "<group>"; };
-		B064153D0D03FBC1006A47BC /* hdhomerun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun.h; sourceTree = "<group>"; };
-		B064153E0D03FBC1006A47BC /* hdhomerun_channels.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_channels.c; sourceTree = "<group>"; };
-		B064153F0D03FBC1006A47BC /* hdhomerun_channels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_channels.h; sourceTree = "<group>"; };
-		B06415400D03FBC1006A47BC /* hdhomerun_channelscan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_channelscan.c; sourceTree = "<group>"; };
-		B06415410D03FBC1006A47BC /* hdhomerun_channelscan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_channelscan.h; sourceTree = "<group>"; };
-		B06415420D03FBC1006A47BC /* hdhomerun_config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_config.c; sourceTree = "<group>"; };
-		B06415430D03FBC1006A47BC /* hdhomerun_control.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_control.c; sourceTree = "<group>"; };
-		B06415440D03FBC1006A47BC /* hdhomerun_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_control.h; sourceTree = "<group>"; };
-		B06415450D03FBC1006A47BC /* hdhomerun_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_debug.c; sourceTree = "<group>"; };
-		B06415460D03FBC1006A47BC /* hdhomerun_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_debug.h; sourceTree = "<group>"; };
-		B06415470D03FBC1006A47BC /* hdhomerun_device.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_device.c; sourceTree = "<group>"; };
-		B06415480D03FBC1006A47BC /* hdhomerun_device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_device.h; sourceTree = "<group>"; };
-		B06415490D03FBC1006A47BC /* hdhomerun_dhcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_dhcp.c; sourceTree = "<group>"; };
-		B064154A0D03FBC1006A47BC /* hdhomerun_dhcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_dhcp.h; sourceTree = "<group>"; };
-		B064154B0D03FBC1006A47BC /* hdhomerun_discover.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_discover.c; sourceTree = "<group>"; };
-		B064154C0D03FBC1006A47BC /* hdhomerun_discover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_discover.h; sourceTree = "<group>"; };
-		B064154D0D03FBC1006A47BC /* hdhomerun_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_os.h; sourceTree = "<group>"; };
-		B064154E0D03FBC1006A47BC /* hdhomerun_pkt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_pkt.c; sourceTree = "<group>"; };
-		B064154F0D03FBC1006A47BC /* hdhomerun_pkt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_pkt.h; sourceTree = "<group>"; };
-		B06415500D03FBC1006A47BC /* hdhomerun_video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_video.c; sourceTree = "<group>"; };
-		B06415510D03FBC1006A47BC /* hdhomerun_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_video.h; sourceTree = "<group>"; };
-		B06415520D03FBC1006A47BC /* lgpl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lgpl.txt; sourceTree = "<group>"; };
-		B06415530D03FBC1006A47BC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		B06415540D03FBC1006A47BC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		B076B7C30C5AA65800174C3B /* GBChannel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GBChannel.h; sourceTree = "<group>"; };
-		B076B7C40C5AA65800174C3B /* GBChannel.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GBChannel.m; sourceTree = "<group>"; };
-		B076B7C60C5AA65800174C3B /* GBTuner.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GBTuner.h; sourceTree = "<group>"; };
-		B076B7C70C5AA65800174C3B /* GBTuner.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GBTuner.m; sourceTree = "<group>"; };
-		B076B7CD0C5AA66500174C3B /* GBPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GBPreferenceController.h; sourceTree = "<group>"; };
-		B076B7CE0C5AA66500174C3B /* GBPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GBPreferenceController.m; sourceTree = "<group>"; };
-		B076B7CF0C5AA66500174C3B /* GBController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GBController.h; sourceTree = "<group>"; };
-		B076B7D00C5AA66500174C3B /* GBController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GBController.m; sourceTree = "<group>"; };
-		B076B7D40C5AA67900174C3B /* idle.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = idle.tiff; sourceTree = "<group>"; };
-		B076B7D50C5AA67900174C3B /* recording.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = recording.tiff; sourceTree = "<group>"; };
-		B076B7D60C5AA67900174C3B /* offline.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = offline.tiff; sourceTree = "<group>"; };
-		B076B7D70C5AA67900174C3B /* playing.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = playing.tiff; sourceTree = "<group>"; };
-		B076B7F00C5AA67900174C3B /* HUDWindow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HUDWindow.h; sourceTree = "<group>"; };
-		B076B7F10C5AA67900174C3B /* HUDWindow.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = HUDWindow.m; sourceTree = "<group>"; };
-		B076B7F20C5AA67900174C3B /* hud_titlebar-close.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "hud_titlebar-close.tiff"; sourceTree = "<group>"; };
-		B076B8050C5AA68B00174C3B /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
-		B076B8060C5AA68B00174C3B /* launchVLC.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = launchVLC.scpt; sourceTree = "<group>"; };
-		B076B80C0C5AA69400174C3B /* PrefWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = PrefWindow.nib; sourceTree = "<group>"; };
-		B076B8230C5AA70000174C3B /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		B076B8BB0C5AA72800174C3B /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Carbon.framework; sourceTree = "<group>"; };
-		B076B9660C5AA73500174C3B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		B0AF935F0D0400C100E15C0B /* DIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIController.h; sourceTree = "<group>"; };
-		B0AF93600D0400C100E15C0B /* DIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIController.m; sourceTree = "<group>"; };
-		B0AF93610D0400C100E15C0B /* NSBezierPath+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+Additions.h"; sourceTree = "<group>"; };
-		B0AF93620D0400C100E15C0B /* NSBezierPath+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+Additions.m"; sourceTree = "<group>"; };
-		B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = hdhomerun_firmware_20071120.bin; sourceTree = "<group>"; };
-		B0CD71220C5D43B800B29826 /* GBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTableView.h; sourceTree = "<group>"; };
-		B0CD71230C5D43B800B29826 /* GBTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTableView.m; sourceTree = "<group>"; };
-		B0E820800CA35F7800AAEEF6 /* GBApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBApplication.h; sourceTree = "<group>"; };
-		B0E820810CA35F7800AAEEF6 /* GBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBApplication.m; sourceTree = "<group>"; };
-		B0F2E1F00C5D32EB00F387BA /* GBArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBArrayController.h; sourceTree = "<group>"; };
-		B0F2E1F10C5D32EB00F387BA /* GBArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBArrayController.m; sourceTree = "<group>"; };
-		B0FCD7310C9C388D00F9FD0A /* ThreadWorker.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ThreadWorker.h; sourceTree = "<group>"; };
-		B0FCD7320C9C388D00F9FD0A /* ThreadWorker.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ThreadWorker.m; sourceTree = "<group>"; };
+		B03491CF0D48479600D4A7BF /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		B054924E0D41AF9500A294BA /* GBTunerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTunerViewController.h; sourceTree = "<group>"; };
+		B054924F0D41AF9500A294BA /* GBTunerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTunerViewController.m; sourceTree = "<group>"; };
+		B05492660D41B42200A294BA /* TunerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TunerView.xib; sourceTree = "<group>"; };
+		B054926F0D41B91400A294BA /* GBTunerSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTunerSubViewController.h; sourceTree = "<group>"; };
+		B05492700D41B91400A294BA /* GBTunerSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTunerSubViewController.m; sourceTree = "<group>"; };
+		B05492790D41BEA800A294BA /* SubviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubviewTableViewCell.h; sourceTree = "<group>"; };
+		B054927A0D41BEA800A294BA /* SubviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubviewTableViewCell.m; sourceTree = "<group>"; };
+		B054927E0D41BED800A294BA /* GBOutlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBOutlineViewController.h; sourceTree = "<group>"; };
+		B054927F0D41BED800A294BA /* GBOutlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBOutlineViewController.m; sourceTree = "<group>"; };
+		B05492860D41C14700A294BA /* GBTuner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTuner.h; sourceTree = "<group>"; };
+		B05492870D41C14700A294BA /* GBTuner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTuner.m; sourceTree = "<group>"; };
+		B05492950D41C1D300A294BA /* hdhomerun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun.h; sourceTree = "<group>"; };
+		B05492960D41C1D300A294BA /* hdhomerun_channels.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_channels.c; sourceTree = "<group>"; };
+		B05492970D41C1D300A294BA /* hdhomerun_channels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_channels.h; sourceTree = "<group>"; };
+		B05492980D41C1D300A294BA /* hdhomerun_channelscan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_channelscan.c; sourceTree = "<group>"; };
+		B05492990D41C1D300A294BA /* hdhomerun_channelscan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_channelscan.h; sourceTree = "<group>"; };
+		B054929A0D41C1D300A294BA /* hdhomerun_config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_config.c; sourceTree = "<group>"; };
+		B054929B0D41C1D300A294BA /* hdhomerun_control.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_control.c; sourceTree = "<group>"; };
+		B054929C0D41C1D300A294BA /* hdhomerun_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_control.h; sourceTree = "<group>"; };
+		B054929D0D41C1D300A294BA /* hdhomerun_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_debug.c; sourceTree = "<group>"; };
+		B054929E0D41C1D300A294BA /* hdhomerun_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_debug.h; sourceTree = "<group>"; };
+		B054929F0D41C1D300A294BA /* hdhomerun_device.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_device.c; sourceTree = "<group>"; };
+		B05492A00D41C1D300A294BA /* hdhomerun_device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_device.h; sourceTree = "<group>"; };
+		B05492A10D41C1D300A294BA /* hdhomerun_dhcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_dhcp.c; sourceTree = "<group>"; };
+		B05492A20D41C1D300A294BA /* hdhomerun_dhcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_dhcp.h; sourceTree = "<group>"; };
+		B05492A30D41C1D300A294BA /* hdhomerun_discover.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_discover.c; sourceTree = "<group>"; };
+		B05492A40D41C1D300A294BA /* hdhomerun_discover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_discover.h; sourceTree = "<group>"; };
+		B05492A50D41C1D300A294BA /* hdhomerun_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_os.h; sourceTree = "<group>"; };
+		B05492A60D41C1D300A294BA /* hdhomerun_pkt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_pkt.c; sourceTree = "<group>"; };
+		B05492A70D41C1D300A294BA /* hdhomerun_pkt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_pkt.h; sourceTree = "<group>"; };
+		B05492A80D41C1D300A294BA /* hdhomerun_video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hdhomerun_video.c; sourceTree = "<group>"; };
+		B05492A90D41C1D300A294BA /* hdhomerun_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerun_video.h; sourceTree = "<group>"; };
+		B05492AA0D41C1D300A294BA /* lgpl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lgpl.txt; sourceTree = "<group>"; };
+		B05492AB0D41C1D300A294BA /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		B05492AC0D41C1D300A294BA /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		B05492CB0D41C29D00A294BA /* GBChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBChannel.m; sourceTree = "<group>"; };
+		B05492CD0D41C2A400A294BA /* GBChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBChannel.h; sourceTree = "<group>"; };
+		B063E78D0D4827E3000C2DED /* AboutBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutBox.xib; sourceTree = "<group>"; };
+		B063E79E0D483117000C2DED /* GBAboutBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAboutBox.h; sourceTree = "<group>"; };
+		B063E79F0D483117000C2DED /* GBAboutBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAboutBox.m; sourceTree = "<group>"; };
+		B074DC880D42B2E1002A3529 /* ChannelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelView.xib; sourceTree = "<group>"; };
+		B074DC8A0D42B2FE002A3529 /* GBChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBChannelViewController.h; sourceTree = "<group>"; };
+		B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBChannelViewController.m; sourceTree = "<group>"; };
+		B087F34A0D7666D800A08F24 /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		B08A6DBE0D5DFF8000468901 /* RoundedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedView.m; sourceTree = "<group>"; };
+		B08A6DBF0D5DFF8000468901 /* RoundedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedView.h; sourceTree = "<group>"; };
+		B08A6DC10D5E001C00468901 /* TransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentWindow.h; sourceTree = "<group>"; };
+		B08A6DC20D5E001C00468901 /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
+		B08C84510D43D8A900DDEF1C /* default.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = default.html; sourceTree = "<group>"; };
+		B093C87C0D43D792001B746E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		B0A94B580D4197770098614D /* GBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBController.h; sourceTree = "<group>"; };
+		B0A94B590D4197770098614D /* GBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBController.m; sourceTree = "<group>"; };
+		B0A94B670D41AE330098614D /* GBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBViewController.h; sourceTree = "<group>"; };
+		B0A94B680D41AE330098614D /* GBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBViewController.m; sourceTree = "<group>"; };
+		B0B1A3FF0D77302500A53E4D /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		B0BFDE3E0D426C0A00A891D4 /* CTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTGradient.h; sourceTree = "<group>"; };
+		B0BFDE3F0D426C0A00A891D4 /* CTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTGradient.m; sourceTree = "<group>"; };
+		B0BFDE400D426C0A00A891D4 /* SourceListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListTableView.h; sourceTree = "<group>"; };
+		B0BFDE410D426C0A00A891D4 /* SourceListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListTableView.m; sourceTree = "<group>"; };
+		B0BFDE420D426C0A00A891D4 /* SourceListTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListTextCell.h; sourceTree = "<group>"; };
+		B0BFDE430D426C0A00A891D4 /* SourceListTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListTextCell.m; sourceTree = "<group>"; };
+		B0BFDE440D426C0A00A891D4 /* SourceListImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceListImageCell.h; sourceTree = "<group>"; };
+		B0BFDE450D426C0A00A891D4 /* SourceListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceListImageCell.m; sourceTree = "<group>"; };
+		B0BFDE470D426C0A00A891D4 /* DBBottomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBottomButton.h; sourceTree = "<group>"; };
+		B0BFDE480D426C0A00A891D4 /* DBBottomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBBottomButton.m; sourceTree = "<group>"; };
+		B0BFDE4A0D426C0A00A891D4 /* DBSourceSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSourceSplitView.h; sourceTree = "<group>"; };
+		B0BFDE4B0D426C0A00A891D4 /* DBSourceSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSourceSplitView.m; sourceTree = "<group>"; };
+		B0BFDE4C0D426C0A00A891D4 /* DBSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSourceView.h; sourceTree = "<group>"; };
+		B0BFDE4D0D426C0A00A891D4 /* DBSourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSourceView.m; sourceTree = "<group>"; };
+		B0BFDE4E0D426C0A00A891D4 /* DBListSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBListSplitView.h; sourceTree = "<group>"; };
+		B0BFDE4F0D426C0A00A891D4 /* DBListSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBListSplitView.m; sourceTree = "<group>"; };
+		B0BFDE500D426C0A00A891D4 /* KFSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KFSplitView.h; sourceTree = "<group>"; };
+		B0BFDE510D426C0A00A891D4 /* KFSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KFSplitView.m; sourceTree = "<group>"; };
+		B0BFDE530D426C0A00A891D4 /* DBListSplitViewBar.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBListSplitViewBar.tiff; sourceTree = "<group>"; };
+		B0BFDE540D426C0A00A891D4 /* Add.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add.tiff; sourceTree = "<group>"; };
+		B0BFDE550D426C0A00A891D4 /* Add_Disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add_Disabled.tiff; sourceTree = "<group>"; };
+		B0BFDE560D426C0A00A891D4 /* Add_Pressed.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Add_Pressed.tiff; sourceTree = "<group>"; };
+		B0BFDE570D426C0A00A891D4 /* Delete.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete.tiff; sourceTree = "<group>"; };
+		B0BFDE580D426C0A00A891D4 /* Delete_Disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete_Disabled.tiff; sourceTree = "<group>"; };
+		B0BFDE590D426C0A00A891D4 /* Delete_Pressed.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Delete_Pressed.tiff; sourceTree = "<group>"; };
+		B0BFDE5A0D426C0A00A891D4 /* DBListSplitViewDimple.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DBListSplitViewDimple.tiff; sourceTree = "<group>"; };
+		B0BFDE7B0D426D6E00A891D4 /* tv.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tv.icns; sourceTree = "<group>"; };
+		B0BFDE950D426F5000A891D4 /* launchVLC.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = launchVLC.scpt; sourceTree = "<group>"; };
+		B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TunerSubView.xib; sourceTree = "<group>"; };
+		B0E8334B0D55805F00A879AD /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
+		B0EB5ED80D76572600592896 /* GBPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPreferences.h; sourceTree = "<group>"; };
+		B0EB5ED90D76572600592896 /* GBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPreferences.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,8 +189,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				B076B8BC0C5AA72800174C3B /* Carbon.framework in Frameworks */,
-				B076B9670C5AA73500174C3B /* Sparkle.framework in Frameworks */,
+				B093C87D0D43D792001B746E /* WebKit.framework in Frameworks */,
+				B0B1A4000D77302500A53E4D /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,12 +200,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B076B7CF0C5AA66500174C3B /* GBController.h */,
-				B076B7D00C5AA66500174C3B /* GBController.m */,
-				B076B7CC0C5AA66500174C3B /* Controller Classes */,
-				B076B7C10C5AA65800174C3B /* Model Classes */,
-				B03ED3B60D04069200906DBD /* GBDockIconCenter.h */,
-				B03ED3B70D04069200906DBD /* GBDockIconCenter.m */,
+				B063E79D0D4830F5000C2DED /* Interface */,
+				B0BFDE390D42695F00A891D4 /* Controllers */,
+				B05492E10D41C35700A294BA /* Model */,
+				B05492790D41BEA800A294BA /* SubviewTableViewCell.h */,
+				B054927A0D41BEA800A294BA /* SubviewTableViewCell.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -189,7 +212,8 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B076B9660C5AA73500174C3B /* Sparkle.framework */,
+				B0B1A3FF0D77302500A53E4D /* Sparkle.framework */,
+				B093C87C0D43D792001B746E /* WebKit.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -198,7 +222,6 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B076B8BB0C5AA72800174C3B /* Carbon.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
@@ -217,8 +240,6 @@
 		29B97314FDCFA39411CA2CEA /* hdhomerunner */ = {
 			isa = PBXGroup;
 			children = (
-				B0E820800CA35F7800AAEEF6 /* GBApplication.h */,
-				B0E820810CA35F7800AAEEF6 /* GBApplication.m */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -231,11 +252,9 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				B0AF935E0D0400C100E15C0B /* DIController */,
-				B064153C0D03FBC1006A47BC /* libhdhomerun */,
-				B0FCD7300C9C388D00F9FD0A /* ThreadWorker */,
-				B076B7EF0C5AA67900174C3B /* HUDWindow */,
-				B076B7D30C5AA67900174C3B /* Status Icons */,
+				B08A6DBD0D5DFF6100468901 /* RoundedFloatingPanel */,
+				B0BFDE3B0D426C0A00A891D4 /* DBInterfaceDemo */,
+				B05492940D41C1D300A294BA /* libhdhomerun */,
 				32CA4F630368D1EE00C91783 /* hdhomerunner_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -245,15 +264,17 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B0C3C77A0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin */,
-				B02C33FC0C8A56A600809D08 /* reload.tiff */,
-				B02C33FA0C8A568900809D08 /* Users.tiff */,
-				B02C33F00C8A556100809D08 /* General Preferences.tiff */,
-				B0545BCE0C820B6F00978980 /* tv.icns */,
-				B076B8220C5AA70000174C3B /* MainMenu.nib */,
-				B076B80C0C5AA69400174C3B /* PrefWindow.nib */,
-				B076B8050C5AA68B00174C3B /* COPYING.txt */,
-				B076B8060C5AA68B00174C3B /* launchVLC.scpt */,
+				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+				B05492660D41B42200A294BA /* TunerView.xib */,
+				B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */,
+				B074DC880D42B2E1002A3529 /* ChannelView.xib */,
+				B063E78D0D4827E3000C2DED /* AboutBox.xib */,
+				B087F34A0D7666D800A08F24 /* Preferences.xib */,
+				B0BFDE950D426F5000A891D4 /* launchVLC.scpt */,
+				B08C84510D43D8A900DDEF1C /* default.html */,
+				B0BFDE7B0D426D6E00A891D4 /* tv.icns */,
+				B0E8334B0D55805F00A879AD /* COPYING.txt */,
+				B03491CF0D48479600D4A7BF /* Credits.rtf */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
@@ -269,116 +290,184 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B064153C0D03FBC1006A47BC /* libhdhomerun */ = {
+		B05492940D41C1D300A294BA /* libhdhomerun */ = {
 			isa = PBXGroup;
 			children = (
-				B064153D0D03FBC1006A47BC /* hdhomerun.h */,
-				B064153E0D03FBC1006A47BC /* hdhomerun_channels.c */,
-				B064153F0D03FBC1006A47BC /* hdhomerun_channels.h */,
-				B06415400D03FBC1006A47BC /* hdhomerun_channelscan.c */,
-				B06415410D03FBC1006A47BC /* hdhomerun_channelscan.h */,
-				B06415420D03FBC1006A47BC /* hdhomerun_config.c */,
-				B06415430D03FBC1006A47BC /* hdhomerun_control.c */,
-				B06415440D03FBC1006A47BC /* hdhomerun_control.h */,
-				B06415450D03FBC1006A47BC /* hdhomerun_debug.c */,
-				B06415460D03FBC1006A47BC /* hdhomerun_debug.h */,
-				B06415470D03FBC1006A47BC /* hdhomerun_device.c */,
-				B06415480D03FBC1006A47BC /* hdhomerun_device.h */,
-				B06415490D03FBC1006A47BC /* hdhomerun_dhcp.c */,
-				B064154A0D03FBC1006A47BC /* hdhomerun_dhcp.h */,
-				B064154B0D03FBC1006A47BC /* hdhomerun_discover.c */,
-				B064154C0D03FBC1006A47BC /* hdhomerun_discover.h */,
-				B064154D0D03FBC1006A47BC /* hdhomerun_os.h */,
-				B064154E0D03FBC1006A47BC /* hdhomerun_pkt.c */,
-				B064154F0D03FBC1006A47BC /* hdhomerun_pkt.h */,
-				B06415500D03FBC1006A47BC /* hdhomerun_video.c */,
-				B06415510D03FBC1006A47BC /* hdhomerun_video.h */,
-				B06415520D03FBC1006A47BC /* lgpl.txt */,
-				B06415530D03FBC1006A47BC /* Makefile */,
-				B06415540D03FBC1006A47BC /* README */,
+				B05492950D41C1D300A294BA /* hdhomerun.h */,
+				B05492960D41C1D300A294BA /* hdhomerun_channels.c */,
+				B05492970D41C1D300A294BA /* hdhomerun_channels.h */,
+				B05492980D41C1D300A294BA /* hdhomerun_channelscan.c */,
+				B05492990D41C1D300A294BA /* hdhomerun_channelscan.h */,
+				B054929A0D41C1D300A294BA /* hdhomerun_config.c */,
+				B054929B0D41C1D300A294BA /* hdhomerun_control.c */,
+				B054929C0D41C1D300A294BA /* hdhomerun_control.h */,
+				B054929D0D41C1D300A294BA /* hdhomerun_debug.c */,
+				B054929E0D41C1D300A294BA /* hdhomerun_debug.h */,
+				B054929F0D41C1D300A294BA /* hdhomerun_device.c */,
+				B05492A00D41C1D300A294BA /* hdhomerun_device.h */,
+				B05492A10D41C1D300A294BA /* hdhomerun_dhcp.c */,
+				B05492A20D41C1D300A294BA /* hdhomerun_dhcp.h */,
+				B05492A30D41C1D300A294BA /* hdhomerun_discover.c */,
+				B05492A40D41C1D300A294BA /* hdhomerun_discover.h */,
+				B05492A50D41C1D300A294BA /* hdhomerun_os.h */,
+				B05492A60D41C1D300A294BA /* hdhomerun_pkt.c */,
+				B05492A70D41C1D300A294BA /* hdhomerun_pkt.h */,
+				B05492A80D41C1D300A294BA /* hdhomerun_video.c */,
+				B05492A90D41C1D300A294BA /* hdhomerun_video.h */,
+				B05492AA0D41C1D300A294BA /* lgpl.txt */,
+				B05492AB0D41C1D300A294BA /* Makefile */,
+				B05492AC0D41C1D300A294BA /* README */,
 			);
 			path = libhdhomerun;
 			sourceTree = "<group>";
 		};
-		B076B7C10C5AA65800174C3B /* Model Classes */ = {
+		B05492E10D41C35700A294BA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B076B7C50C5AA65800174C3B /* Tuner */,
-				B076B7C20C5AA65800174C3B /* Channel */,
+				B05492860D41C14700A294BA /* GBTuner.h */,
+				B05492870D41C14700A294BA /* GBTuner.m */,
+				B05492CD0D41C2A400A294BA /* GBChannel.h */,
+				B05492CB0D41C29D00A294BA /* GBChannel.m */,
 			);
-			name = "Model Classes";
+			name = Model;
 			sourceTree = "<group>";
 		};
-		B076B7C20C5AA65800174C3B /* Channel */ = {
+		B063E79D0D4830F5000C2DED /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				B076B7C30C5AA65800174C3B /* GBChannel.h */,
-				B076B7C40C5AA65800174C3B /* GBChannel.m */,
+				B063E79E0D483117000C2DED /* GBAboutBox.h */,
+				B063E79F0D483117000C2DED /* GBAboutBox.m */,
+				B0EB5ED80D76572600592896 /* GBPreferences.h */,
+				B0EB5ED90D76572600592896 /* GBPreferences.m */,
 			);
-			name = Channel;
+			name = Interface;
 			sourceTree = "<group>";
 		};
-		B076B7C50C5AA65800174C3B /* Tuner */ = {
+		B074DC820D42B1B8002A3529 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B076B7C60C5AA65800174C3B /* GBTuner.h */,
-				B076B7C70C5AA65800174C3B /* GBTuner.m */,
+				B0A94B670D41AE330098614D /* GBViewController.h */,
+				B0A94B680D41AE330098614D /* GBViewController.m */,
+				B054927E0D41BED800A294BA /* GBOutlineViewController.h */,
+				B054927F0D41BED800A294BA /* GBOutlineViewController.m */,
 			);
-			name = Tuner;
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
-		B076B7CC0C5AA66500174C3B /* Controller Classes */ = {
+		B088E0470D42C25E003115E7 /* ChannelControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B076B7CD0C5AA66500174C3B /* GBPreferenceController.h */,
-				B076B7CE0C5AA66500174C3B /* GBPreferenceController.m */,
-				B0F2E1F00C5D32EB00F387BA /* GBArrayController.h */,
-				B0F2E1F10C5D32EB00F387BA /* GBArrayController.m */,
-				B0CD71220C5D43B800B29826 /* GBTableView.h */,
-				B0CD71230C5D43B800B29826 /* GBTableView.m */,
+				B074DC8A0D42B2FE002A3529 /* GBChannelViewController.h */,
+				B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */,
 			);
-			name = "Controller Classes";
+			name = ChannelControllers;
 			sourceTree = "<group>";
 		};
-		B076B7D30C5AA67900174C3B /* Status Icons */ = {
+		B08A6DBD0D5DFF6100468901 /* RoundedFloatingPanel */ = {
 			isa = PBXGroup;
 			children = (
-				B076B7D40C5AA67900174C3B /* idle.tiff */,
-				B076B7D50C5AA67900174C3B /* recording.tiff */,
-				B076B7D60C5AA67900174C3B /* offline.tiff */,
-				B076B7D70C5AA67900174C3B /* playing.tiff */,
+				B08A6DC10D5E001C00468901 /* TransparentWindow.h */,
+				B08A6DC20D5E001C00468901 /* TransparentWindow.m */,
+				B08A6DBE0D5DFF8000468901 /* RoundedView.m */,
+				B08A6DBF0D5DFF8000468901 /* RoundedView.h */,
 			);
-			name = "Status Icons";
+			name = RoundedFloatingPanel;
 			sourceTree = "<group>";
 		};
-		B076B7EF0C5AA67900174C3B /* HUDWindow */ = {
+		B0BFDE390D42695F00A891D4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B076B7F00C5AA67900174C3B /* HUDWindow.h */,
-				B076B7F10C5AA67900174C3B /* HUDWindow.m */,
-				B076B7F20C5AA67900174C3B /* hud_titlebar-close.tiff */,
+				B0A94B580D4197770098614D /* GBController.h */,
+				B0A94B590D4197770098614D /* GBController.m */,
+				B074DC820D42B1B8002A3529 /* ViewControllers */,
+				B088E0470D42C25E003115E7 /* ChannelControllers */,
+				B0BFDF5A0D4293AE00A891D4 /* TunerControllers */,
 			);
-			name = HUDWindow;
+			name = Controllers;
 			sourceTree = "<group>";
 		};
-		B0AF935E0D0400C100E15C0B /* DIController */ = {
+		B0BFDE3B0D426C0A00A891D4 /* DBInterfaceDemo */ = {
 			isa = PBXGroup;
 			children = (
-				B0AF935F0D0400C100E15C0B /* DIController.h */,
-				B0AF93600D0400C100E15C0B /* DIController.m */,
-				B0AF93610D0400C100E15C0B /* NSBezierPath+Additions.h */,
-				B0AF93620D0400C100E15C0B /* NSBezierPath+Additions.m */,
+				B0BFDE520D426C0A00A891D4 /* Icons */,
+				B0BFDE490D426C0A00A891D4 /* Splitters */,
+				B0BFDE460D426C0A00A891D4 /* BottomButtons */,
+				B0BFDE3C0D426C0A00A891D4 /* SourceListTableView */,
 			);
-			path = DIController;
+			name = DBInterfaceDemo;
 			sourceTree = "<group>";
 		};
-		B0FCD7300C9C388D00F9FD0A /* ThreadWorker */ = {
+		B0BFDE3C0D426C0A00A891D4 /* SourceListTableView */ = {
 			isa = PBXGroup;
 			children = (
-				B0FCD7310C9C388D00F9FD0A /* ThreadWorker.h */,
-				B0FCD7320C9C388D00F9FD0A /* ThreadWorker.m */,
+				B0BFDE400D426C0A00A891D4 /* SourceListTableView.h */,
+				B0BFDE410D426C0A00A891D4 /* SourceListTableView.m */,
+				B0BFDE420D426C0A00A891D4 /* SourceListTextCell.h */,
+				B0BFDE430D426C0A00A891D4 /* SourceListTextCell.m */,
+				B0BFDE440D426C0A00A891D4 /* SourceListImageCell.h */,
+				B0BFDE450D426C0A00A891D4 /* SourceListImageCell.m */,
+				B0BFDE3D0D426C0A00A891D4 /* Gradient */,
 			);
-			path = ThreadWorker;
+			name = SourceListTableView;
+			sourceTree = "<group>";
+		};
+		B0BFDE3D0D426C0A00A891D4 /* Gradient */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE3E0D426C0A00A891D4 /* CTGradient.h */,
+				B0BFDE3F0D426C0A00A891D4 /* CTGradient.m */,
+			);
+			name = Gradient;
+			sourceTree = "<group>";
+		};
+		B0BFDE460D426C0A00A891D4 /* BottomButtons */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE470D426C0A00A891D4 /* DBBottomButton.h */,
+				B0BFDE480D426C0A00A891D4 /* DBBottomButton.m */,
+			);
+			name = BottomButtons;
+			sourceTree = "<group>";
+		};
+		B0BFDE490D426C0A00A891D4 /* Splitters */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE4A0D426C0A00A891D4 /* DBSourceSplitView.h */,
+				B0BFDE4B0D426C0A00A891D4 /* DBSourceSplitView.m */,
+				B0BFDE4C0D426C0A00A891D4 /* DBSourceView.h */,
+				B0BFDE4D0D426C0A00A891D4 /* DBSourceView.m */,
+				B0BFDE4E0D426C0A00A891D4 /* DBListSplitView.h */,
+				B0BFDE4F0D426C0A00A891D4 /* DBListSplitView.m */,
+				B0BFDE500D426C0A00A891D4 /* KFSplitView.h */,
+				B0BFDE510D426C0A00A891D4 /* KFSplitView.m */,
+			);
+			name = Splitters;
+			sourceTree = "<group>";
+		};
+		B0BFDE520D426C0A00A891D4 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				B0BFDE530D426C0A00A891D4 /* DBListSplitViewBar.tiff */,
+				B0BFDE540D426C0A00A891D4 /* Add.tiff */,
+				B0BFDE550D426C0A00A891D4 /* Add_Disabled.tiff */,
+				B0BFDE560D426C0A00A891D4 /* Add_Pressed.tiff */,
+				B0BFDE570D426C0A00A891D4 /* Delete.tiff */,
+				B0BFDE580D426C0A00A891D4 /* Delete_Disabled.tiff */,
+				B0BFDE590D426C0A00A891D4 /* Delete_Pressed.tiff */,
+				B0BFDE5A0D426C0A00A891D4 /* DBListSplitViewDimple.tiff */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		B0BFDF5A0D4293AE00A891D4 /* TunerControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B054924E0D41AF9500A294BA /* GBTunerViewController.h */,
+				B054924F0D41AF9500A294BA /* GBTunerViewController.m */,
+				B054926F0D41B91400A294BA /* GBTunerSubViewController.h */,
+				B05492700D41B91400A294BA /* GBTunerSubViewController.m */,
+			);
+			name = TunerControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,7 +480,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				B076B98E0C5AA79E00174C3B /* CopyFiles */,
+				B0B1A41C0D77308000A53E4D /* Copy Framework Files */,
 			);
 			buildRules = (
 			);
@@ -409,7 +498,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "hdhomerunner" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* hdhomerunner */;
 			projectDirPath = "";
@@ -425,22 +514,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B076B9BE0C5AA88100174C3B /* launchVLC.scpt in Resources */,
+				B0BFDE9B0D426FB800A891D4 /* launchVLC.scpt in Resources */,
+				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
-				B076B7F30C5AA67900174C3B /* idle.tiff in Resources */,
-				B076B7F40C5AA67900174C3B /* recording.tiff in Resources */,
-				B076B7F50C5AA67900174C3B /* offline.tiff in Resources */,
-				B076B7F60C5AA67900174C3B /* playing.tiff in Resources */,
-				B076B8040C5AA67900174C3B /* hud_titlebar-close.tiff in Resources */,
-				B076B8070C5AA68B00174C3B /* COPYING.txt in Resources */,
-				B076B80D0C5AA69400174C3B /* PrefWindow.nib in Resources */,
-				B076B8240C5AA70000174C3B /* MainMenu.nib in Resources */,
-				B0545BCF0C820B6F00978980 /* tv.icns in Resources */,
-				B02C33F10C8A556100809D08 /* General Preferences.tiff in Resources */,
-				B02C33FB0C8A568900809D08 /* Users.tiff in Resources */,
-				B02C33FD0C8A56A600809D08 /* reload.tiff in Resources */,
-				B0C3C77B0D03E81500FA05A3 /* hdhomerun_firmware_20071120.bin in Resources */,
-				B064155F0D03FBC1006A47BC /* lgpl.txt in Resources */,
+				B05492670D41B42200A294BA /* TunerView.xib in Resources */,
+				B05492B70D41C1D300A294BA /* lgpl.txt in Resources */,
+				B05492B90D41C1D300A294BA /* README in Resources */,
+				B0BFDE640D426C0A00A891D4 /* DBListSplitViewBar.tiff in Resources */,
+				B0BFDE650D426C0A00A891D4 /* Add.tiff in Resources */,
+				B0BFDE660D426C0A00A891D4 /* Add_Disabled.tiff in Resources */,
+				B0BFDE670D426C0A00A891D4 /* Add_Pressed.tiff in Resources */,
+				B0BFDE680D426C0A00A891D4 /* Delete.tiff in Resources */,
+				B0BFDE690D426C0A00A891D4 /* Delete_Disabled.tiff in Resources */,
+				B0BFDE6A0D426C0A00A891D4 /* Delete_Pressed.tiff in Resources */,
+				B0BFDE6B0D426C0A00A891D4 /* DBListSplitViewDimple.tiff in Resources */,
+				B0BFDE7C0D426D6E00A891D4 /* tv.icns in Resources */,
+				B0BFDEDD0D42773600A891D4 /* TunerSubView.xib in Resources */,
+				B074DC890D42B2E1002A3529 /* ChannelView.xib in Resources */,
+				B08C84520D43D8A900DDEF1C /* default.html in Resources */,
+				B063E78E0D4827E3000C2DED /* AboutBox.xib in Resources */,
+				B03491D00D48479600D4A7BF /* Credits.rtf in Resources */,
+				B0E8334C0D55805F00A879AD /* COPYING.txt in Resources */,
+				B087F34B0D7666D800A08F24 /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,28 +547,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				B076B7C80C5AA65800174C3B /* GBChannel.m in Sources */,
-				B076B7C90C5AA65800174C3B /* GBTuner.m in Sources */,
-				B076B7D10C5AA66500174C3B /* GBPreferenceController.m in Sources */,
-				B076B7D20C5AA66500174C3B /* GBController.m in Sources */,
-				B076B8030C5AA67900174C3B /* HUDWindow.m in Sources */,
-				B0F2E1F30C5D32EB00F387BA /* GBArrayController.m in Sources */,
-				B0CD71250C5D43B800B29826 /* GBTableView.m in Sources */,
-				B0FCD7340C9C388D00F9FD0A /* ThreadWorker.m in Sources */,
-				B0E820830CA35F7800AAEEF6 /* GBApplication.m in Sources */,
-				B06415550D03FBC1006A47BC /* hdhomerun_channels.c in Sources */,
-				B06415560D03FBC1006A47BC /* hdhomerun_channelscan.c in Sources */,
-				B06415570D03FBC1006A47BC /* hdhomerun_config.c in Sources */,
-				B06415580D03FBC1006A47BC /* hdhomerun_control.c in Sources */,
-				B06415590D03FBC1006A47BC /* hdhomerun_debug.c in Sources */,
-				B064155A0D03FBC1006A47BC /* hdhomerun_device.c in Sources */,
-				B064155B0D03FBC1006A47BC /* hdhomerun_dhcp.c in Sources */,
-				B064155C0D03FBC1006A47BC /* hdhomerun_discover.c in Sources */,
-				B064155D0D03FBC1006A47BC /* hdhomerun_pkt.c in Sources */,
-				B064155E0D03FBC1006A47BC /* hdhomerun_video.c in Sources */,
-				B0AF93630D0400C100E15C0B /* DIController.m in Sources */,
-				B0AF93640D0400C100E15C0B /* NSBezierPath+Additions.m in Sources */,
-				B03ED3B80D04069200906DBD /* GBDockIconCenter.m in Sources */,
+				B0A94B5A0D4197770098614D /* GBController.m in Sources */,
+				B0A94B690D41AE330098614D /* GBViewController.m in Sources */,
+				B05492500D41AF9500A294BA /* GBTunerViewController.m in Sources */,
+				B05492710D41B91400A294BA /* GBTunerSubViewController.m in Sources */,
+				B054927B0D41BEA800A294BA /* SubviewTableViewCell.m in Sources */,
+				B05492800D41BED800A294BA /* GBOutlineViewController.m in Sources */,
+				B05492880D41C14700A294BA /* GBTuner.m in Sources */,
+				B05492AD0D41C1D300A294BA /* hdhomerun_channels.c in Sources */,
+				B05492AE0D41C1D300A294BA /* hdhomerun_channelscan.c in Sources */,
+				B05492AF0D41C1D300A294BA /* hdhomerun_config.c in Sources */,
+				B05492B00D41C1D300A294BA /* hdhomerun_control.c in Sources */,
+				B05492B10D41C1D300A294BA /* hdhomerun_debug.c in Sources */,
+				B05492B20D41C1D300A294BA /* hdhomerun_device.c in Sources */,
+				B05492B30D41C1D300A294BA /* hdhomerun_dhcp.c in Sources */,
+				B05492B40D41C1D300A294BA /* hdhomerun_discover.c in Sources */,
+				B05492B50D41C1D300A294BA /* hdhomerun_pkt.c in Sources */,
+				B05492B60D41C1D300A294BA /* hdhomerun_video.c in Sources */,
+				B05492CC0D41C29D00A294BA /* GBChannel.m in Sources */,
+				B0BFDE5B0D426C0A00A891D4 /* CTGradient.m in Sources */,
+				B0BFDE5C0D426C0A00A891D4 /* SourceListTableView.m in Sources */,
+				B0BFDE5D0D426C0A00A891D4 /* SourceListTextCell.m in Sources */,
+				B0BFDE5E0D426C0A00A891D4 /* SourceListImageCell.m in Sources */,
+				B0BFDE5F0D426C0A00A891D4 /* DBBottomButton.m in Sources */,
+				B0BFDE600D426C0A00A891D4 /* DBSourceSplitView.m in Sources */,
+				B0BFDE610D426C0A00A891D4 /* DBSourceView.m in Sources */,
+				B0BFDE620D426C0A00A891D4 /* DBListSplitView.m in Sources */,
+				B0BFDE630D426C0A00A891D4 /* KFSplitView.m in Sources */,
+				B074DC8C0D42B2FE002A3529 /* GBChannelViewController.m in Sources */,
+				B063E7A00D483117000C2DED /* GBAboutBox.m in Sources */,
+				B08A6DC00D5DFF8000468901 /* RoundedView.m in Sources */,
+				B08A6DC30D5E001C00468901 /* TransparentWindow.m in Sources */,
+				B0EB5EDA0D76572600592896 /* GBPreferences.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,10 +593,10 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		B076B8220C5AA70000174C3B /* MainMenu.nib */ = {
+		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B076B8230C5AA70000174C3B /* English */,
+				29B97319FDCFA39411CA2CEA /* English */,
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
@@ -505,15 +610,17 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"\"$(SRCROOT)\"",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = hdhomerunner_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = hdhomerunner;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -523,19 +630,17 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"\"$(SRCROOT)\"",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = hdhomerunner_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = hdhomerunner;
 				WRAPPER_EXTENSION = app;
 			};
@@ -547,17 +652,21 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Release;
 		};

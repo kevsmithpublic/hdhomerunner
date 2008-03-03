@@ -173,6 +173,37 @@ struct hdhomerun_channel_entry_t *hdhomerun_channel_list_next(uint32_t channel_m
 	return NULL;
 }
 
+uint32_t hdhomerun_channel_list_total_count(uint32_t channel_map)
+{
+	uint32_t count = 0;
+
+	struct hdhomerun_channel_entry_t *entry = hdhomerun_channel_list_first(channel_map);
+	while (entry) {
+		count++;
+		entry = hdhomerun_channel_list_next(channel_map, entry);
+	}
+
+	return count;
+}
+
+uint32_t hdhomerun_channel_list_frequency_count(uint32_t channel_map)
+{
+	uint32_t count = 0;
+	uint32_t last_frequency = 0;
+
+	struct hdhomerun_channel_entry_t *entry = hdhomerun_channel_list_first(channel_map);
+	while (entry) {
+		if (entry->frequency != last_frequency) {
+			last_frequency = entry->frequency;
+			count++;
+		}
+
+		entry = hdhomerun_channel_list_next(channel_map, entry);
+	}
+
+	return count;
+}
+
 uint32_t hdhomerun_channel_number_to_frequency(uint32_t channel_map, uint8_t channel_number)
 {
 	struct hdhomerun_channel_entry_t *entry = hdhomerun_channel_list_first(channel_map);

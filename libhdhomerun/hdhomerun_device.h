@@ -89,6 +89,8 @@ extern void hdhomerun_device_destroy(struct hdhomerun_device_t *hd);
  */
 extern uint32_t hdhomerun_device_get_device_id(struct hdhomerun_device_t *hd);
 extern uint32_t hdhomerun_device_get_device_ip(struct hdhomerun_device_t *hd);
+extern uint32_t hdhomerun_device_get_device_id_requested(struct hdhomerun_device_t *hd);
+extern uint32_t hdhomerun_device_get_device_ip_requested(struct hdhomerun_device_t *hd);
 extern unsigned int hdhomerun_device_get_tuner(struct hdhomerun_device_t *hd);
 extern void hdhomerun_device_set_device(struct hdhomerun_device_t *hd, uint32_t device_id, uint32_t device_ip);
 extern void hdhomerun_device_set_tuner(struct hdhomerun_device_t *hd, unsigned int tuner);

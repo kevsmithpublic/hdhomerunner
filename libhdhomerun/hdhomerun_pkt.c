@@ -56,13 +56,13 @@ size_t hdhomerun_read_var_length(uint8_t **pptr, uint8_t *end)
 	size_t length;
 	
 	if (ptr + 1 > end) {
-		return -1;
+		return (size_t)-1;
 	}
 
 	length = (size_t)*ptr++;
 	if (length & 0x0080) {
 		if (ptr + 1 > end) {
-			return -1;
+			return (size_t)-1;
 		}
 
 		length &= 0x007F;

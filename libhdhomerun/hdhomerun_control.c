@@ -129,6 +129,16 @@ uint32_t hdhomerun_control_get_device_ip(struct hdhomerun_control_sock_t *cs)
 	return cs->actual_device_ip;
 }
 
+uint32_t hdhomerun_control_get_device_id_requested(struct hdhomerun_control_sock_t *cs)
+{
+	return cs->desired_device_id;
+}
+
+uint32_t hdhomerun_control_get_device_ip_requested(struct hdhomerun_control_sock_t *cs)
+{
+	return cs->desired_device_ip;
+}
+
 uint32_t hdhomerun_control_get_local_addr(struct hdhomerun_control_sock_t *cs)
 {
 	if (!hdhomerun_control_connect_sock(cs)) {
