@@ -33,6 +33,9 @@
 		B05492CC0D41C29D00A294BA /* GBChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = B05492CB0D41C29D00A294BA /* GBChannel.m */; };
 		B063E78E0D4827E3000C2DED /* AboutBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = B063E78D0D4827E3000C2DED /* AboutBox.xib */; };
 		B063E7A00D483117000C2DED /* GBAboutBox.m in Sources */ = {isa = PBXBuildFile; fileRef = B063E79F0D483117000C2DED /* GBAboutBox.m */; };
+		B07323560D822B62005F848D /* GBRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = B07323550D822B62005F848D /* GBRecording.m */; };
+		B073235F0D8245FC005F848D /* GBRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B073235E0D8245FC005F848D /* GBRecordingViewController.m */; };
+		B07323630D824675005F848D /* RecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B07323620D824675005F848D /* RecordingView.xib */; };
 		B074DC890D42B2E1002A3529 /* ChannelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B074DC880D42B2E1002A3529 /* ChannelView.xib */; };
 		B074DC8C0D42B2FE002A3529 /* GBChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */; };
 		B087F34B0D7666D800A08F24 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087F34A0D7666D800A08F24 /* Preferences.xib */; };
@@ -64,8 +67,8 @@
 		B0BFDE7C0D426D6E00A891D4 /* tv.icns in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE7B0D426D6E00A891D4 /* tv.icns */; };
 		B0BFDE9B0D426FB800A891D4 /* launchVLC.scpt in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE950D426F5000A891D4 /* launchVLC.scpt */; };
 		B0BFDEDD0D42773600A891D4 /* TunerSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */; };
-		B0E8334C0D55805F00A879AD /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0E8334B0D55805F00A879AD /* COPYING.txt */; };
 		B0EB5EDA0D76572600592896 /* GBPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EB5ED90D76572600592896 /* GBPreferences.m */; };
+		B0FAD48D0D83004A0012AA26 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0FAD48C0D83004A0012AA26 /* LICENSE.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -134,6 +137,11 @@
 		B063E78D0D4827E3000C2DED /* AboutBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutBox.xib; sourceTree = "<group>"; };
 		B063E79E0D483117000C2DED /* GBAboutBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAboutBox.h; sourceTree = "<group>"; };
 		B063E79F0D483117000C2DED /* GBAboutBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAboutBox.m; sourceTree = "<group>"; };
+		B07323540D822B62005F848D /* GBRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBRecording.h; sourceTree = "<group>"; };
+		B07323550D822B62005F848D /* GBRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBRecording.m; sourceTree = "<group>"; };
+		B073235D0D8245FC005F848D /* GBRecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBRecordingViewController.h; sourceTree = "<group>"; };
+		B073235E0D8245FC005F848D /* GBRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBRecordingViewController.m; sourceTree = "<group>"; };
+		B07323620D824675005F848D /* RecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordingView.xib; sourceTree = "<group>"; };
 		B074DC880D42B2E1002A3529 /* ChannelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChannelView.xib; sourceTree = "<group>"; };
 		B074DC8A0D42B2FE002A3529 /* GBChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBChannelViewController.h; sourceTree = "<group>"; };
 		B074DC8B0D42B2FE002A3529 /* GBChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBChannelViewController.m; sourceTree = "<group>"; };
@@ -178,9 +186,9 @@
 		B0BFDE7B0D426D6E00A891D4 /* tv.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tv.icns; sourceTree = "<group>"; };
 		B0BFDE950D426F5000A891D4 /* launchVLC.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = launchVLC.scpt; sourceTree = "<group>"; };
 		B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TunerSubView.xib; sourceTree = "<group>"; };
-		B0E8334B0D55805F00A879AD /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
 		B0EB5ED80D76572600592896 /* GBPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPreferences.h; sourceTree = "<group>"; };
 		B0EB5ED90D76572600592896 /* GBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPreferences.m; sourceTree = "<group>"; };
+		B0FAD48C0D83004A0012AA26 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,15 +275,16 @@
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				B05492660D41B42200A294BA /* TunerView.xib */,
 				B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */,
+				B07323620D824675005F848D /* RecordingView.xib */,
 				B074DC880D42B2E1002A3529 /* ChannelView.xib */,
 				B063E78D0D4827E3000C2DED /* AboutBox.xib */,
 				B087F34A0D7666D800A08F24 /* Preferences.xib */,
 				B0BFDE950D426F5000A891D4 /* launchVLC.scpt */,
 				B08C84510D43D8A900DDEF1C /* default.html */,
 				B0BFDE7B0D426D6E00A891D4 /* tv.icns */,
-				B0E8334B0D55805F00A879AD /* COPYING.txt */,
 				B03491CF0D48479600D4A7BF /* Credits.rtf */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				B0FAD48C0D83004A0012AA26 /* LICENSE.txt */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
@@ -328,6 +337,8 @@
 				B05492870D41C14700A294BA /* GBTuner.m */,
 				B05492CD0D41C2A400A294BA /* GBChannel.h */,
 				B05492CB0D41C29D00A294BA /* GBChannel.m */,
+				B07323540D822B62005F848D /* GBRecording.h */,
+				B07323550D822B62005F848D /* GBRecording.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -341,6 +352,15 @@
 				B0EB5ED90D76572600592896 /* GBPreferences.m */,
 			);
 			name = Interface;
+			sourceTree = "<group>";
+		};
+		B073235B0D82438F005F848D /* RecordingControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B073235D0D8245FC005F848D /* GBRecordingViewController.h */,
+				B073235E0D8245FC005F848D /* GBRecordingViewController.m */,
+			);
+			name = RecordingControllers;
 			sourceTree = "<group>";
 		};
 		B074DC820D42B1B8002A3529 /* ViewControllers */ = {
@@ -382,6 +402,7 @@
 				B074DC820D42B1B8002A3529 /* ViewControllers */,
 				B088E0470D42C25E003115E7 /* ChannelControllers */,
 				B0BFDF5A0D4293AE00A891D4 /* TunerControllers */,
+				B073235B0D82438F005F848D /* RecordingControllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -534,8 +555,9 @@
 				B08C84520D43D8A900DDEF1C /* default.html in Resources */,
 				B063E78E0D4827E3000C2DED /* AboutBox.xib in Resources */,
 				B03491D00D48479600D4A7BF /* Credits.rtf in Resources */,
-				B0E8334C0D55805F00A879AD /* COPYING.txt in Resources */,
 				B087F34B0D7666D800A08F24 /* Preferences.xib in Resources */,
+				B07323630D824675005F848D /* RecordingView.xib in Resources */,
+				B0FAD48D0D83004A0012AA26 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +601,8 @@
 				B08A6DC00D5DFF8000468901 /* RoundedView.m in Sources */,
 				B08A6DC30D5E001C00468901 /* TransparentWindow.m in Sources */,
 				B0EB5EDA0D76572600592896 /* GBPreferences.m in Sources */,
+				B07323560D822B62005F848D /* GBRecording.m in Sources */,
+				B073235F0D8245FC005F848D /* GBRecordingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

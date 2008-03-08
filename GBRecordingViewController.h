@@ -19,34 +19,21 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 //
-//  GBViewController.h
+//  GBRecordingViewController.h
 //  hdhomerunner
 //
-//  Created by Gregory Barchard on 1/18/08.
+//  Created by Gregory Barchard on 3/7/08.
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
+#import "GBViewController.h"
+
 #import <Cocoa/Cocoa.h>
 
-// Based on code from SubviewController.h
-// Joar Wingfors joar.com
 
-@interface GBViewController : NSObject {
-		
-		// The view to control
-		IBOutlet		NSView			*_view;
+@interface GBRecordingViewController : GBViewController {
 
 }
-
-// Convenience factory method
-+ (id)controller;
-
-// The view displayed in the table view
-- (NSView *)view;
-
-// Load a new view in place of the old view
-- (void)placeView:(NSView *)newView inView:(NSView *)viewPlaceholder;
 
 @end

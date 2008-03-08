@@ -1,18 +1,25 @@
-//    This file is part of hdhomerunner.
-
-//    hdhomerunner is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 3 of the License, or
-//    (at your option) any later version.
-
-//    hdhomerunner is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-
-//    You should have received a copy of the GNU General Public License
-//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// The MIT License
 //
+// Copyright (c) 2008 Gregory Barchard
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 //
 //  GBTunerViewController.m
 //  hdhomerunner
@@ -157,10 +164,8 @@
 			// Notify we are about to change
 		[self willChangeValueForKey:@"scanmenu"];
 
-		// Update the play menu
-		//[[_scan_menu submenu] autorelease];
-		[_scan_menu setMenu:menu];
-		//_scan_menu = menu;
+		// Update the scan menu
+		[_scan_menu setSubmenu:menu];
 		
 		// Notify everyone of the change
 		[self didChangeValueForKey:@"scanmenu"];
@@ -170,6 +175,72 @@
 #pragma mark -
 #pragma mark  Manage Menu Items
 #pragma mark -
+
+- (void)addScanMenuItem:(NSMenuItem *)menuItem{
+	
+	// The menu to update
+	NSMenu *menu = [[self scanMenu] submenu]; 
+
+	// An array of all the menu items in the menu
+	NSArray *tmp = [menu itemArray];
+
+	// An array of the channels from the menu items
+	NSMutableArray	*array = [NSMutableArray array];
+
+	// An enumerator to loop thru for the channels
+	NSEnumerator *enumerator = [tmp objectEnumerator];
+
+	// An item in the array
+	NSMenuItem *item;
+	
+	// Loop over all the menu items
+	while(item = [enumerator nextObject]){
+		
+		// Add the channels to the array
+		[array addObject:[item representedObject]];
+	}
+
+	// If the channel isn't in the array already
+	if(![array containsObject:[menuItem representedObject]]){
+
+		// Add the menu item to the menu
+		[[[self scanMenu] submenu] addItem:menuItem];
+	}
+
+	// Release the menu item
+	[menuItem release];
+}
+
+- (void)removeScanMenuItem:(NSMenuItem *)menuItem{
+	
+	// The menu to update
+	NSMenu *menu = [[self scanMenu] submenu]; 
+
+	// An array of all the menu items in the menu
+	NSArray *tmp = [menu itemArray];
+
+	// An enumerator to loop thru for the channels
+	NSEnumerator *enumerator = [tmp objectEnumerator];
+
+	// An item in the array
+	NSMenuItem *item;
+
+	// Loop over all the menu items
+	while(item = [enumerator nextObject]){
+		
+		// If the represented object of the item is the same as the one
+		// that we are trying to remove
+		if([[item representedObject] isEqual:[menuItem representedObject]]){
+			
+			// Remove the item from the array
+			[[[self scanMenu] submenu] removeItem:item];
+		}
+	}
+
+	// Release the menu item
+	[menuItem release];
+}
+
 
 - (void)addPlayMenuItem:(NSMenuItem *)menuItem{
 	

@@ -39,6 +39,9 @@
 #import "GBChannelViewController.h"
 #import "GBChannel.h"
 
+#import "GBRecordingViewController.h"
+#import "GBRecording.h"
+
 #import "GBAboutBox.h"
 
 #import "GBPreferences.h"
@@ -95,6 +98,7 @@
 	
 	// The menu to choose the channel scan mode
 					NSMenu					*channelScanMenu;
+	IBOutlet		NSMenuItem				*channelScanMenuItem;
 	
 	// The currently selected tuner
 					GBTuner					*selectedTuner;
@@ -102,6 +106,14 @@
 	// The tuner's menu items
 					NSMenuItem				*tunerPlay;
 					NSMenuItem				*tunerScan;
+					
+	// Recording view controller and recording array
+					GBOutlineViewController	*recordingOutlineViewController;
+					NSMutableArray			*recordingControllers;
+	
+	// The outline view showing the channels
+	IBOutlet		NSOutlineView			*recordingOutlineView;
+	IBOutlet		NSTableColumn			*recordingTableColumn;
 }
 
 // Accessor Methods

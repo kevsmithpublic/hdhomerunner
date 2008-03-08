@@ -50,6 +50,9 @@
 		// Initialize the channels to be empty
 		channelControllers = [[NSMutableArray alloc] init];
 		
+		// Initialize the recordings to be empty
+		recordingControllers = [[NSMutableArray alloc] init];
+		
 		// Mutable dictionary of the toolbar items
 		toolbarItems = [[NSMutableDictionary alloc] initWithCapacity:0];
 		
@@ -162,7 +165,7 @@
 		[_fullscreen release];
 		
 		// Set up the channel scan selection menu
-		channelScanMenu = [[NSMenu alloc] initWithTitle:@"channelscan"];
+		channelScanMenu = [[NSMenu alloc] initWithTitle:@"Scan Channels"];
 		[channelScanMenu setAutoenablesItems:NO];
 	
 		// Initialize the menu item
@@ -239,6 +242,10 @@
     channelOutlineViewController = [[GBOutlineViewController controllerWithViewColumn:channelTableColumn] retain];
     [channelOutlineViewController setDelegate: self];
 	
+	// Create the outlineview controller and set the delegate to self
+    recordingOutlineViewController = [[GBOutlineViewController controllerWithViewColumn:recordingTableColumn] retain];
+    [recordingOutlineViewController setDelegate: self];
+	
 	// Locate all the tuners on the network
 	NSArray *available_tuners = [self discoverTuners];
 	
@@ -268,8 +275,9 @@
 	[window setToolbar:theToolbar];
 
 	// Attach the menu to the second index of the channel's segmented control
-	[channelSegmentedControl setMenu:channelScanMenu forSegment:2];
-																	
+	//[channelSegmentedControl setMenu:channelScanMenu forSegment:2];
+	[channelScanMenuItem setSubmenu:channelScanMenu];
+																																	
 	// Update the segmented controls
 	[self updateWebSegmentControls];
 	[self updateChannelSegmentControls];
@@ -295,6 +303,13 @@
     return channelControllers;
 }
 
+- (NSMutableArray *)recordingControllers{
+    if (recordingControllers == nil){
+        recordingControllers = [[NSMutableArray alloc] init];
+    }
+    
+    return recordingControllers;
+}
 
 #pragma mark -
 #pragma mark  Add/Remove Tuners
@@ -330,6 +345,91 @@
 	}
 }
 
+#pragma mark -
+#pragma mark  Add/Remove Recordings
+#pragma mark -
+
+// Add a channel controller
+- (void)addRecordingController:(GBRecordingViewController *)controller{
+	
+	// Add the controller to channel array
+	[self addViewController:controller toArray:[self recordingControllers]];
+	
+	// Reload the outline view
+	[recordingOutlineViewController reloadTableView];
+	
+	// Update the segmented controls
+	//[self updateChannelSegmentControls];
+}
+
+// Remove a channel controller
+- (void)removeRecordingController:(GBRecordingViewController *)controller{
+	
+	// Remove the controller from the channel array
+	[self removeViewController:controller fromArray:[self recordingControllers]];
+
+	// Reload the outline view
+	[recordingOutlineViewController reloadTableView];
+	
+	// Update the segmented controls
+	//[self updateChannelSegmentControls];
+}
+
+// Construct a new channel controller for the channel and add it to the collection
+- (void)addRecording:(GBRecording *)recording{
+
+	// Make sure the recording is not nil
+	if(recording){
+		
+		// Initialize the controller
+		GBRecordingViewController *controller = [GBRecordingViewController controller];
+		
+		// Set the data object to control
+		[controller setRecording:recording];
+		
+		// Add the recording to the tuner
+		//[[self selectedTuner] addGBChannel:channel];
+		//[self addChannelToPlayMenu:channel];
+		
+		// Add the controller
+		[self addRecordingController:controller];
+		
+		// Update the segmented controls
+		//[self updateChannelSegmentControls];
+	}
+}
+
+// Remove the channel from the array
+- (void)removeRecording:(GBRecording *)recording{
+	
+	// Make sure the channel is not nil
+	if(recording){
+			
+		// Initialize the controller
+		GBRecordingViewController *controller = [GBRecordingViewController controller];
+		
+		// Set the data object to control
+		[controller setRecording:recording];
+	
+		// Remove the recording from the tuner
+		//[[self selectedTuner] removeGBChannel:channel];
+		//[self removeChannelToPlayMenu:channel];
+		
+		// Remove the controller
+		[self removeRecordingController:controller];
+	}
+}
+
+// Return the selected channel in the table. Nil if it doesn't exist
+- (GBRecording *)selectedRecording{
+
+	return ([recordingOutlineView selectedRow] > -1 ? [[recordingOutlineView itemAtRow:[recordingOutlineView selectedRow]] recording] : nil);
+}
+
+#pragma mark -
+#pragma mark  Add/Remove Tuners
+#pragma mark -
+
 // Add a tuner controller
 - (void)addTunerController:(GBTunerViewController *)controller{
 	
@@ -361,6 +461,9 @@
 		
 		// Set the data object to control
 		[controller setTuner:tuner];
+		
+		// Set the scanning menu
+		[controller setScanMenu:[channelScanMenu copy]];
 		
 		// Add the controller
 		[self addTunerController:controller];
@@ -1312,7 +1415,7 @@
 - (void)updateChannelScanMode:(id)sender{
 
 	// The array of menu items
-	NSArray *array = [channelScanMenu itemArray];
+	NSArray *array = [[sender menu] itemArray];
 	
 	// The enumerator
 	NSEnumerator	*enumerator = [array objectEnumerator];
