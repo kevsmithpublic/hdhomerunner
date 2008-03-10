@@ -29,14 +29,80 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "GBTuner.h";
+#import "GBChannel.h";
+
 
 @interface GBRecording : NSObject {
 
 			// The file's path
 			NSString				*path;
 			
+			// The file name to use
+			NSString				*filename;
+			
 			// The file to write to
 			NSFileWrapper			*fileWrapper;
+			
+			// The tuner to record from
+			GBTuner					*tuner;
+			
+			// The channel to record
+			GBChannel				*channel;
+			
+			// The timers
+			NSTimer					*start_timer;
+			NSTimer					*stop_timer;
+			NSTimer					*recording_timer;
+			
+			// BOOL indicating whether the recording is scheduled or not
+			BOOL					enabled;
 }
 
+// Append data to the file
+- (void)appendDataToFile:(NSData *)someData;
+
+// Set the tuner to the new tuner
+- (void)setTuner:(GBTuner *)aTuner;
+
+// Return the tuner
+- (GBTuner *)tuner;
+
+// Set the tuner to the new tuner
+- (void)setChannel:(GBChannel *)aChannel;
+
+// Return the channel
+- (GBChannel *)channel;
+
+// Return the path
+- (NSString *)path;
+- (void)setPath:(NSString *)newPath;
+
+// Return the file name
+- (NSString *)filename;
+- (void)setFilename:(NSString *)newFilename;
+
+// Record the time to start recording
+- (NSDate *)startDate;
+
+// Set the start time
+- (void)setStartDate:(NSDate *)aDate;
+
+// Record the time to stop recording
+- (NSDate *)stopDate;
+
+// Set the stop time
+- (void)setStopDate:(NSDate *)aDate;
+
+// Record the time to start recording
+- (NSDate *)startDate;
+
+// Start the recording when this timer fires
+- (void)startRecording:(NSTimer*)theTimer;
+
+// Stop the recording when this timer fires
+- (void)stopRecording:(NSTimer*)theTimer;
+
+// Record when this timer fires
+- (void)recording:(NSTimer*)theTimer;
 @end

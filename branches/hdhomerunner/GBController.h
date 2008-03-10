@@ -119,6 +119,7 @@
 // Accessor Methods
 - (NSMutableArray *)tunerControllers;
 - (NSMutableArray *)channelControllers;
+- (NSMutableArray *)recordingControllers;
 
 // Add a controller to the array
 - (void)addViewController:(GBViewController *)controller toArray:(NSMutableArray *)array;
@@ -200,7 +201,7 @@
 - (IBAction)refresh:(id)sender;
 - (IBAction)modifyChannels:(id)sender;
 - (void)updateChannelSegmentControls;
-- (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+- (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(id)contextInfo;
 - (IBAction)showAboutBox:(id)sender;
 
 // A menuitem for a channel
@@ -229,4 +230,30 @@
 
 // Unregister as an observer of a channel
 - (void)unRegisterAsObserverForChannel:(GBChannel *)aChannel;
+
+// Recording support
+
+// Add a recording controller
+- (void)addRecordingController:(GBRecordingViewController *)controller;
+
+// Remove a recording controller
+- (void)removeRecordingController:(GBRecordingViewController *)controller;
+
+// Construct a new recording controller for the recording and add it to the collection
+- (void)addRecording:(GBRecording *)recording;
+
+// Remove the recording from the array
+- (void)removeRecording:(GBRecording *)recording;
+
+// Return the selected recording in the table. Nil if it doesn't exist
+- (GBRecording *)selectedRecording;
+
+// Set the recordings to the given array
+- (void)setRecordings:(NSArray *)recordings;
+
+// Return the recording at the specified index
+- (GBRecording *)recordingAtIndex:(NSUInteger)index;
+
+// Modify the recordings
+- (IBAction)modifyRecordings:(id)sender;
 @end

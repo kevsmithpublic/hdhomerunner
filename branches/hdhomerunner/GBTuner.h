@@ -30,7 +30,12 @@
 #import <Cocoa/Cocoa.h>
 
 #import "hdhomerun.h"
+
 #import "GBChannel.h"
+//#import "GBRecording.h"
+
+//@class GBChannel;
+@class GBRecording;
 
 // Declare classes
 @class DSGeneralOutlineView;
@@ -38,7 +43,11 @@
 @interface GBTuner : NSObject <NSCoding, NSCopying> {
 		NSMutableDictionary			*properties;		// The key value coded properties of the tuner
 		
+		// An array of channels associated with the tuner
 		NSMutableArray				*channels;
+		
+		// An array of recordings associated with the tuner
+		NSMutableArray				*recordings;
 				
 		struct hdhomerun_device_t	*hdhr;
 		BOOL						cancel_thread;
@@ -121,6 +130,10 @@
 - (NSArray *)channels;
 - (void)setChannels:(NSArray *)newChannels;
 
+// Get the recordings
+- (NSArray *)recordings;
+- (void)setRecordings:(NSArray *)newRecordings;
+
 - (NSComparisonResult)compare:(GBTuner *)aTuner;
 - (BOOL)isEqual:(GBTuner *)aTuner;
 
@@ -145,6 +158,10 @@ int channelscanCallback(va_list ap, const char *type, const char *str);
 - (BOOL)isScanningChannels;
 - (void)setIsScanningChannels:(BOOL)flag;
 - (void)setScanningChannels:(NSNumber *)flag;
+
+// Recording support
+- (void)addGBRecording:(GBRecording *)aRecording;
+- (void)removeGBRecording:(GBRecording *)aRecording;
 
 // Channel playing and recording
 - (void)play;
