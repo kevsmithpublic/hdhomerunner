@@ -349,7 +349,7 @@
 #pragma mark  Add/Remove Recordings
 #pragma mark -
 
-// Add a channel controller
+// Add a recording controller
 - (void)addRecordingController:(GBRecordingViewController *)controller{
 	
 	// Add the controller to channel array
@@ -362,7 +362,7 @@
 	//[self updateChannelSegmentControls];
 }
 
-// Remove a channel controller
+// Remove a recording controller
 - (void)removeRecordingController:(GBRecordingViewController *)controller{
 	
 	// Remove the controller from the channel array
@@ -375,7 +375,7 @@
 	//[self updateChannelSegmentControls];
 }
 
-// Construct a new channel controller for the channel and add it to the collection
+// Construct a new recording controller for the recording and add it to the collection
 - (void)addRecording:(GBRecording *)recording{
 
 	// Make sure the recording is not nil
@@ -399,7 +399,7 @@
 	}
 }
 
-// Remove the channel from the array
+// Remove the recording from the array
 - (void)removeRecording:(GBRecording *)recording{
 	
 	// Make sure the channel is not nil
@@ -420,10 +420,52 @@
 	}
 }
 
-// Return the selected channel in the table. Nil if it doesn't exist
+// Return the selected recording in the table. Nil if it doesn't exist
 - (GBRecording *)selectedRecording{
 
 	return ([recordingOutlineView selectedRow] > -1 ? [[recordingOutlineView itemAtRow:[recordingOutlineView selectedRow]] recording] : nil);
+}
+
+- (void)setRecordings:(NSArray *)recordings{
+	
+	// Remove all existing channels
+	[[self recordingControllers] removeAllObjects];
+	
+	// The enumerator to loop over
+	NSEnumerator	*enumerator = [recordings objectEnumerator];
+	
+	// An item in the enumerator
+	GBRecording	*recording;
+	
+	// Loop over all the channels
+	while (recording = [enumerator nextObject]){
+		
+		// Add each channel to the array
+		[self addRecording:recording];
+	}
+	
+	// We MUST reload the table view FIRST then update the controls
+	// Else the selectedChannel will think the wrong item is selected.
+	
+	// Reload the outline view
+	[recordingOutlineViewController reloadTableView];
+	
+	// Update the segmented controls
+	//[self updateChannelSegmentControls];
+}
+
+// Return the recording at the specified index
+- (GBRecording *)recordingAtIndex:(NSUInteger)index{
+	
+	// If the index is less than 0 or greater than or equal to the count
+	if((index < 0) || (index >= [[self recordingControllers] count])){
+	
+		// Then set the index to 0 since the index was out of bounds
+		index = 0;
+	}
+	
+	// Return the object at the index
+	return (GBRecording *)[[[self recordingControllers] objectAtIndex:index] recording];
 }
 
 #pragma mark -
@@ -607,6 +649,7 @@
 	return (GBChannel *)[[[self channelControllers] objectAtIndex:index] channel];
 }
 
+// Set the channels to the given array
 - (void)setChannels:(NSArray *)channels{
 	
 	// Remove all existing channels
@@ -950,6 +993,9 @@
 		
 		// Set the channel controllers from the tuner's channels
 		[self setChannels:[[self selectedTuner] channels]];
+		
+		// Set the recordings
+		[self setRecordings:[[self selectedTuner] recordings]];
 	} else if(outlineview == channelOutlineView){
 		
 		// Load the channel's URL
@@ -1028,8 +1074,8 @@
 // Specify whether the user should be able to select a particular item
 - (BOOL)outlineView:(NSOutlineView *)outlineview shouldSelectItem:(id)item{
 	
-	// Only allow tuner and channel views to be selected. Subviews should not be selectable
-	return ([item isKindOfClass:[GBTunerViewController class]] || [item isKindOfClass:[GBChannelViewController class]]);
+	// Only allow main level views to be selected. Subviews should not be selectable
+	return ([item isKindOfClass:[GBTunerViewController class]] || [item isKindOfClass:[GBChannelViewController class]] || [item isKindOfClass:[GBRecordingViewController class]]);
 }
 
 // Return the child of the item at the index
@@ -1058,6 +1104,14 @@
 			
 			// Return the View Controller at the specified index
 			result = [[self channelControllers] objectAtIndex:index];
+		}
+	} else if(outlineview == recordingOutlineView){
+		
+		// If the item is nil 
+		if(![item isKindOfClass:[GBRecordingViewController class]]){
+			
+			// Return the View Controller at the specified index
+			result = [[self recordingControllers] objectAtIndex:index];
 		}
 	}
 	
@@ -1107,6 +1161,14 @@
 		
 			// The number of channels
 			result = [[self channelControllers] count];
+		}
+	} else if(outlineview == recordingOutlineView){
+	
+		// If the item is nil then return the number of recordings
+		if(item == nil){
+		
+			// The number of recordings
+			result = [[self recordingControllers] count];
 		}
 	}
 	
@@ -1467,7 +1529,7 @@
 			NSBeginAlertSheet(@"Delete the selected channel?", @"OK", @"Cancel",
 				nil, [NSApp mainWindow], self, NULL,
 				@selector(endAlertSheet:returnCode:contextInfo:),
-				NULL,
+				aChannel, //NULL,
 				[NSString stringWithString:@"Are you sure you want to delete the selected Channels? This action CAN NOT be undone."]);
 		}	
 	} else if(clickedSegmentTag == 2){
@@ -1531,29 +1593,118 @@
 	[self updateChannelSegmentControls];
 }
 
-// Confirm that the deletion should take place
-- (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo{
+- (IBAction)modifyRecordings:(id)sender{
 	
+	// The portion of the segmented control that is selected
+	NSUInteger selectedSegment = [sender selectedSegment];
+    NSUInteger clickedSegmentTag = [[sender cell] tagForSegment:selectedSegment];
+
+	// Tell the tuner what to do
+	if(clickedSegmentTag == 0){
+	
+		// If add button was selected then add a recording
+		
+		// Only add a channel if the tuner is not null
+		if([self selectedTuner] != nil){
+		
+			// Create a new recording
+			GBRecording *newRecording = [[GBRecording alloc] initWithPath:[@"~/Movies/hdhomerunner" stringByResolvingSymlinksInPath]]; //[[[[NSUserDefaults standardUserDefaults] stringForKey:@"picturesFolderPath"] stringByResolvingSymlinksInPath] retain];];
+			
+			// Assign it to the currently selected tuner
+			[newRecording setTuner:[self selectedTuner]];
+			
+			// If a channel is selected assign it to the recording
+			if([self selectedChannel]){
+				
+				// Assign it
+				[newRecording setChannel:[self selectedChannel]];
+			} else {
+			
+				// Else create a generic channel
+				[newRecording setChannel:[[GBChannel alloc] initWithChannelNumber:[NSNumber numberWithInt:0] program:[NSNumber numberWithInt:0] andDescription:@"Untitled"]];
+			}
+			
+			// Add the channel to the tuner
+			[[self selectedTuner] addGBRecording:newRecording];
+		}
+	} else if(clickedSegmentTag == 1){
+		
+		// If the remove channel was selected
+		// Set the currently selected recording to aRecording
+		GBRecording *aRecording = [self selectedRecording];
+
+		// Only run the alert if the channel isn't null
+		if(aRecording != nil){
+			
+			// Run the alert sheet notifying the user
+			NSBeginAlertSheet(@"Delete the selected recording?", @"OK", @"Cancel",
+				nil, [NSApp mainWindow], self, NULL,
+				@selector(endAlertSheet:returnCode:contextInfo:),
+				aRecording, //NULL,
+				[NSString stringWithString:@"Are you sure you want to delete the selected Recording? This action CAN NOT be undone."]);
+		}	
+	} else if(clickedSegmentTag == 2){
+	
+		// If the Get Info button was selected
+		
+		// If the selected recording is not nil
+		if([self selectedRecording]){
+			
+			// Tell the selected recording controller to show it's info panel
+			[[recordingOutlineView itemAtRow:[recordingOutlineView selectedRow]] showInfo];
+		}
+	}
+	
+	// Update the controls
+	//[self updateRecordingSegmentControls];
+}
+
+// Confirm that the deletion should take place
+- (void)endAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(id)contextInfo{
+
 	// If the user agreed to reset the preferences
 	if (returnCode == NSAlertDefaultReturn) {
-		//NSLog(@"Clicked OK");
-		
-		// Get all the selected rows
-		NSIndexSet *selectedRows = [channelOutlineView selectedRowIndexes];
-		NSUInteger index = [selectedRows lastIndex];
-		
-		// While there is still an index to remove
-        while (index != NSNotFound){
 
-			// Get the channel at the index
-            GBChannel *aChannel = [self channelAtIndex:index];
+		// If the context info is of class GBChannel
+		if([contextInfo isKindOfClass:[GBChannel class]]){
 			
-			// Have the tuner remove the channel
-			[[self selectedTuner] removeGBChannel:aChannel];
+			// Get all the selected rows
+			NSIndexSet *selectedRows = [channelOutlineView selectedRowIndexes];
+			NSUInteger index = [selectedRows lastIndex];
 			
-			// Update the index
-            index = [selectedRows indexLessThanIndex: index];
-        }
+			// While there is still an index to remove
+			while (index != NSNotFound){
+
+				// Get the channel at the index
+				GBChannel *aChannel = [self channelAtIndex:index];
+				
+				// Have the tuner remove the channel
+				[[self selectedTuner] removeGBChannel:aChannel];
+				
+				// Update the index
+				index = [selectedRows indexLessThanIndex: index];
+			}
+		} else if([contextInfo isKindOfClass:[GBRecording class]]){
+			
+			// Else if contextInfo is of class GBRecording
+			
+			// Get all the selected rows
+			NSIndexSet *selectedRows = [recordingOutlineView selectedRowIndexes];
+			NSUInteger index = [selectedRows lastIndex];
+			
+			// While there is still an index to remove
+			while (index != NSNotFound){
+
+				// Get the channel at the index
+				GBRecording *aRecording = [self recordingAtIndex:index];
+				
+				// Have the tuner remove the channel
+				[[self selectedTuner] removeGBRecording:aRecording];
+				
+				// Update the index
+				index = [selectedRows indexLessThanIndex: index];
+			}
+		}
 	} else if (returnCode == NSAlertAlternateReturn) {
 	
 		// Don't do anything. The user cancelled the action
@@ -1620,6 +1771,11 @@
 			context:NULL];
 			
 	[aTuner addObserver:self
+			forKeyPath:@"recordings"
+			options:(NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld)
+			context:NULL];
+			
+	[aTuner addObserver:self
 			forKeyPath:@"isScanningChannels"
 			options:(NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld)
 			context:NULL];
@@ -1628,6 +1784,7 @@
 - (void)unRegisterAsObserverForTuner:(GBTuner *)aTuner{
 
     [aTuner removeObserver:self forKeyPath:@"channels"];
+	[aTuner removeObserver:self forKeyPath:@"recordings"];
 	[aTuner removeObserver:self forKeyPath:@"isScanningChannels"];
 }
 
@@ -1687,6 +1844,44 @@
 			}
 		}
 		
+	} else if([keyPath isEqual:@"recordings"]) {
+		
+		// Else if the key path is recordings then sync up the current set
+		// of recordings
+		
+		// The current set of recordings to sync to
+		NSArray *recordingArray = [[self selectedTuner] recordings];
+		
+		// A copy of the channels in the list
+		NSArray *recordingViewArray = [[self recordingControllers] copy];
+		
+		// The enumerator to loop over
+		NSEnumerator *enumerator = [recordingArray objectEnumerator];
+		
+		// A recording in the enumerator
+		GBRecording *recording;
+		
+		// Loop over all the recordings first
+		while(recording = [enumerator nextObject]){
+		
+			// Add any recordings that might happen to not be in our list
+			[self addRecording:recording];
+		}
+		
+		// Reassign the enumerator
+		enumerator = [recordingViewArray objectEnumerator];
+		
+		// Loop over all the recordings in our list
+		while(recording = [[enumerator nextObject] recording]){
+		
+			// If the same recording doesn't appear in the recordings
+			// we are syncing to
+			if(![recordingArray containsObject:recording]){
+				
+				// Then remove the recording from our list
+				[self removeRecording:recording];
+			}
+		}
 	} else if ([keyPath isEqual:@"isScanningChannels"]) {
 	
 		// Update the controls
@@ -1705,6 +1900,9 @@
 
 	[channelOutlineViewController release];
 	[channelControllers release];
+	
+	[recordingOutlineViewController release];
+	[recordingControllers release];
 	
 	[vlc release];
 	[importhdhrcontrol release];

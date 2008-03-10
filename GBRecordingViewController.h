@@ -31,9 +31,67 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "GBRecording.h"
+
 
 @interface GBRecordingViewController : GBViewController {
 
+		// Interface elements
+		
+		// Main window elements
+		IBOutlet			NSTextField			*_name;
+		IBOutlet			NSTextField			*_path;
+		
+		// The date picker
+		IBOutlet			NSWindow			*_date_window;
+		IBOutlet			NSDatePicker		*_date_picker;
+		IBOutlet			NSTextField			*_date_holder;
+		
+		// The inspector (info) window
+		IBOutlet			NSWindow			*_info_window;
+		
+		// The text fields stored in a form
+		IBOutlet			NSTextField			*_info_name;
+		IBOutlet			NSTextField			*_info_channel;
+		IBOutlet			NSTextField			*_info_start_date;
+		IBOutlet			NSTextField			*_info_stop_date;
+		
+		// The check box
+		IBOutlet			NSButton			*_info_check_box;
+		
+		// The configuration buttons
+		IBOutlet			NSButton			*_start_date;
+		IBOutlet			NSButton			*_stop_date;
+		
+		IBOutlet			NSButton			*_channels;
+		
+		// The recording displayed in the view
+							GBRecording			*recording;
 }
+
+// Interface actions
+
+// Show the info sheet
+- (void)showInfo;
+
+// Show the date picker
+- (IBAction)showDatePicker:(id)sender;
+
+// Validate the date picker
+- (IBAction)validate:(id)sender;
+
+// Accessor Methods
+- (void)setRecording:(GBRecording *)aRecording;
+- (GBRecording *)recording;
+
+// Binding methods
+- (void)registerAsObserverForRecording:(GBRecording *)aRecording;
+- (void)unRegisterAsObserverForRecording:(GBRecording *)aRecording;
+
+// Comparison methods
+- (BOOL)isEqual:(GBRecordingViewController *)controller;
+
+// Modify the start or end date when the sheet closes
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(id)contextInfo;
 
 @end

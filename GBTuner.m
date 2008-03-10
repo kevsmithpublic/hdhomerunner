@@ -46,6 +46,9 @@
 		// The channels the receiver can use
 		channels = [[NSMutableArray alloc] initWithCapacity:0];
 		
+		// The recordings associated with the tuner
+		recordings = [[NSMutableArray alloc] initWithCapacity:0];
+		
 		//NSImage *icon = [NSImage imageNamed:@"Network Utility"];
 		//[self setIcon:icon];
 				
@@ -750,14 +753,34 @@
 	if(newChannels && ![channels isEqualToArray:newChannels]){
 		// Notify we are about to change
 		[self willChangeValueForKey:@"channels"];
-		//[self willChangeValueForKey:@"channels" withSetMutation:NSKeyValueSetSetMutation usingObjects:[NSSet setWithArray:channels]];
 		
 		// Make the changes
 		[channels setArray:newChannels];
 		
 		// Notify everyone of the change
 		[self didChangeValueForKey:@"channels"];
-		//[self didChangeValueForKey:@"channels" withSetMutation:NSKeyValueSetSetMutation usingObjects:[NSSet setWithArray:channels]];
+	}
+}
+
+// Get the recordings
+- (NSArray *)recordings{
+	return recordings;
+}
+
+// Set the channels
+- (void)setRecordings:(NSArray *)newRecordings{
+	
+	// If new array is not null of the same as the existing array
+	if(newRecordings && ![recordings isEqualToArray:newRecordings]){
+		
+		// Notify we are about to change
+		[self willChangeValueForKey:@"recordings"];
+				
+		// Make the changes
+		[recordings setArray:newRecordings];
+		
+		// Notify everyone of the change
+		[self didChangeValueForKey:@"recordings"];
 	}
 }
 
@@ -977,6 +1000,42 @@
 		// Else call the super's setNilValueForKey
 		[super setNilValueForKey:key];
 	}
+}
+
+#pragma mark -
+#pragma mark  Recording Support
+#pragma mark -
+
+// Add a recording to the collection
+- (void)addGBRecording:(GBRecording *)aRecording{
+	
+	// If the channel isn't already in the collection
+	if(![[self recordings] containsObject:aRecording]){
+		
+		// Then add it
+		
+		// Notify we are about to change
+		[self willChangeValueForKey:@"recordings"];
+
+		// Make the changes
+		[recordings addObject:aRecording];
+		
+		// Notify everyone of the change
+		[self didChangeValueForKey:@"recordings"];
+	}
+}
+
+// Remove a recording from the collection
+- (void)removeGBRecording:(GBRecording *)aRecording{
+		
+	// Notify we are about to change
+	[self willChangeValueForKey:@"recordings"];
+		
+	// Make the changes
+	[recordings removeObject:aRecording];
+		
+	// Notify everyone of the change
+	[self didChangeValueForKey:@"recordings"];
 }
 
 #pragma mark -
