@@ -477,7 +477,7 @@
 			// Apply the changes to the device (hdhomerun_device.h) 
 			// If the changes were received by the hdhr (response greater than 0),
 			if(hdhomerun_device_set_tuner_channel([self hdhr], [[newChannel stringValue] UTF8String]) > 0){
-			
+				
 				// Update the properties to reflect the change and remain key value coding compliant
 				[self willChangeValueForKey:@"channel"];
 				[properties setObject:newChannel forKey:@"channel"];

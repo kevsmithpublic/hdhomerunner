@@ -55,8 +55,14 @@
 			NSTimer					*stop_timer;
 			NSTimer					*recording_timer;
 			
+			// The progress of the recording
+			NSNumber				*progress;
+			
 			// BOOL indicating whether the recording is scheduled or not
 			BOOL					enabled;
+			
+			// BOOL indicating whether the recording repeats
+			BOOL					repeats;
 }
 
 // Append data to the file
@@ -67,6 +73,12 @@
 
 // Return the tuner
 - (GBTuner *)tuner;
+
+// Get the recording's progress
+- (NSNumber *)progress;
+
+// Set the progress of the recording's completion
+- (void)setProgress:(NSNumber *)newProgress;
 
 // Set the tuner to the new tuner
 - (void)setChannel:(GBChannel *)aChannel;
@@ -105,4 +117,25 @@
 
 // Record when this timer fires
 - (void)recording:(NSTimer*)theTimer;
+
+// Return whether the reciever repeats
+- (BOOL)repeats;
+
+// Set if the receiver should repeat
+- (void)setRepeats:(BOOL)state;
+
+// Return the time interval for repeating
+- (NSTimeInterval)repeatInterval;
+
+// Set the time interval for repeating
+- (void)setRepeatInterval:(NSTimeInterval)interval;
+
+// Set the recording to repeat with the time interval
+- (void)repeatWithTimeInterval:(NSTimeInterval)interval;
+
+// Return whether the receiver is scheduled
+- (BOOL)enabled;
+
+// Set whether the recording should be scheduled or not
+- (void)setEnabled:(BOOL)state;
 @end

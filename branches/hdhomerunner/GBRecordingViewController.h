@@ -50,6 +50,9 @@
 		// The inspector (info) window
 		IBOutlet			NSWindow			*_info_window;
 		
+		// The status image view
+		IBOutlet			NSImageView			*_status_image_view;
+		
 		// The text fields stored in a form
 		IBOutlet			NSTextField			*_info_name;
 		IBOutlet			NSTextField			*_info_channel;
@@ -58,6 +61,12 @@
 		
 		// The check box
 		IBOutlet			NSButton			*_info_check_box;
+		
+		// The menu items indicating the repeatability of a recording
+		IBOutlet			NSPopUpButton		*_repeat;
+		IBOutlet			NSMenuItem			*_none;
+		IBOutlet			NSMenuItem			*_daily;
+		IBOutlet			NSMenuItem			*_weekly;
 		
 		// The configuration buttons
 		IBOutlet			NSButton			*_start_date;
@@ -79,6 +88,9 @@
 
 // Validate the date picker
 - (IBAction)validate:(id)sender;
+
+// Update the selected menu option for repeated recording
+- (IBAction)updateRepeatRecordingMode:(id)sender;
 
 // Accessor Methods
 - (void)setRecording:(GBRecording *)aRecording;

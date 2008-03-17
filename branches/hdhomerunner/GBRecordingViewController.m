@@ -29,6 +29,9 @@
 
 #import "GBRecordingViewController.h"
 
+#define	REPEAT_NONE		0.0f
+#define	REPEAT_DAILY	86400.0f
+#define	REPEAT_WEEKLY	604800.0f
 
 @implementation GBRecordingViewController
 // Initialize
@@ -57,6 +60,31 @@
 	// Bind the text field to the date picker's date
 	[_date_holder bind:@"value" toObject:_date_picker withKeyPath:@"dateValue" options:nil];
 	
+	// Set the repeatability menu items to represent a NSNumber
+	// The NSNumber indicates (in seconds) how often the recording should repeat
+	[_none setRepresentedObject:[NSNumber numberWithDouble:REPEAT_NONE]];
+	[_daily setRepresentedObject:[NSNumber numberWithDouble:REPEAT_DAILY]];
+	[_weekly setRepresentedObject:[NSNumber numberWithDouble:REPEAT_WEEKLY]];
+	
+	// Set the selected menu item to match the time interval of the recording
+	
+	// If the recording is going to repeat
+	if([[self recording] repeatInterval] == REPEAT_DAILY){
+		
+		// Set the menu item to be selected
+		[_repeat selectItem:_daily];
+	} else if([[self recording] repeatInterval] == REPEAT_WEEKLY){
+		
+		// Set the menu item to be selected
+		[_repeat selectItem:_weekly];
+	} else {
+		
+		// Default to no repeating
+		
+		// Set the menu item to be selected
+		[_repeat selectItem:_none];
+	}
+	
 	// Let the button images adjust any image in it automatically
 	/*[[_start_date image] setScalesWhenResized:YES];
 	[[_stop_date image] setScalesWhenResized:YES];
@@ -65,6 +93,13 @@
 	[[_start_date image] setSize:NSMakeSize(18.0f, 18.0f)];
 	[[_stop_date image] setSize:NSMakeSize(18.0f, 18.0f)];
 	[[_channels image] setSize:NSMakeSize(18.0f, 18.0f)];*/
+	
+	// Let the image view adjust any image in it automatically
+	[_status_image_view setImageScaling:NSScaleProportionally];
+	
+	// Set the min and max values of the dock icon indicator
+	//[_progress_indicator setMinValue:0.0];
+	//[_progress_indicator setMaxValue:100.0];
 }
 
 #pragma mark -
@@ -183,6 +218,38 @@
 }
 
 #pragma mark -
+#pragma mark  Interface Actions
+#pragma mark -
+
+// Update the selected menu option for repeated recording
+- (IBAction)updateRepeatRecordingMode:(id)sender{
+
+	// The array of menu items
+	NSArray *array = [[sender menu] itemArray];
+	
+	// The enumerator
+	NSEnumerator	*enumerator = [array objectEnumerator];
+	
+	// The item in the array
+	NSMenuItem		*item;
+	
+	// Loop over the objects
+	while(item = [enumerator nextObject]){
+	
+		// Set the status as off
+		[item setState:NSOffState];
+	}
+	
+	// Set the sender to the one state
+	[sender setState:NSOnState];
+	
+	//NSLog(@"time interval = %f", [[sender representedObject] doubleValue]);
+	
+	// Set the recording to the new time interval
+	[[self recording] repeatWithTimeInterval:[[sender representedObject] doubleValue]];
+}
+
+#pragma mark -
 #pragma mark  Binding Methods
 #pragma mark -
 
@@ -211,12 +278,18 @@
 			forKeyPath:@"stopDate"
 			options:(NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld)
 			context:NULL];
+			
+	[aRecording addObserver:self
+			forKeyPath:@"progress"
+			options:(NSKeyValueObservingOptionNew |NSKeyValueObservingOptionOld)
+			context:NULL];
 }
 
 - (void)unRegisterAsObserverForRecording:(GBRecording *)aRecording{
 
     [aRecording removeObserver:self forKeyPath:@"startDate"];
 	[aRecording removeObserver:self forKeyPath:@"stopDate"];
+	[aRecording removeObserver:self forKeyPath:@"progress"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -235,6 +308,27 @@
 		
 		// Update the text field
 		[_info_stop_date setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];
+	} /*else if([keyPath isEqual:@"stopDate"]) {
+
+		// If the recording is happening
+		_status_image_view 
+		
+		// Update the text field
+		[_info_stop_date setObjectValue:[change objectForKey:NSKeyValueChangeNewKey]];
+	} */else if([keyPath isEqual:@"progress"]) {
+		NSLog(@"progress = %@", [change objectForKey:NSKeyValueChangeNewKey]);
+		// If the recording is happening set the indicator's value
+		//[_progress_indicator setDoubleValue:[[change objectForKey:NSKeyValueChangeNewKey] doubleValue]];
+		
+		// Show the progress indicator
+		//[_progress_indicator setHidden:NO];
+		
+		// If the progress reaches 100% (finished)
+		if([[change objectForKey:NSKeyValueChangeNewKey] intValue] == 100){
+		
+			// Hide the progress indicator
+			//[_progress_indicator setHidden:YES];
+		}
 	}
 }
 
