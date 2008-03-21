@@ -69,6 +69,10 @@
 		B0BFDEDD0D42773600A891D4 /* TunerSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */; };
 		B0DAA5070D8C6F3E00B3525F /* GBDockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAA5060D8C6F3E00B3525F /* GBDockIcon.m */; };
 		B0EB5EDA0D76572600592896 /* GBPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EB5ED90D76572600592896 /* GBPreferences.m */; };
+		B0EF45180D9368AC00F272D5 /* DMPreviousTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EF45140D9368AC00F272D5 /* DMPreviousTemplate.pdf */; };
+		B0EF45190D9368AC00F272D5 /* DMPlayTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EF45150D9368AC00F272D5 /* DMPlayTemplate.pdf */; };
+		B0EF451A0D9368AC00F272D5 /* DMNextTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EF45160D9368AC00F272D5 /* DMNextTemplate.pdf */; };
+		B0EF451B0D9368AC00F272D5 /* DMRecordTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EF45170D9368AC00F272D5 /* DMRecordTemplate.pdf */; };
 		B0FAD48D0D83004A0012AA26 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0FAD48C0D83004A0012AA26 /* LICENSE.txt */; };
 /* End PBXBuildFile section */
 
@@ -191,6 +195,10 @@
 		B0DAA5060D8C6F3E00B3525F /* GBDockIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBDockIcon.m; sourceTree = "<group>"; };
 		B0EB5ED80D76572600592896 /* GBPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPreferences.h; sourceTree = "<group>"; };
 		B0EB5ED90D76572600592896 /* GBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPreferences.m; sourceTree = "<group>"; };
+		B0EF45140D9368AC00F272D5 /* DMPreviousTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPreviousTemplate.pdf; sourceTree = "<group>"; };
+		B0EF45150D9368AC00F272D5 /* DMPlayTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPlayTemplate.pdf; sourceTree = "<group>"; };
+		B0EF45160D9368AC00F272D5 /* DMNextTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMNextTemplate.pdf; sourceTree = "<group>"; };
+		B0EF45170D9368AC00F272D5 /* DMRecordTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMRecordTemplate.pdf; sourceTree = "<group>"; };
 		B0FAD48C0D83004A0012AA26 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +283,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B0EF44EE0D93616100F272D5 /* Icons */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				B05492660D41B42200A294BA /* TunerView.xib */,
 				B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */,
@@ -496,6 +505,17 @@
 			name = TunerControllers;
 			sourceTree = "<group>";
 		};
+		B0EF44EE0D93616100F272D5 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				B0EF45140D9368AC00F272D5 /* DMPreviousTemplate.pdf */,
+				B0EF45150D9368AC00F272D5 /* DMPlayTemplate.pdf */,
+				B0EF45160D9368AC00F272D5 /* DMNextTemplate.pdf */,
+				B0EF45170D9368AC00F272D5 /* DMRecordTemplate.pdf */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -563,6 +583,10 @@
 				B087F34B0D7666D800A08F24 /* Preferences.xib in Resources */,
 				B07323630D824675005F848D /* RecordingView.xib in Resources */,
 				B0FAD48D0D83004A0012AA26 /* LICENSE.txt in Resources */,
+				B0EF45180D9368AC00F272D5 /* DMPreviousTemplate.pdf in Resources */,
+				B0EF45190D9368AC00F272D5 /* DMPlayTemplate.pdf in Resources */,
+				B0EF451A0D9368AC00F272D5 /* DMNextTemplate.pdf in Resources */,
+				B0EF451B0D9368AC00F272D5 /* DMRecordTemplate.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

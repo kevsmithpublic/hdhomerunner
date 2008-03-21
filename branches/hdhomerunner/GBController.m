@@ -59,111 +59,6 @@
 		// Set the selected tuner to nil
 		[self setSelectedTuner:nil];
 		
-		// Initialize the toolbaritem
-		NSToolbarItem *_record = [[NSToolbarItem alloc] initWithItemIdentifier:@"Record"];
-		[_record setAction:@selector(record:)];
-		[_record setTarget:self];
-		[_record setPaletteLabel:@"Record"];
-		[_record setLabel:@"Record"];
-		[_record setToolTip:@"Record"];
-		[_record setImage:[NSImage imageNamed:@"Record"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_record forKey:@"Record"];
-		
-		// Release the toolbar item
-		[_record release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_previous = [[NSToolbarItem alloc] initWithItemIdentifier:@"Previous"];
-		[_previous setAction:@selector(previous:)];
-		[_previous setTarget:self];
-		[_previous setPaletteLabel:@"Previous"];
-		[_previous setLabel:@"Previous"];
-		[_previous setToolTip:@"Previous"];
-		//[_previous setImage:[NSImage imageNamed:@"Record"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_previous forKey:@"Previous"];
-		
-		// Release the toolbar item
-		[_previous release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_play = [[NSToolbarItem alloc] initWithItemIdentifier:@"Play"];
-		[_play setAction:@selector(play:)];
-		[_play setTarget:self];
-		[_play setPaletteLabel:@"Play"];
-		[_play setLabel:@"Play"];
-		[_play setToolTip:@"Play"];
-		[_play setImage:[NSImage imageNamed:@"Play"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_play forKey:@"Play"];
-		
-		// Release the toolbar item
-		[_play release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_next = [[NSToolbarItem alloc] initWithItemIdentifier:@"Next"];
-		[_next setAction:@selector(next:)];
-		[_next setTarget:self];
-		[_next setPaletteLabel:@"Next"];
-		[_next setLabel:@"Next"];
-		[_next setToolTip:@"Next"];
-		//[_next setImage:[NSImage imageNamed:@"Next"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_next forKey:@"Next"];
-		
-		// Release the toolbar item
-		[_next release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_info = [[NSToolbarItem alloc] initWithItemIdentifier:@"Info"];
-		[_info setAction:@selector(getInfo:)];
-		[_info setTarget:self];
-		[_info setPaletteLabel:@"Info"];
-		[_info setLabel:@"Info"];
-		[_info setToolTip:@"Info"];
-		[_info setImage:[NSImage imageNamed:@"Get Info"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_info forKey:@"Info"];
-		
-		// Release the toolbar item
-		[_info release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_preferences = [[NSToolbarItem alloc] initWithItemIdentifier:@"Preferences"];
-		[_preferences setAction:@selector(openPreferences:)];
-		[_preferences setTarget:self];
-		[_preferences setPaletteLabel:@"Preferences"];
-		[_preferences setLabel:@"Preferences"];
-		[_preferences setToolTip:@"Preferences"];
-		[_preferences setImage:[NSImage imageNamed:@"General Preferences"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_preferences forKey:@"Preferences"];
-		
-		// Release the toolbar item
-		[_preferences release];
-		
-		// Initialize the toolbaritem
-		NSToolbarItem *_fullscreen = [[NSToolbarItem alloc] initWithItemIdentifier:@"Fullscreen"];
-		[_fullscreen setAction:@selector(fullscreen:)];
-		[_fullscreen setTarget:self];
-		[_fullscreen setPaletteLabel:@"Full Screen"];
-		[_fullscreen setLabel:@"Full Screen"];
-		[_fullscreen setToolTip:@"Set VLC to launch in full screen mode"];
-		//[_fullscreen setImage:[NSImage imageNamed:@"General Preferences"]];
-		
-		// Add the toolbar item to the dictionary
-		[toolbarItems setObject:_fullscreen forKey:@"Fullscreen"];
-		
-		// Release the toolbar item
-		[_fullscreen release];
-		
 		// Set up the channel scan selection menu
 		channelScanMenu = [[NSMenu alloc] initWithTitle:@"Scan Channels"];
 		[channelScanMenu setAutoenablesItems:NO];
@@ -263,10 +158,145 @@
 		[self addTuner:tuner];
 	}
 	
+	// Initialize the toolbaritem
+	NSToolbarItem *_record = [[NSToolbarItem alloc] initWithItemIdentifier:@"Record"];
+	[_record setAction:@selector(record:)];
+	[_record setTarget:self];
+	[_record setPaletteLabel:@"Record"];
+	[_record setLabel:@"Record"];
+	[_record setToolTip:@"Record"];
+	[_record setImage:[NSImage imageNamed:@"Record"]];
+	
+	// Add the toolbar item to the dictionary
+	[toolbarItems setObject:_record forKey:@"Record"];
+	
+	// Release the toolbar item
+	[_record release];
+	
+	// Initialize the toolbaritem
+	NSToolbarItem *_previous = [[NSToolbarItem alloc] initWithItemIdentifier:@"Previous"];
+	[_previous setAction:@selector(previous:)];
+	[_previous setTarget:self];
+	[_previous setPaletteLabel:@"Previous"];
+	[_previous setLabel:@"Previous"];
+	[_previous setToolTip:@"Previous"];
+	//[_previous setImage:[NSImage imageNamed:@"Record"]];
+	
+	// Add the toolbar item to the dictionary
+	[toolbarItems setObject:_previous forKey:@"Previous"];
+	
+	// Release the toolbar item
+	[_previous release];
+	
+	// Set the images on the toolbar controls
+	NSUInteger padding = 12.0;
+	
+	NSSize size = NSMakeSize([toolbarControls widthForSegment:0] - padding, [toolbarControls widthForSegment:0] - padding);
+	NSImage *img = [NSImage imageNamed:@"DMPreviousTemplate"];
+	[img setSize:size];
+	
+	[toolbarControls setImage:img forSegment:0];
+	
+	size = NSMakeSize([toolbarControls widthForSegment:1] - padding, [toolbarControls widthForSegment:1] - padding);
+	
+	[img release];
+	img = nil;
+	
+	img = [NSImage imageNamed:@"DMPlayTemplate"];
+	[img setSize:size];
+	
+	[toolbarControls setImage:img forSegment:1];
+	
+	size = NSMakeSize([toolbarControls widthForSegment:2] - padding, [toolbarControls widthForSegment:2] - padding);
+	
+	[img release];
+	img = nil;
+	
+	img = [NSImage imageNamed:@"DMNextTemplate"];
+	[img setSize:size];
+	
+	[toolbarControls setImage:img forSegment:2];
+	
+	// Initialize the toolbaritem
+	NSToolbarItem *_play = [[NSToolbarItem alloc] initWithItemIdentifier:@"Play"];
+	[_play setAction:@selector(play:)];
+	[_play setTarget:self];
+	[_play setPaletteLabel:@"Play"];
+	[_play setLabel:@"Play"];
+	[_play setToolTip:@"Play"];
+	[_play setView:[toolbarControls superview]];
+	//[_play setImage:[NSImage imageNamed:@"Play"]];
+	
+	// Add the toolbar item to the dictionary
+	[toolbarItems setObject:_play forKey:@"Play"];
+	
+	// Release the toolbar item
+	[_play release];
+	
+	// Initialize the toolbaritem
+	NSToolbarItem *_next = [[NSToolbarItem alloc] initWithItemIdentifier:@"Next"];
+	[_next setAction:@selector(next:)];
+	[_next setTarget:self];
+	[_next setPaletteLabel:@"Next"];
+	[_next setLabel:@"Next"];
+	[_next setToolTip:@"Next"];
+	//[_next setImage:[NSImage imageNamed:@"Next"]];
+	
+	// Add the toolbar item to the dictionary
+	[toolbarItems setObject:_next forKey:@"Next"];
+	
+	// Release the toolbar item
+	[_next release];
+	
+	// Initialize the toolbaritem
+	NSToolbarItem *_info = [[NSToolbarItem alloc] initWithItemIdentifier:@"Info"];
+	[_info setAction:@selector(getInfo:)];
+	[_info setTarget:self];
+	[_info setPaletteLabel:@"Info"];
+	[_info setLabel:@"Info"];
+	[_info setToolTip:@"Info"];
+	[_info setImage:[NSImage imageNamed:@"Get Info"]];
+	
+	// Add the toolbar item to the dictionary
+	[toolbarItems setObject:_info forKey:@"Info"];
+	
+	// Release the toolbar item
+	[_info release];
+	
+	// Initialize the toolbaritem
+	NSToolbarItem *_preferences = [[NSToolbarItem alloc] initWithItemIdentifier:@"Preferences"];
+	[_preferences setAction:@selector(openPreferences:)];
+	[_preferences setTarget:self];
+	[_preferences setPaletteLabel:@"Preferences"];
+	[_preferences setLabel:@"Preferences"];
+	[_preferences setToolTip:@"Preferences"];
+	[_preferences setImage:[NSImage imageNamed:@"General Preferences"]];
+	
+	// Add the toolbar item to the dictionary
+	[toolbarItems setObject:_preferences forKey:@"Preferences"];
+	
+	// Release the toolbar item
+	[_preferences release];
+	
+	// Initialize the toolbaritem
+	NSToolbarItem *_fullscreen = [[NSToolbarItem alloc] initWithItemIdentifier:@"Fullscreen"];
+	[_fullscreen setAction:@selector(fullscreen:)];
+	[_fullscreen setTarget:self];
+	[_fullscreen setPaletteLabel:@"Full Screen"];
+	[_fullscreen setLabel:@"Full Screen"];
+	[_fullscreen setToolTip:@"Set VLC to launch in full screen mode"];
+	//[_fullscreen setImage:[NSImage imageNamed:@"General Preferences"]];
+	
+	// Add the toolbar item to the dictionary
+	[toolbarItems setObject:_fullscreen forKey:@"Fullscreen"];
+	
+	// Release the toolbar item
+	[_fullscreen release];
+	
 	// Set up the toolbar on the main window
 	theToolbar = [[NSToolbar alloc] initWithIdentifier:@"toolbar"];
 	[theToolbar setDelegate:self];
-    
+
 	// Make the toolbar configurable
 	[theToolbar setAllowsUserCustomization:YES];
 	[theToolbar setAutosavesConfiguration:YES];

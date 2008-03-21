@@ -83,6 +83,7 @@
 	// The toolbar items
 					NSToolbar				*theToolbar;
 					NSMutableDictionary		*toolbarItems;
+	IBOutlet		NSSegmentedControl		*toolbarControls;
 		
 	// The script to launch and control VLC
 					NSAppleScript			*vlc;
