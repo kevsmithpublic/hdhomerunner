@@ -84,6 +84,8 @@
 					NSToolbar				*theToolbar;
 					NSMutableDictionary		*toolbarItems;
 	IBOutlet		NSSegmentedControl		*toolbarControls;
+	IBOutlet		NSButton				*toolbarRecord;
+	IBOutlet		NSButton				*toolbarFullscreen;
 		
 	// The script to launch and control VLC
 					NSAppleScript			*vlc;
@@ -175,8 +177,16 @@
 // Toolbar actions
 - (void)launchVLC;
 - (void)playChannel:(GBChannel *)channel;
-- (IBAction)play:(id)sender;
+
+// Handle the channel control actions
+- (IBAction)controlChannels:(id)sender;
+
+// Play menu action
+- (IBAction)playItem:(id)sender;
+
+// Toggle fullscreen mode for VLC
 - (IBAction)fullscreen:(id)sender;
+
 - (IBAction)next:(id)sender;
 - (IBAction)previous:(id)sender;
 - (IBAction)getInfo:(id)sender;
