@@ -91,7 +91,7 @@ static GBAboutBox *sharedInstance = nil;
 	} else if(sender == licenseButton){
 	
 		// Set the url to hdhomerunner's license
-		url = [NSURL URLWithString:@"http://www.gnu.org/licenses/gpl.html"];	
+		url = [NSURL URLWithString:@"http://www.opensource.org/licenses/mit-license.php"];	
 	} else if(sender == sourceButton){
 	
 		// Set the url to hdhomerunner's source code

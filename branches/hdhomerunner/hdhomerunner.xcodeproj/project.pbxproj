@@ -11,6 +11,10 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		B0134CBD0D9868A0009FB7BF /* DMRecordOffState.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0134CBC0D9868A0009FB7BF /* DMRecordOffState.pdf */; };
+		B0134CC40D986AE4009FB7BF /* DMNextTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0134CC10D986AE4009FB7BF /* DMNextTemplate.pdf */; };
+		B0134CC50D986AE4009FB7BF /* DMPlayTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0134CC20D986AE4009FB7BF /* DMPlayTemplate.pdf */; };
+		B0134CC60D986AE4009FB7BF /* DMPreviousTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0134CC30D986AE4009FB7BF /* DMPreviousTemplate.pdf */; };
 		B03491D00D48479600D4A7BF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B03491CF0D48479600D4A7BF /* Credits.rtf */; };
 		B05492500D41AF9500A294BA /* GBTunerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B054924F0D41AF9500A294BA /* GBTunerViewController.m */; };
 		B05492670D41B42200A294BA /* TunerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05492660D41B42200A294BA /* TunerView.xib */; };
@@ -43,6 +47,12 @@
 		B08A6DC30D5E001C00468901 /* TransparentWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = B08A6DC20D5E001C00468901 /* TransparentWindow.m */; };
 		B08C84520D43D8A900DDEF1C /* default.html in Resources */ = {isa = PBXBuildFile; fileRef = B08C84510D43D8A900DDEF1C /* default.html */; };
 		B093C87D0D43D792001B746E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B093C87C0D43D792001B746E /* WebKit.framework */; };
+		B09F15990D98891100D2B5A8 /* DMRecordOnState.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B09F15980D98891100D2B5A8 /* DMRecordOnState.pdf */; };
+		B09F15A00D989ACB00D2B5A8 /* DMMagnifyingGlassTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B09F159F0D989ACB00D2B5A8 /* DMMagnifyingGlassTemplate.pdf */; };
+		B09F15A30D989B0200D2B5A8 /* DMMinusTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B09F15A20D989B0200D2B5A8 /* DMMinusTemplate.pdf */; };
+		B09F15A50D989B0D00D2B5A8 /* DMPlusTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B09F15A40D989B0D00D2B5A8 /* DMPlusTemplate.pdf */; };
+		B09F15A70D989C7300D2B5A8 /* DMInfoTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B09F15A60D989C7300D2B5A8 /* DMInfoTemplate.pdf */; };
+		B09F15BC0D989F7200D2B5A8 /* DMInfo2Template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B09F15BB0D989F7200D2B5A8 /* DMInfo2Template.pdf */; };
 		B0A94B5A0D4197770098614D /* GBController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A94B590D4197770098614D /* GBController.m */; };
 		B0A94B690D41AE330098614D /* GBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A94B680D41AE330098614D /* GBViewController.m */; };
 		B0B1A4000D77302500A53E4D /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B1A3FF0D77302500A53E4D /* Sparkle.framework */; };
@@ -69,10 +79,6 @@
 		B0BFDEDD0D42773600A891D4 /* TunerSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */; };
 		B0DAA5070D8C6F3E00B3525F /* GBDockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAA5060D8C6F3E00B3525F /* GBDockIcon.m */; };
 		B0EB5EDA0D76572600592896 /* GBPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EB5ED90D76572600592896 /* GBPreferences.m */; };
-		B0EF45180D9368AC00F272D5 /* DMPreviousTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EF45140D9368AC00F272D5 /* DMPreviousTemplate.pdf */; };
-		B0EF45190D9368AC00F272D5 /* DMPlayTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EF45150D9368AC00F272D5 /* DMPlayTemplate.pdf */; };
-		B0EF451A0D9368AC00F272D5 /* DMNextTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EF45160D9368AC00F272D5 /* DMNextTemplate.pdf */; };
-		B0EF451B0D9368AC00F272D5 /* DMRecordTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EF45170D9368AC00F272D5 /* DMRecordTemplate.pdf */; };
 		B0FAD48D0D83004A0012AA26 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0FAD48C0D83004A0012AA26 /* LICENSE.txt */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +107,10 @@
 		32CA4F630368D1EE00C91783 /* hdhomerunner_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerunner_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* hdhomerunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hdhomerunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0134CBC0D9868A0009FB7BF /* DMRecordOffState.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMRecordOffState.pdf; sourceTree = "<group>"; };
+		B0134CC10D986AE4009FB7BF /* DMNextTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMNextTemplate.pdf; sourceTree = "<group>"; };
+		B0134CC20D986AE4009FB7BF /* DMPlayTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPlayTemplate.pdf; sourceTree = "<group>"; };
+		B0134CC30D986AE4009FB7BF /* DMPreviousTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPreviousTemplate.pdf; sourceTree = "<group>"; };
 		B03491CF0D48479600D4A7BF /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		B054924E0D41AF9500A294BA /* GBTunerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTunerViewController.h; sourceTree = "<group>"; };
 		B054924F0D41AF9500A294BA /* GBTunerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTunerViewController.m; sourceTree = "<group>"; };
@@ -157,6 +167,12 @@
 		B08A6DC20D5E001C00468901 /* TransparentWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentWindow.m; sourceTree = "<group>"; };
 		B08C84510D43D8A900DDEF1C /* default.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = default.html; sourceTree = "<group>"; };
 		B093C87C0D43D792001B746E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		B09F15980D98891100D2B5A8 /* DMRecordOnState.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMRecordOnState.pdf; sourceTree = "<group>"; };
+		B09F159F0D989ACB00D2B5A8 /* DMMagnifyingGlassTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMMagnifyingGlassTemplate.pdf; sourceTree = "<group>"; };
+		B09F15A20D989B0200D2B5A8 /* DMMinusTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMMinusTemplate.pdf; sourceTree = "<group>"; };
+		B09F15A40D989B0D00D2B5A8 /* DMPlusTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPlusTemplate.pdf; sourceTree = "<group>"; };
+		B09F15A60D989C7300D2B5A8 /* DMInfoTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMInfoTemplate.pdf; sourceTree = "<group>"; };
+		B09F15BB0D989F7200D2B5A8 /* DMInfo2Template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMInfo2Template.pdf; sourceTree = "<group>"; };
 		B0A94B580D4197770098614D /* GBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBController.h; sourceTree = "<group>"; };
 		B0A94B590D4197770098614D /* GBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBController.m; sourceTree = "<group>"; };
 		B0A94B670D41AE330098614D /* GBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBViewController.h; sourceTree = "<group>"; };
@@ -195,10 +211,6 @@
 		B0DAA5060D8C6F3E00B3525F /* GBDockIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBDockIcon.m; sourceTree = "<group>"; };
 		B0EB5ED80D76572600592896 /* GBPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPreferences.h; sourceTree = "<group>"; };
 		B0EB5ED90D76572600592896 /* GBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPreferences.m; sourceTree = "<group>"; };
-		B0EF45140D9368AC00F272D5 /* DMPreviousTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPreviousTemplate.pdf; sourceTree = "<group>"; };
-		B0EF45150D9368AC00F272D5 /* DMPlayTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPlayTemplate.pdf; sourceTree = "<group>"; };
-		B0EF45160D9368AC00F272D5 /* DMNextTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMNextTemplate.pdf; sourceTree = "<group>"; };
-		B0EF45170D9368AC00F272D5 /* DMRecordTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMRecordTemplate.pdf; sourceTree = "<group>"; };
 		B0FAD48C0D83004A0012AA26 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -508,10 +520,16 @@
 		B0EF44EE0D93616100F272D5 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				B0EF45140D9368AC00F272D5 /* DMPreviousTemplate.pdf */,
-				B0EF45150D9368AC00F272D5 /* DMPlayTemplate.pdf */,
-				B0EF45160D9368AC00F272D5 /* DMNextTemplate.pdf */,
-				B0EF45170D9368AC00F272D5 /* DMRecordTemplate.pdf */,
+				B09F15BB0D989F7200D2B5A8 /* DMInfo2Template.pdf */,
+				B09F159F0D989ACB00D2B5A8 /* DMMagnifyingGlassTemplate.pdf */,
+				B09F15A60D989C7300D2B5A8 /* DMInfoTemplate.pdf */,
+				B09F15A40D989B0D00D2B5A8 /* DMPlusTemplate.pdf */,
+				B09F15A20D989B0200D2B5A8 /* DMMinusTemplate.pdf */,
+				B0134CC10D986AE4009FB7BF /* DMNextTemplate.pdf */,
+				B0134CC20D986AE4009FB7BF /* DMPlayTemplate.pdf */,
+				B0134CC30D986AE4009FB7BF /* DMPreviousTemplate.pdf */,
+				B09F15980D98891100D2B5A8 /* DMRecordOnState.pdf */,
+				B0134CBC0D9868A0009FB7BF /* DMRecordOffState.pdf */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -583,10 +601,16 @@
 				B087F34B0D7666D800A08F24 /* Preferences.xib in Resources */,
 				B07323630D824675005F848D /* RecordingView.xib in Resources */,
 				B0FAD48D0D83004A0012AA26 /* LICENSE.txt in Resources */,
-				B0EF45180D9368AC00F272D5 /* DMPreviousTemplate.pdf in Resources */,
-				B0EF45190D9368AC00F272D5 /* DMPlayTemplate.pdf in Resources */,
-				B0EF451A0D9368AC00F272D5 /* DMNextTemplate.pdf in Resources */,
-				B0EF451B0D9368AC00F272D5 /* DMRecordTemplate.pdf in Resources */,
+				B0134CBD0D9868A0009FB7BF /* DMRecordOffState.pdf in Resources */,
+				B0134CC40D986AE4009FB7BF /* DMNextTemplate.pdf in Resources */,
+				B0134CC50D986AE4009FB7BF /* DMPlayTemplate.pdf in Resources */,
+				B0134CC60D986AE4009FB7BF /* DMPreviousTemplate.pdf in Resources */,
+				B09F15990D98891100D2B5A8 /* DMRecordOnState.pdf in Resources */,
+				B09F15A00D989ACB00D2B5A8 /* DMMagnifyingGlassTemplate.pdf in Resources */,
+				B09F15A30D989B0200D2B5A8 /* DMMinusTemplate.pdf in Resources */,
+				B09F15A50D989B0D00D2B5A8 /* DMPlusTemplate.pdf in Resources */,
+				B09F15A70D989C7300D2B5A8 /* DMInfoTemplate.pdf in Resources */,
+				B09F15BC0D989F7200D2B5A8 /* DMInfo2Template.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
