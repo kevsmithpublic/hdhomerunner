@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		014F71BD0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 014F71BC0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -97,6 +98,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		014F71BC0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMStopProgressSmall2Template.pdf; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -520,6 +522,7 @@
 		B0EF44EE0D93616100F272D5 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				014F71BC0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf */,
 				B09F15BB0D989F7200D2B5A8 /* DMInfo2Template.pdf */,
 				B09F159F0D989ACB00D2B5A8 /* DMMagnifyingGlassTemplate.pdf */,
 				B09F15A60D989C7300D2B5A8 /* DMInfoTemplate.pdf */,
@@ -611,6 +614,7 @@
 				B09F15A50D989B0D00D2B5A8 /* DMPlusTemplate.pdf in Resources */,
 				B09F15A70D989C7300D2B5A8 /* DMInfoTemplate.pdf in Resources */,
 				B09F15BC0D989F7200D2B5A8 /* DMInfo2Template.pdf in Resources */,
+				014F71BD0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
