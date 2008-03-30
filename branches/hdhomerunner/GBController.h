@@ -119,6 +119,17 @@
 	IBOutlet		NSTableColumn			*recordingTableColumn;
 }
 
+// User defaults Methods
+- (void)loadUserDefaults;
+
+// Reset the user defaults
+- (void)resetUserDefaults;
+
+- (void)endUserDefaultsAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+
+// Check whether the user is upgrading from a previous version and is required to be compatible with the latest version
+- (BOOL)resetUserDefaultsRequired;
+
 // Accessor Methods
 - (NSMutableArray *)tunerControllers;
 - (NSMutableArray *)channelControllers;

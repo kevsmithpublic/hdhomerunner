@@ -39,6 +39,7 @@
 		IBOutlet		NSView					*generalView;
 		IBOutlet		NSView					*updateView;
 		IBOutlet		NSView					*donateView;
+		IBOutlet		NSView					*recordView;
 		
 		// Dictionary of toolbar items
 						NSMutableDictionary		*toolbarItems;

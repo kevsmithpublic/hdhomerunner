@@ -85,6 +85,18 @@ static GBPreferences *sharedInstance = nil;
 		
 		// Add the toolbar item to the dictionary
 		[toolbarItems setObject:_donate forKey:@"Donate"];
+		
+		// Initialize the toolbaritem
+		NSToolbarItem *_record = [[NSToolbarItem alloc] initWithItemIdentifier:@"Record"];
+		[_record setAction:@selector(switchView:)];
+		[_record setTarget:self];
+		[_record setPaletteLabel:@"Record"];
+		[_record setLabel:@"Record"];
+		[_record setToolTip:@"Record"];
+		//[_record setImage:[NSImage imageNamed:@"Record"]];
+		
+		// Add the toolbar item to the dictionary
+		[toolbarItems setObject:_record forKey:@"Record"];
 			
 		// Load the nib. If loading fails then release ourselves and return nil
 		if (![NSBundle loadNibNamed:@"Preferences" owner:sharedInstance]){
@@ -146,6 +158,7 @@ static GBPreferences *sharedInstance = nil;
 
 	return [NSArray arrayWithObjects:NSToolbarSpaceItemIdentifier,
 									@"General",
+									@"Record",
 									@"Update",
 									@"Donate",
 									nil];
@@ -176,6 +189,9 @@ static GBPreferences *sharedInstance = nil;
 	} else if([[sender label] isEqualToString:@"Donate"]){
 	
 		new_view = donateView;
+	} else if([[sender label] isEqualToString:@"Record"]){
+	
+		new_view = recordView;
 	}
 
 	// Get the current view's size
