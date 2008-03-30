@@ -110,6 +110,133 @@
 	return self;
 }
 
+// Initialize
++ (void)initialize{
+ 
+	// The standard user defaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	// The application defaults to register
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:[NSArray array], @"GBTuners",
+																		NSHomeDirectory(), @"Recording Path",
+																		@"NO", @"Fullscreen",
+																		nil];
+	// Register the defaults
+    [defaults registerDefaults:appDefaults];
+}
+
+#pragma mark -
+#pragma mark  User Defaults
+#pragma mark -
+
+- (void)loadUserDefaults{
+
+	// The keys to load from disk
+	/*NSArray	*keys = [NSArray arrayWithObjects:	DEVICES_NAME,
+												CHANNELS_NAME,
+												GROUPS_NAME,
+												nil];
+	
+	// Key enumerator
+	NSEnumerator *key_enumerator = [keys objectEnumerator];
+	
+	// A key in the enumerator
+	NSString *key;
+	
+	// Loop over the keys
+	while(key = [key_enumerator nextObject]){
+	
+		//NSLog(@"class = %@", [[[NSUserDefaults standardUserDefaults] objectForKey:key] class]);
+		NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+		
+		if([key isEqualToString:DEVICES_NAME]){
+			
+			// Configure the first object with the Devices from disk
+			// I am using this method as opposed to creating a new object because the
+			// Controller is already initialized with the proper window NIB.
+			// initWithDictionary does not handle the windowNibName
+			[[contents objectAtIndex:0] configureWithDictionary:dict];
+			
+		} else if([key isEqualToString:CHANNELS_NAME]){
+			
+			// Configure the first object with the Devices from disk
+			// I am using this method as opposed to creating a new object because the
+			// Controller is already initialized with the proper window NIB.
+			// initWithDictionary does not handle the windowNibName
+			[[contents objectAtIndex:1] configureWithDictionary:dict];
+			
+		} else if([key isEqualToString:GROUPS_NAME]){
+		
+		}
+	}*/
+}
+
+// Reset the user defaults
+- (void)resetUserDefaults{
+
+	// Run the alert sheet notifying the user
+	NSBeginAlertSheet(@"Preference Reset Required", @"OK", @"Cancel",
+		nil, window, self, NULL,
+		@selector(endUserDefaultsAlertSheet:returnCode:contextInfo:),
+		NULL,
+		@"A previous version of hdhomerunner preferences have been detected. In order to maintain forward compatibilty these preferences need to be deleted. All existing preferences WILL BE lost. Is this okay?");
+}
+
+- (void)endUserDefaultsAlertSheet:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo{
+	
+	// If the user agreed to reset the preferences
+	if (returnCode == NSAlertDefaultReturn) {
+
+		// Perform the reset
+		[NSUserDefaults resetStandardUserDefaults];
+		
+		// The standard user defaults used to write preferences to disk
+		NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+		
+		// Write the changes to disk
+		[standardUserDefaults synchronize];
+	} else if (returnCode == NSAlertAlternateReturn) {
+	
+		// Don't do anything. The user cancelled the action
+		//NSLog(@"Clicked Cancel");
+	}
+}
+
+
+// Check whether the user is upgrading from a previous version and is required to be compatible with the latest version
+- (BOOL)resetUserDefaultsRequired{
+	
+	// Assume the defaults don't need to be reset
+	BOOL result = NO;
+	
+	// If the tuners key is in the defaults then we are using hdhomerunner version 0.5x - 0.7x
+	if([[NSUserDefaults standardUserDefaults] objectForKey:@"tuners"]){
+		result = YES;
+		
+		//NSLog(@"defaults = %@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+	}
+	
+	return result;
+}
+
+#pragma mark -
+#pragma mark  Application Will Finish Launching
+#pragma mark -
+
+// The application will finish launching. Load contents from disk
+-(void)applicationWillFinishLaunching:(NSNotification *)notification{
+
+	// If the user was using a previous version of hdhomerunner we need to upgrade their preferences
+	if([self resetUserDefaultsRequired]){
+	
+		// Reset the user defaults
+		[self resetUserDefaults];
+	}
+	
+	// Load the user defaults
+	[self loadUserDefaults];
+}
+
 #pragma mark -
 #pragma mark  Awake from nib
 #pragma mark -
@@ -1598,7 +1725,7 @@
 		if([self selectedTuner] != nil){
 		
 			// Create a new recording
-			GBRecording *newRecording = [[GBRecording alloc] initWithPath:[@"~/Movies/hdhomerunner" stringByResolvingSymlinksInPath]]; //[[[[NSUserDefaults standardUserDefaults] stringForKey:@"picturesFolderPath"] stringByResolvingSymlinksInPath] retain];];
+			GBRecording *newRecording = [[GBRecording alloc] initWithPath:[[NSHomeDirectory() stringByAppendingPathComponent:@"hdhomerunner"] stringByResolvingSymlinksInPath]]; //[[[[NSUserDefaults standardUserDefaults] stringForKey:@"picturesFolderPath"] stringByResolvingSymlinksInPath] retain];];
 			
 			// Assign it to the currently selected tuner
 			[newRecording setTuner:[self selectedTuner]];

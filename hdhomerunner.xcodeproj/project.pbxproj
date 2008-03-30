@@ -78,7 +78,6 @@
 		B0BFDE7C0D426D6E00A891D4 /* tv.icns in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE7B0D426D6E00A891D4 /* tv.icns */; };
 		B0BFDE9B0D426FB800A891D4 /* launchVLC.scpt in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDE950D426F5000A891D4 /* launchVLC.scpt */; };
 		B0BFDEDD0D42773600A891D4 /* TunerSubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */; };
-		B0DAA5070D8C6F3E00B3525F /* GBDockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAA5060D8C6F3E00B3525F /* GBDockIcon.m */; };
 		B0EB5EDA0D76572600592896 /* GBPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EB5ED90D76572600592896 /* GBPreferences.m */; };
 		B0FAD48D0D83004A0012AA26 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0FAD48C0D83004A0012AA26 /* LICENSE.txt */; };
 /* End PBXBuildFile section */
@@ -209,8 +208,6 @@
 		B0BFDE7B0D426D6E00A891D4 /* tv.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tv.icns; sourceTree = "<group>"; };
 		B0BFDE950D426F5000A891D4 /* launchVLC.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = launchVLC.scpt; sourceTree = "<group>"; };
 		B0BFDEDC0D42773600A891D4 /* TunerSubView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TunerSubView.xib; sourceTree = "<group>"; };
-		B0DAA5050D8C6F3E00B3525F /* GBDockIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBDockIcon.h; sourceTree = "<group>"; };
-		B0DAA5060D8C6F3E00B3525F /* GBDockIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBDockIcon.m; sourceTree = "<group>"; };
 		B0EB5ED80D76572600592896 /* GBPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPreferences.h; sourceTree = "<group>"; };
 		B0EB5ED90D76572600592896 /* GBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPreferences.m; sourceTree = "<group>"; };
 		B0FAD48C0D83004A0012AA26 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -376,8 +373,6 @@
 				B063E79F0D483117000C2DED /* GBAboutBox.m */,
 				B0EB5ED80D76572600592896 /* GBPreferences.h */,
 				B0EB5ED90D76572600592896 /* GBPreferences.m */,
-				B0DAA5050D8C6F3E00B3525F /* GBDockIcon.h */,
-				B0DAA5060D8C6F3E00B3525F /* GBDockIcon.m */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -660,7 +655,6 @@
 				B0EB5EDA0D76572600592896 /* GBPreferences.m in Sources */,
 				B07323560D822B62005F848D /* GBRecording.m in Sources */,
 				B073235F0D8245FC005F848D /* GBRecordingViewController.m in Sources */,
-				B0DAA5070D8C6F3E00B3525F /* GBDockIcon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
