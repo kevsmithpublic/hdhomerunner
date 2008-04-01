@@ -29,6 +29,8 @@
 
 #import "GBPreferences.h"
 
+#define RECORDING_KEY_PATH				@"Recording Path"
+
 
 @implementation GBPreferences
 
@@ -231,6 +233,68 @@ static GBPreferences *sharedInstance = nil;
 	// Tell NSWorkspace to open the paypal link in the default browser
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=donation%40barchard%2enet&item_name=hdhomerunner&no_shipping=1&cn=Optional%20Feedback%3a&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8"]];
 }
+
+// Choose a new default recording path
+- (IBAction)chooseRecordingPath:(id)sender{
+
+	// The panel to open
+	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+	
+	// The User Defaults
+	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	
+	// The path to open the panel at
+	NSString *path = [standardUserDefaults stringForKey:RECORDING_KEY_PATH];
+
+	// Only folders to be selected
+	[openPanel setAllowsMultipleSelection:NO];
+	[openPanel setCanChooseDirectories:YES];
+	[openPanel setCanChooseFiles:NO];
+	
+	// Set the title of the panel
+	[openPanel setTitle:@"Choose Default Recording Folder"];
+	
+	// Open the panel
+	[openPanel beginSheetForDirectory:path
+                           file:nil
+                          types:nil
+                 modalForWindow:window
+                  modalDelegate:self
+                 didEndSelector:@selector(folderPanelDidEnd:
+                                               returnCode:
+                                              contextInfo:)
+                    contextInfo:sender];
+}
+
+-(void)folderPanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo{
+	
+	// If the OK button was selected (as opposed to Cancel)
+	if(returnCode == NSOKButton){
+			
+		// The User Defaults
+		/*NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+		
+		// Set the path chosen to the Recording Path
+		[standardUserDefaults setObject:[panel filename] forKey:RECORDING_KEY_PATH];
+		
+		// Save the changes
+		[standardUserDefaults synchronize];*/
+		
+		NSUserDefaultsController *defaults = [NSUserDefaultsController sharedUserDefaultsController];
+	
+		[[defaults values] setValue:[panel filename] forKey:RECORDING_KEY_PATH];
+	}
+}
+
+// Reset the Recording Preferences to their default value
+- (IBAction)resetRecordingPreferences:(id)sender{
+	// The standard user defaults
+    NSUserDefaultsController *defaults = [NSUserDefaultsController sharedUserDefaultsController];
+	
+	NSLog(@"defaults = %@", [[defaults defaults] objectForKey:RECORDING_KEY_PATH]);
+
+}
+
 
 // Clean up
 - (void)dealloc{

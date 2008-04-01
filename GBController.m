@@ -37,6 +37,10 @@
 #define SCAN_CABLE_CHANNELS				@"Scan Cable Channels Only"
 #define SCAN_BCAST_CHANNELS				@"Scan Broadcast Channels Only"
 
+// User default keys
+#define RECORDING_KEY_PATH				@"Recording Path"
+#define FULLSCREEN_KEY_PATH				@"Fullscreen"
+
 @implementation GBController
 
 - (id)init{
@@ -118,8 +122,8 @@
 	
 	// The application defaults to register
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjectsAndKeys:[NSArray array], @"GBTuners",
-																		NSHomeDirectory(), @"Recording Path",
-																		@"NO", @"Fullscreen",
+																		NSHomeDirectory(), RECORDING_KEY_PATH,
+																		@"NO", FULLSCREEN_KEY_PATH,
 																		nil];
 	// Register the defaults
     [defaults registerDefaults:appDefaults];
@@ -1431,7 +1435,7 @@
 	// note we can't pass an NSString (or any other object
 	// for that matter) to AppleScript directly,
 	// must convert to NSAppleEventDescriptor first
-	NSAppleEventDescriptor *firstParameter = [NSAppleEventDescriptor descriptorWithBoolean:NO];
+	NSAppleEventDescriptor *firstParameter = [NSAppleEventDescriptor descriptorWithBoolean:[[NSUserDefaults standardUserDefaults] boolForKey:FULLSCREEN_KEY_PATH]];
 	
 	// create and populate the list of parameters
 	// note that the array starts at index 1
