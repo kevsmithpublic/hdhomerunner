@@ -50,4 +50,11 @@
 - (IBAction)showPanel:(id)sender;
 - (IBAction)switchView:(id)sender;
 - (IBAction)donate:(id)sender;
+
+// Choose a new default recording path
+- (IBAction)chooseRecordingPath:(id)sender;
+-(void)folderPanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+
+// Reset the Recording Preferences to their default value
+- (IBAction)resetRecordingPreferences:(id)sender;
 @end
