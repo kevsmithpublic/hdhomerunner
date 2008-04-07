@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		014F71BD0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 014F71BC0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf */; };
+		01A9EEFD0DA9CC7C007E75B4 /* DMRecordOffState.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 01A9EEFC0DA9CC7C007E75B4 /* DMRecordOffState.pdf */; };
+		01A9EF000DA9CCD1007E75B4 /* DMEnterFullScreenTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 01A9EEFF0DA9CCD1007E75B4 /* DMEnterFullScreenTemplate.pdf */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		B0134CBD0D9868A0009FB7BF /* DMRecordOffState.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0134CBC0D9868A0009FB7BF /* DMRecordOffState.pdf */; };
 		B0134CC40D986AE4009FB7BF /* DMNextTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0134CC10D986AE4009FB7BF /* DMNextTemplate.pdf */; };
 		B0134CC50D986AE4009FB7BF /* DMPlayTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0134CC20D986AE4009FB7BF /* DMPlayTemplate.pdf */; };
 		B0134CC60D986AE4009FB7BF /* DMPreviousTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0134CC30D986AE4009FB7BF /* DMPreviousTemplate.pdf */; };
@@ -98,6 +99,8 @@
 
 /* Begin PBXFileReference section */
 		014F71BC0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMStopProgressSmall2Template.pdf; sourceTree = "<group>"; };
+		01A9EEFC0DA9CC7C007E75B4 /* DMRecordOffState.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMRecordOffState.pdf; sourceTree = "<group>"; };
+		01A9EEFF0DA9CCD1007E75B4 /* DMEnterFullScreenTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMEnterFullScreenTemplate.pdf; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -108,7 +111,6 @@
 		32CA4F630368D1EE00C91783 /* hdhomerunner_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdhomerunner_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* hdhomerunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hdhomerunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0134CBC0D9868A0009FB7BF /* DMRecordOffState.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMRecordOffState.pdf; sourceTree = "<group>"; };
 		B0134CC10D986AE4009FB7BF /* DMNextTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMNextTemplate.pdf; sourceTree = "<group>"; };
 		B0134CC20D986AE4009FB7BF /* DMPlayTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPlayTemplate.pdf; sourceTree = "<group>"; };
 		B0134CC30D986AE4009FB7BF /* DMPreviousTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DMPreviousTemplate.pdf; sourceTree = "<group>"; };
@@ -527,7 +529,8 @@
 				B0134CC20D986AE4009FB7BF /* DMPlayTemplate.pdf */,
 				B0134CC30D986AE4009FB7BF /* DMPreviousTemplate.pdf */,
 				B09F15980D98891100D2B5A8 /* DMRecordOnState.pdf */,
-				B0134CBC0D9868A0009FB7BF /* DMRecordOffState.pdf */,
+				01A9EEFC0DA9CC7C007E75B4 /* DMRecordOffState.pdf */,
+				01A9EEFF0DA9CCD1007E75B4 /* DMEnterFullScreenTemplate.pdf */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -599,7 +602,6 @@
 				B087F34B0D7666D800A08F24 /* Preferences.xib in Resources */,
 				B07323630D824675005F848D /* RecordingView.xib in Resources */,
 				B0FAD48D0D83004A0012AA26 /* LICENSE.txt in Resources */,
-				B0134CBD0D9868A0009FB7BF /* DMRecordOffState.pdf in Resources */,
 				B0134CC40D986AE4009FB7BF /* DMNextTemplate.pdf in Resources */,
 				B0134CC50D986AE4009FB7BF /* DMPlayTemplate.pdf in Resources */,
 				B0134CC60D986AE4009FB7BF /* DMPreviousTemplate.pdf in Resources */,
@@ -610,6 +612,8 @@
 				B09F15A70D989C7300D2B5A8 /* DMInfoTemplate.pdf in Resources */,
 				B09F15BC0D989F7200D2B5A8 /* DMInfo2Template.pdf in Resources */,
 				014F71BD0D9DEF79009A9050 /* DMStopProgressSmall2Template.pdf in Resources */,
+				01A9EEFD0DA9CC7C007E75B4 /* DMRecordOffState.pdf in Resources */,
+				01A9EF000DA9CCD1007E75B4 /* DMEnterFullScreenTemplate.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
