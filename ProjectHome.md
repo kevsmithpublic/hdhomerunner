@@ -1,0 +1,1 @@
+Hdhomerunner is a Mac OS X native frontend for SiliconDust's HDHomeRun. The HDHomeRun is a networked HDTV (ATSC) tuner which streams over the air HDTV to network devices.
